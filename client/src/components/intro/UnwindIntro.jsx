@@ -1,7 +1,6 @@
 import {
   useEffect,
-  useRef,
-  useState
+  useRef
 } from "react";
 
 import "./UnwindIntro.css";
@@ -15,10 +14,8 @@ export default function UnwindIntro({
   const videoRef =
     useRef(null);
 
-  const [
-    needsInteraction,
-    setNeedsInteraction
-  ] = useState(false);
+  const completedRef =
+    useRef(false);
 
   useEffect(() => {
     const video =
@@ -28,8 +25,26 @@ export default function UnwindIntro({
       return;
     }
 
-    const handleEnded = () => {
+    const completeIntro = () => {
+      if (completedRef.current) {
+        return;
+      }
+
+      completedRef.current = true;
+
       onComplete?.();
+    };
+
+    const handleEnded = () => {
+      completeIntro();
+    };
+
+    const handleError = () => {
+      console.error(
+        "UNWIND intro video failed to load."
+      );
+
+      completeIntro();
     };
 
     video.addEventListener(
@@ -37,48 +52,97 @@ export default function UnwindIntro({
       handleEnded
     );
 
-    video.muted = false;
-    video.volume = 1;
+    video.addEventListener(
+      "error",
+      handleError
+    );
 
-    video
-      .play()
-      .then(() => {
-        setNeedsInteraction(false);
-      })
-      .catch(() => {
-        setNeedsInteraction(true);
-      });
+    const startIntro =
+      async () => {
+        try {
+          /*
+            First attempt:
+            video + audio.
+          */
+
+          video.currentTime = 0;
+          video.muted = false;
+          video.volume = 1;
+
+          await video.play();
+        } catch (audioAutoplayError) {
+          console.warn(
+            "Autoplay with sound blocked. Retrying muted."
+          );
+
+          try {
+            /*
+              Browser does not permit
+              autoplay with sound.
+
+              Retry muted so UNWIND
+              never gets stuck.
+            */
+
+            video.muted = true;
+            video.volume = 0;
+
+            await video.play();
+          } catch (mutedAutoplayError) {
+            console.error(
+              "Intro autoplay failed completely:",
+              mutedAutoplayError
+            );
+
+            completeIntro();
+          }
+        }
+      };
+
+    startIntro();
+
+    /*
+      Safety fallback.
+
+      Even if the browser/video somehow
+      freezes and never dispatches ended,
+      never trap the user on the intro.
+
+      Your intro is ~10 seconds, so give
+      it a little extra room.
+    */
+
+    const safetyTimeout =
+      window.setTimeout(
+        () => {
+          if (
+            video.paused &&
+            !video.ended
+          ) {
+            completeIntro();
+          }
+        },
+        12000
+      );
 
     return () => {
+      window.clearTimeout(
+        safetyTimeout
+      );
+
       video.removeEventListener(
         "ended",
         handleEnded
       );
+
+      video.removeEventListener(
+        "error",
+        handleError
+      );
+
+      video.pause();
     };
   }, [onComplete]);
-
-  const handleStart = async () => {
-    const video =
-      videoRef.current;
-
-    if (!video) {
-      return;
-    }
-
-    try {
-      video.muted = false;
-      video.volume = 1;
-
-      await video.play();
-
-      setNeedsInteraction(false);
-    } catch (error) {
-      console.warn(
-        "Intro video playback failed:",
-        error
-      );
-    }
-  };
 
   return (
     <div className="unwind-intro">
@@ -89,16 +153,6 @@ export default function UnwindIntro({
         playsInline
         preload="auto"
       />
-
-      {needsInteraction && (
-        <button
-          type="button"
-          className="unwind-intro-start"
-          onClick={handleStart}
-        >
-          Enter UNWIND
-        </button>
-      )}
     </div>
   );
 }
