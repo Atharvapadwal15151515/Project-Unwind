@@ -1,0 +1,95 @@
+.wellness-category-card {
+  display: grid;
+
+  width: 100%;
+
+  min-height: 92px;
+
+  padding: 14px;
+
+  grid-template-columns:
+    auto
+    minmax(0, 1fr);
+
+  align-items: center;
+
+  gap: 11px;
+
+  border:
+    1px solid
+    var(--dashboard-border);
+
+  border-radius: 17px;
+
+  color:
+    var(--dashboard-text);
+
+  background:
+    var(--dashboard-surface-solid);
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    transform 170ms ease,
+    border-color 170ms ease,
+    background 170ms ease;
+}
+
+.wellness-category-card:hover {
+  transform:
+    translateY(-2px);
+
+  background:
+    var(--dashboard-surface);
+}
+
+.wellness-category-card--active {
+  border-color:
+    color-mix(
+      in srgb,
+      var(--dashboard-primary) 28%,
+      var(--dashboard-border)
+    );
+
+  background:
+    var(--dashboard-primary-soft);
+}
+
+.wellness-category-card__icon {
+  display: grid;
+
+  width: 40px;
+  height: 40px;
+
+  place-items: center;
+
+  border-radius: 13px;
+
+  color:
+    var(--dashboard-primary);
+
+  background:
+    var(--dashboard-primary-soft);
+}
+
+.wellness-category-card strong {
+  display: block;
+
+  font-size: var(--text-sm);
+}
+
+.wellness-category-card p {
+  margin:
+    4px
+    0
+    0;
+
+  color:
+    var(--dashboard-muted);
+
+  font-size: var(--text-xs);
+
+  line-height: 1.5;
+}

@@ -1,0 +1,166 @@
+.wellness-recommendation-card {
+  display: grid;
+
+  min-height: 155px;
+
+  padding: 17px;
+
+  grid-template-columns:
+    auto
+    minmax(0, 1fr)
+    auto;
+
+  align-items: flex-start;
+
+  gap: 12px;
+
+  border:
+    1px solid
+    var(--dashboard-border);
+
+  border-radius: 19px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--dashboard-surface-solid),
+      var(--dashboard-surface)
+    );
+
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.wellness-recommendation-card:hover {
+  transform:
+    translateY(-3px);
+
+  box-shadow:
+    0
+    15px
+    35px
+    rgba(
+      17,
+      68,
+      59,
+      0.07
+    );
+}
+
+.wellness-recommendation-card__number {
+  display: grid;
+
+  width: 33px;
+  height: 33px;
+
+  place-items: center;
+
+  border-radius: 11px;
+
+  color:
+    var(--dashboard-primary);
+
+  background:
+    var(--dashboard-primary-soft);
+
+  font-size: var(--text-xs);
+  font-weight: 900;
+}
+
+.wellness-recommendation-card__content {
+  min-width: 0;
+}
+
+.wellness-recommendation-card__content > span {
+  color:
+    var(--dashboard-primary);
+
+  font-size: var(--text-xs);
+
+  font-weight: 800;
+
+  letter-spacing:
+    0.07em;
+
+  text-transform:
+    uppercase;
+}
+
+.wellness-recommendation-card h3 {
+  margin:
+    5px
+    0
+    0;
+
+  font-family:
+    "DM Serif Display",
+    serif;
+
+  font-size: var(--text-xl);
+
+  font-weight: 400;
+}
+
+.wellness-recommendation-card p {
+  margin:
+    6px
+    0
+    0;
+
+  color:
+    var(--dashboard-muted);
+
+  font-size: var(--text-xs);
+
+  line-height: 1.6;
+}
+
+.wellness-recommendation-card__content button {
+  display: inline-flex;
+
+  margin-top: 10px;
+
+  align-items: center;
+
+  gap: 5px;
+
+  padding: 0;
+
+  border: 0;
+
+  color:
+    var(--dashboard-primary);
+
+  background: transparent;
+
+  font-size: var(--text-xs);
+
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+@media (max-width: 560px) {
+  .wellness-recommendation-card {
+    grid-template-columns:
+      auto
+      minmax(0, 1fr);
+
+    min-height: auto;
+  }
+
+  .wellness-recommendation-card
+    > .wellness-favorite-button {
+    grid-column: 2;
+
+    grid-row: 1;
+
+    justify-self: end;
+  }
+
+  .wellness-recommendation-card__content {
+    grid-column:
+      1 / -1;
+  }
+}

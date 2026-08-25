@@ -1,0 +1,47 @@
+.admin-route-state {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  padding: 24px;
+
+  color:
+    var(--text-muted);
+
+  background:
+    var(--background);
+
+  text-align: center;
+}
+
+
+.admin-route-state p {
+  margin: 0;
+
+  font-size: 0.84rem;
+}
+
+
+.admin-route-spinner {
+  color:
+    var(--primary);
+
+  animation:
+    admin-route-spin
+    0.8s
+    linear
+    infinite;
+}
+
+
+@keyframes admin-route-spin {
+  to {
+    transform:
+      rotate(360deg);
+  }
+}

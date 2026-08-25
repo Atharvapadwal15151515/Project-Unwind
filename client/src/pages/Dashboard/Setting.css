@@ -1,0 +1,1239 @@
+.account-settings {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding: 8px 0 44px;
+  color: #173f37;
+}
+
+.account-settings * {
+  box-sizing: border-box;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Hero
+|--------------------------------------------------------------------------
+*/
+
+.account-settings__hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+
+  padding: 28px;
+
+  border: 1px solid
+    rgba(40, 124, 105, 0.12);
+
+  border-radius: 28px;
+
+  background:
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(95, 180, 154, 0.17),
+      transparent 31%
+    ),
+    linear-gradient(
+      135deg,
+      #f8fcfa 0%,
+      #eef8f4 100%
+    );
+
+  box-shadow:
+    0 16px 48px
+    rgba(25, 72, 61, 0.07);
+}
+
+.account-settings__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #287c69;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+}
+
+.account-settings__hero h1 {
+  margin:
+    10px
+    0
+    7px;
+
+  color: #173f37;
+
+  font-size:
+    clamp(
+      30px,
+      4vw,
+      44px
+    );
+
+  line-height: 1.06;
+}
+
+.account-settings__hero p {
+  max-width: 650px;
+
+  margin: 0;
+
+  color: #6f837d;
+
+  line-height: 1.7;
+}
+
+.account-settings__hero-badge {
+  display: grid;
+
+  min-width: 190px;
+
+  gap: 9px;
+
+  justify-items: end;
+}
+
+.account-settings__hero-badge span {
+  display: inline-flex;
+
+  padding:
+    7px
+    11px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.account-settings__hero-badge
+.is-verified {
+  color: #1f715f;
+  background: #ddf4ea;
+}
+
+.account-settings__hero-badge
+.is-pending {
+  color: #94671a;
+  background: #fff1cf;
+}
+
+.account-settings__hero-badge strong {
+  color: #46635b;
+
+  font-size: 14px;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Quick Navigation
+|--------------------------------------------------------------------------
+*/
+
+.account-settings__quick-nav {
+  position: sticky;
+
+  top: 74px;
+
+  z-index: 6;
+
+  display: flex;
+
+  gap: 8px;
+
+  margin:
+    20px
+    0;
+
+  padding: 8px;
+
+  overflow-x: auto;
+
+  border:
+    1px
+    solid
+    rgba(37, 104, 88, 0.1);
+
+  border-radius: 18px;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.92
+    );
+
+  box-shadow:
+    0
+    9px
+    30px
+    rgba(
+      27,
+      73,
+      62,
+      0.06
+    );
+
+  backdrop-filter:
+    blur(14px);
+}
+
+.account-settings__quick-nav a {
+  display: inline-flex;
+
+  flex:
+    0
+    0
+    auto;
+
+  align-items: center;
+
+  gap: 8px;
+
+  min-height: 42px;
+
+  padding:
+    0
+    14px;
+
+  border-radius: 12px;
+
+  color: #607972;
+
+  font-size: 14px;
+  font-weight: 750;
+
+  text-decoration: none;
+
+  transition:
+    180ms ease;
+}
+
+.account-settings__quick-nav a:hover,
+.account-settings__quick-nav a.is-active {
+  color: #1f715f;
+
+  background: #edf8f4;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Main Layout
+|--------------------------------------------------------------------------
+*/
+
+.account-settings__grid {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    290px;
+
+  gap: 20px;
+
+  align-items: start;
+}
+
+.account-settings__main {
+  display: grid;
+  gap: 18px;
+}
+
+.account-settings__card,
+.account-settings__aside-card {
+  border:
+    1px
+    solid
+    rgba(
+      37,
+      104,
+      88,
+      0.11
+    );
+
+  border-radius: 24px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0
+    12px
+    36px
+    rgba(
+      31,
+      75,
+      65,
+      0.055
+    );
+}
+
+.account-settings__card {
+  scroll-margin-top: 146px;
+
+  padding: 24px;
+}
+
+.account-settings__card--focused {
+  border-color:
+    rgba(
+      40,
+      124,
+      105,
+      0.35
+    );
+
+  box-shadow:
+    0
+    0
+    0
+    4px
+    rgba(
+      40,
+      124,
+      105,
+      0.07
+    ),
+    0
+    12px
+    36px
+    rgba(
+      31,
+      75,
+      65,
+      0.055
+    );
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Section Headers
+|--------------------------------------------------------------------------
+*/
+
+.account-settings__section-heading {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 13px;
+
+  margin-bottom: 22px;
+}
+
+.account-settings__section-heading h2,
+.account-settings__aside-card h3 {
+  margin: 0;
+
+  color: #183f37;
+}
+
+.account-settings__section-heading h2 {
+  font-size: 20px;
+}
+
+.account-settings__section-heading p,
+.account-settings__danger-row p,
+.account-settings__session-panel p,
+.account-settings__verification-row p,
+.account-settings__profile-link-row p {
+  margin:
+    4px
+    0
+    0;
+
+  color: #789089;
+
+  font-size: 14px;
+
+  line-height: 1.55;
+}
+
+.account-settings__icon-box {
+  display: grid;
+
+  width: 42px;
+  height: 42px;
+
+  flex:
+    0
+    0
+    42px;
+
+  place-items: center;
+
+  border-radius: 13px;
+
+  color: #287c69;
+
+  background: #eaf7f2;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Account Details
+|--------------------------------------------------------------------------
+*/
+
+.account-settings__details {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  gap: 12px;
+}
+
+.account-settings__details > div {
+  display: grid;
+
+  gap: 6px;
+
+  min-width: 0;
+
+  padding: 15px;
+
+  border-radius: 16px;
+
+  background: #f8fbfa;
+}
+
+.account-settings__details span,
+.account-settings__aside-card
+> div
+span {
+  color: #82968f;
+
+  font-size: 12px;
+  font-weight: 750;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.04em;
+}
+
+.account-settings__details strong {
+  overflow-wrap: anywhere;
+
+  color: #31584f;
+
+  font-size: 14px;
+}
+
+.account-settings__status-text {
+  text-transform: capitalize;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Shared Rows
+|--------------------------------------------------------------------------
+*/
+
+.account-settings__profile-link-row,
+.account-settings__danger-row,
+.account-settings__session-panel,
+.account-settings__verification-row {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 18px;
+}
+
+.account-settings__profile-link-row {
+  margin-top: 16px;
+
+  padding-top: 16px;
+
+  border-top:
+    1px
+    solid
+    #edf2f0;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Email Verification
+|--------------------------------------------------------------------------
+*/
+
+.account-settings__verification-row
+> div,
+.account-settings__session-panel
+> div {
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+}
+
+.account-settings__verification-icon {
+  display: grid;
+
+  width: 40px;
+  height: 40px;
+
+  flex:
+    0
+    0
+    40px;
+
+  place-items: center;
+
+  border-radius: 50%;
+}
+
+.account-settings__verification-icon.is-verified {
+  color: #22715f;
+  background: #e2f5ed;
+}
+
+.account-settings__verification-icon.is-pending {
+  color: #94671a;
+  background: #fff3d9;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Password Form
+|--------------------------------------------------------------------------
+*/
+
+.account-settings__password-form {
+  display: grid;
+
+  gap: 16px;
+}
+
+.account-settings__field-row {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  gap: 14px;
+}
+
+.account-settings__field {
+  display: grid;
+
+  gap: 8px;
+
+  color: #45665e;
+
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.account-settings__field input,
+.account-settings__password-control input {
+  width: 100%;
+
+  min-height: 48px;
+
+  border:
+    1px
+    solid
+    #dbe8e3;
+
+  border-radius: 14px;
+
+  outline: none;
+
+  padding:
+    0
+    14px;
+
+  color: #234c42;
+
+  background: #fbfdfc;
+
+  font: inherit;
+
+  transition:
+    180ms ease;
+}
+
+.account-settings__field input:focus,
+.account-settings__password-control:focus-within {
+  border-color: #54a18f;
+
+  box-shadow:
+    0
+    0
+    0
+    4px
+    rgba(
+      40,
+      124,
+      105,
+      0.08
+    );
+
+  background: #ffffff;
+}
+
+.account-settings__password-control {
+  display: flex;
+
+  align-items: center;
+
+  border:
+    1px
+    solid
+    #dbe8e3;
+
+  border-radius: 14px;
+
+  background: #fbfdfc;
+
+  transition:
+    180ms ease;
+}
+
+.account-settings__password-control
+input {
+  min-width: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  box-shadow:
+    none !important;
+}
+
+.account-settings__password-control
+button {
+  display: grid;
+
+  width: 44px;
+  height: 44px;
+
+  flex:
+    0
+    0
+    44px;
+
+  place-items: center;
+
+  border: 0;
+
+  border-radius: 10px;
+
+  color: #718981;
+
+  background: transparent;
+
+  cursor: pointer;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Password Requirements
+|--------------------------------------------------------------------------
+*/
+
+.account-settings__requirements {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 8px;
+}
+
+.account-settings__requirements span {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  padding:
+    6px
+    9px;
+
+  border-radius: 999px;
+
+  color: #879993;
+
+  background: #f4f7f6;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+.account-settings__requirements
+span.is-valid {
+  color: #26725f;
+
+  background: #e7f6f0;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Form Actions
+|--------------------------------------------------------------------------
+*/
+
+.account-settings__form-actions {
+  display: flex;
+
+  justify-content: flex-end;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Buttons
+|--------------------------------------------------------------------------
+*/
+
+.account-settings__button {
+  display: inline-flex;
+
+  min-height: 42px;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  border: 0;
+
+  border-radius: 12px;
+
+  padding:
+    0
+    15px;
+
+  font: inherit;
+
+  font-size: 13px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    180ms ease;
+}
+
+.account-settings__button:disabled {
+  opacity: 0.58;
+
+  cursor: not-allowed;
+}
+
+.account-settings__button--primary {
+  color: #ffffff;
+
+  background: #287c69;
+
+  box-shadow:
+    0
+    8px
+    18px
+    rgba(
+      40,
+      124,
+      105,
+      0.18
+    );
+}
+
+.account-settings__button--primary:hover:not(:disabled) {
+  transform:
+    translateY(-1px);
+
+  background: #226e5d;
+}
+
+.account-settings__button--soft {
+  color: #287c69;
+
+  background: #eaf7f2;
+}
+
+.account-settings__button--outline {
+  border:
+    1px
+    solid
+    #d9e7e2;
+
+  color: #41675e;
+
+  background: #ffffff;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Messages
+|--------------------------------------------------------------------------
+*/
+
+.account-settings__message {
+  margin-top: 14px;
+
+  padding:
+    11px
+    13px;
+
+  border-radius: 12px;
+
+  font-size: 13px;
+
+  font-weight: 650;
+}
+
+.account-settings__message--success {
+  color: #226e5d;
+
+  background: #e6f6f0;
+}
+
+.account-settings__message--error {
+  color: #a43a3a;
+
+  background: #fff0f0;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Sessions
+|--------------------------------------------------------------------------
+*/
+
+.account-settings__session-panel {
+  padding: 16px;
+
+  border-radius: 17px;
+
+  background: #f8fbfa;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Danger Zone
+|--------------------------------------------------------------------------
+*/
+
+.account-settings__card--danger {
+  border-color: #f1d2d2;
+}
+
+.account-settings__icon-box--danger,
+.account-settings__modal-icon {
+  color: #bb4545;
+
+  background: #fff0f0;
+}
+
+.account-settings__button--danger {
+  color: #ffffff;
+
+  background: #b94747;
+}
+
+.account-settings__button--danger:hover:not(:disabled) {
+  background: #a73b3b;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Sidebar Cards
+|--------------------------------------------------------------------------
+*/
+
+.account-settings__aside {
+  position: sticky;
+
+  top: 146px;
+
+  display: grid;
+
+  gap: 16px;
+}
+
+.account-settings__aside-card {
+  padding: 20px;
+}
+
+.account-settings__aside-card
+> svg {
+  margin-bottom: 12px;
+
+  color: #287c69;
+}
+
+.account-settings__aside-card h3 {
+  margin-bottom: 17px;
+
+  font-size: 16px;
+}
+
+.account-settings__aside-card
+> div {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  padding:
+    11px
+    0;
+
+  border-top:
+    1px
+    solid
+    #eef3f1;
+}
+
+.account-settings__aside-card
+> div
+strong {
+  color: #365e54;
+
+  font-size: 13px;
+}
+
+.account-settings__aside-card--muted
+p {
+  margin:
+    3px
+    0
+    4px;
+
+  color: #83958f;
+
+  font-size: 13px;
+}
+
+.account-settings__aside-card--muted
+> strong {
+  color: #40665d;
+
+  font-size: 14px;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Delete Account Modal
+|--------------------------------------------------------------------------
+*/
+
+.account-settings__modal-backdrop {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 1000;
+
+  display: grid;
+
+  place-items: center;
+
+  padding: 20px;
+
+  background:
+    rgba(
+      15,
+      37,
+      32,
+      0.54
+    );
+
+  backdrop-filter:
+    blur(5px);
+}
+
+.account-settings__modal {
+  width:
+    min(
+      490px,
+      100%
+    );
+
+  max-height:
+    calc(
+      100vh - 40px
+    );
+
+  overflow-y: auto;
+
+  padding: 26px;
+
+  border-radius: 24px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0
+    30px
+    80px
+    rgba(
+      8,
+      32,
+      26,
+      0.24
+    );
+}
+
+.account-settings__modal-icon {
+  display: grid;
+
+  width: 52px;
+  height: 52px;
+
+  place-items: center;
+
+  border-radius: 16px;
+}
+
+.account-settings__modal h2 {
+  margin:
+    17px
+    0
+    8px;
+
+  color: #3d2929;
+}
+
+.account-settings__modal
+> p {
+  margin:
+    0
+    0
+    20px;
+
+  color: #806b6b;
+
+  line-height: 1.65;
+}
+
+.account-settings__modal form {
+  display: grid;
+
+  gap: 15px;
+}
+
+.account-settings__modal-actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-top: 4px;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Loading Animation
+|--------------------------------------------------------------------------
+*/
+
+.account-settings__spinner {
+  animation:
+    account-settings-spin
+    0.75s
+    linear
+    infinite;
+}
+
+@keyframes account-settings-spin {
+  to {
+    transform:
+      rotate(360deg);
+  }
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Tablet
+|--------------------------------------------------------------------------
+*/
+
+@media (
+  max-width: 980px
+) {
+  .account-settings__grid {
+    grid-template-columns:
+      1fr;
+  }
+
+  .account-settings__aside {
+    position: static;
+
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+  }
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Mobile
+|--------------------------------------------------------------------------
+*/
+
+@media (
+  max-width: 720px
+) {
+  .account-settings {
+    padding-bottom: 28px;
+  }
+
+  .account-settings__hero {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    padding: 22px;
+
+    border-radius: 22px;
+  }
+
+  .account-settings__hero-badge {
+    min-width: 0;
+
+    justify-items: start;
+  }
+
+  .account-settings__quick-nav {
+  position: sticky;
+
+  top: 66px;
+
+  display: grid;
+
+  width: 100%;
+
+  grid-template-columns:
+  repeat(4, minmax(0, 1fr));
+
+  gap: 5px;
+
+  margin:
+    14px
+    0;
+
+  padding: 5px;
+
+  overflow: visible;
+
+  border-radius: 15px;
+}
+
+
+.account-settings__quick-nav a {
+  display: flex;
+
+  min-width: 0;
+  min-height: 42px;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  padding:
+    0
+    7px;
+
+  border-radius: 11px;
+
+  font-size: 12px;
+
+  white-space: nowrap;
+}
+
+
+.account-settings__quick-nav a svg {
+  width: 15px;
+  height: 15px;
+
+  flex-shrink: 0;
+}
+  .account-settings__card {
+    padding: 19px;
+
+    border-radius: 20px;
+  }
+
+  .account-settings__details,
+  .account-settings__field-row,
+  .account-settings__aside {
+    grid-template-columns:
+      1fr;
+  }
+
+  .account-settings__profile-link-row,
+  .account-settings__danger-row,
+  .account-settings__session-panel,
+  .account-settings__verification-row {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+
+  .account-settings__button {
+    width: 100%;
+  }
+
+  .account-settings__form-actions {
+    display: block;
+  }
+}
+
+.account-settings__delete-verification {
+  display: grid;
+  gap: 14px;
+}
+
+.account-settings__delete-otp-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}

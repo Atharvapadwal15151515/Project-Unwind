@@ -1,0 +1,698 @@
+.unwind-report-backdrop {
+  position: fixed;
+  z-index: 10000;
+
+  inset: 0;
+
+  display: grid;
+  place-items: center;
+
+  padding: 20px;
+
+  background:
+    rgba(
+      17,
+      24,
+      39,
+      0.46
+    );
+
+  backdrop-filter:
+    blur(5px);
+}
+
+.unwind-report-modal {
+  width:
+    min(
+      520px,
+      100%
+    );
+
+  max-height:
+    min(
+      760px,
+      calc(
+        100vh - 32px
+      )
+    );
+
+  overflow: auto;
+
+  border:
+    1px solid
+    var(
+      --dashboard-border
+    );
+
+  border-radius:
+    22px;
+
+  background:
+    var(
+      --dashboard-surface-solid
+    );
+
+  box-shadow:
+    0
+    24px
+    70px
+    rgba(
+      17,
+      24,
+      39,
+      0.22
+    );
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.unwind-report-modal__header {
+  display: flex;
+
+  align-items:
+    flex-start;
+
+  justify-content:
+    space-between;
+
+  gap: 16px;
+
+  padding:
+    20px
+    20px
+    17px;
+
+  border-bottom:
+    1px solid
+    var(
+      --dashboard-border
+    );
+}
+
+.unwind-report-modal__heading {
+  display: flex;
+
+  align-items:
+    flex-start;
+
+  gap: 12px;
+}
+
+.unwind-report-modal__icon {
+  display: grid;
+
+  width: 40px;
+  height: 40px;
+
+  flex:
+    0 0 40px;
+
+  place-items:
+    center;
+
+  border-radius:
+    13px;
+
+  color:
+    #a14c4c;
+
+  background:
+    rgba(
+      161,
+      76,
+      76,
+      0.1
+    );
+}
+
+.unwind-report-modal__header
+h2 {
+  margin: 0;
+
+  color:
+    var(
+      --dashboard-text
+    );
+
+  font-size:
+    var(--text-xl);
+}
+
+.unwind-report-modal__header
+p {
+  margin:
+    5px
+    0
+    0;
+
+  color:
+    var(
+      --dashboard-muted
+    );
+
+  font-size:
+    var(--text-sm);
+
+  line-height:
+    1.6;
+}
+
+.unwind-report-modal__close {
+  display: grid;
+
+  width: 34px;
+  height: 34px;
+
+  flex:
+    0 0 34px;
+
+  place-items:
+    center;
+
+  padding: 0;
+
+  border:
+    1px solid
+    var(
+      --dashboard-border
+    );
+
+  border-radius:
+    10px;
+
+  color:
+    var(
+      --dashboard-muted
+    );
+
+  background:
+    transparent;
+
+  cursor:
+    pointer;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.unwind-report-form {
+  display: grid;
+
+  gap: 17px;
+
+  padding:
+    20px;
+}
+
+.unwind-report-target {
+  display: flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap: 12px;
+
+  padding:
+    11px
+    13px;
+
+  border:
+    1px solid
+    var(
+      --dashboard-border
+    );
+
+  border-radius:
+    12px;
+
+  background:
+    var(
+      --dashboard-surface-soft
+    );
+}
+
+.unwind-report-target
+span {
+  color:
+    var(
+      --dashboard-muted
+    );
+
+  font-size:
+   var(--text-xs);
+}
+
+.unwind-report-target
+strong {
+  overflow:
+    hidden;
+
+  color:
+    var(
+      --dashboard-text
+    );
+
+  font-size:
+    var(--text-sm);
+
+  text-overflow:
+    ellipsis;
+
+  white-space:
+    nowrap;
+}
+
+.unwind-report-field {
+  display: grid;
+
+  gap: 7px;
+}
+
+.unwind-report-field
+> span {
+  color:
+    var(
+      --dashboard-text
+    );
+
+  font-size:
+    var(--text-sm);
+
+  font-weight:
+    700;
+}
+
+.unwind-report-field
+> span
+small {
+  margin-left:
+    4px;
+
+  color:
+    var(
+      --dashboard-muted
+    );
+
+  font-weight:
+    500;
+}
+
+.unwind-report-field
+select,
+.unwind-report-field
+textarea {
+  width:
+    100%;
+
+  box-sizing:
+    border-box;
+
+  border:
+    1px solid
+    var(
+      --dashboard-border
+    );
+
+  border-radius:
+    12px;
+
+  outline:
+    none;
+
+  color:
+    var(
+      --dashboard-text
+    );
+
+  background:
+    var(
+      --dashboard-surface-solid
+    );
+
+  font:
+    inherit;
+
+  font-size:
+    var(--text-sm);
+}
+
+.unwind-report-field
+select {
+  min-height:
+    42px;
+
+  padding:
+    0
+    12px;
+}
+
+.unwind-report-field
+textarea {
+  min-height:
+    112px;
+
+  padding:
+    11px
+    12px;
+
+  resize:
+    vertical;
+
+  line-height:
+    1.65;
+}
+
+.unwind-report-field
+select:focus,
+.unwind-report-field
+textarea:focus {
+  border-color:
+    var(
+      --dashboard-primary
+    );
+
+  box-shadow:
+    0
+    0
+    0
+    3px
+    var(
+      --dashboard-primary-soft
+    );
+}
+
+.unwind-report-count {
+  justify-self:
+    end;
+
+  color:
+    var(
+      --dashboard-muted
+    );
+
+  font-size:
+    var(--text-xs);
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.unwind-report-error {
+  display: flex;
+
+  align-items:
+    flex-start;
+
+  gap: 8px;
+
+  padding:
+    10px
+    12px;
+
+  border:
+    1px solid
+    rgba(
+      161,
+      76,
+      76,
+      0.2
+    );
+
+  border-radius:
+    11px;
+
+  color:
+    #a14c4c;
+
+  background:
+    rgba(
+      161,
+      76,
+      76,
+      0.08
+    );
+
+  font-size:
+    var(--text-xs);
+
+  line-height:
+    1.55;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.unwind-report-actions {
+  display: flex;
+
+  justify-content:
+    flex-end;
+
+  gap: 9px;
+
+  padding-top:
+    2px;
+}
+
+.unwind-report-actions
+button,
+.unwind-report-success
+button {
+  min-height:
+    39px;
+
+  padding:
+    0
+    14px;
+
+  border-radius:
+    11px;
+
+  font-size:
+   var(--text-sm);
+
+  font-weight:
+    700;
+
+  cursor:
+    pointer;
+}
+
+.unwind-report-cancel {
+  border:
+    1px solid
+    var(
+      --dashboard-border
+    );
+
+  color:
+    var(
+      --dashboard-text
+    );
+
+  background:
+    transparent;
+}
+
+.unwind-report-submit,
+.unwind-report-success
+button {
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap: 7px;
+
+  border: 0;
+
+  color:
+    #fff;
+
+  background:
+    #a14c4c;
+}
+
+.unwind-report-actions
+button:disabled,
+.unwind-report-modal__close:disabled {
+  opacity:
+    0.55;
+
+  cursor:
+    not-allowed;
+}
+
+
+/* =========================================================
+   SUCCESS
+========================================================= */
+
+.unwind-report-success {
+  display: flex;
+
+  min-height:
+    290px;
+
+  padding:
+    34px
+    24px;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  text-align:
+    center;
+}
+
+.unwind-report-success
+> span {
+  display: grid;
+
+  width: 58px;
+  height: 58px;
+
+  place-items:
+    center;
+
+  border-radius:
+    18px;
+
+  color:
+    var(
+      --dashboard-primary
+    );
+
+  background:
+    var(
+      --dashboard-primary-soft
+    );
+}
+
+.unwind-report-success
+h3 {
+  margin:
+    15px
+    0
+    0;
+
+  color:
+    var(
+      --dashboard-text
+    );
+
+  font-size:
+   var(--text-xl);
+}
+
+.unwind-report-success
+p {
+  max-width:
+    340px;
+
+  margin:
+    8px
+    0
+    18px;
+
+  color:
+    var(
+      --dashboard-muted
+    );
+
+  font-size:
+    var(--text-sm);
+
+  line-height:
+    1.65;
+}
+
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+.unwind-report-spin {
+  animation:
+    unwindReportSpin
+    0.8s
+    linear
+    infinite;
+}
+
+@keyframes
+unwindReportSpin {
+  to {
+    transform:
+      rotate(
+        360deg
+      );
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (
+  max-width: 600px
+) {
+  .unwind-report-backdrop {
+    align-items:
+      end;
+
+    padding:
+      10px;
+  }
+
+  .unwind-report-modal {
+    width:
+      100%;
+
+    max-height:
+      calc(
+        100vh - 20px
+      );
+
+    border-radius:
+      20px;
+  }
+
+  .unwind-report-actions {
+    display:
+      grid;
+
+    grid-template-columns:
+      1fr
+      1fr;
+  }
+
+  .unwind-report-actions
+  button {
+    width:
+      100%;
+  }
+}

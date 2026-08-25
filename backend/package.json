@@ -1,0 +1,51 @@
+{
+  "name": "unwind-backend",
+  "version": "1.0.0",
+  "description": "UNWIND Mental Wellness Backend API",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
+  },
+  "keywords": [
+    "unwind",
+    "mental-health",
+    "node",
+    "express",
+    "postgresql"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@getbrevo/brevo": "^6.0.2",
+    "@google/genai": "^2.15.0",
+    "axios": "^1.19.0",
+    "bad-words": "^4.1.5",
+    "bcrypt": "^6.0.0",
+    "chart.js": "^4.5.1",
+    "chartjs-node-canvas": "^5.0.0",
+    "cloudinary": "^2.10.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.5.2",
+    "form-data": "^4.0.6",
+    "groq-sdk": "^1.5.0",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.2.0",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
+    "pdfkit": "^0.19.1",
+    "pg": "^8.16.3",
+    "socket.io": "^4.8.3",
+    "streamifier": "^0.1.1",
+    "unique-names-generator": "^4.7.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

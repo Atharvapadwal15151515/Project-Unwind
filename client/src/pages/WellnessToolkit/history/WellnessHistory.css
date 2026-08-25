@@ -1,0 +1,557 @@
+.wellness-history-page {
+  width: 100%;
+  min-height: 100%;
+
+  padding:
+    18px
+    22px
+    60px;
+
+  color:
+    var(--dashboard-text);
+}
+
+/* HEADER */
+
+.wellness-history-header {
+  display: grid;
+
+  grid-template-columns:
+    auto
+    1fr;
+
+  align-items: center;
+
+  gap: 13px;
+
+  margin-bottom: 15px;
+}
+
+.wellness-history-header button {
+  display: inline-flex;
+
+  min-height: 38px;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  padding:
+    0
+    11px;
+
+  border:
+    1px solid
+    var(--dashboard-border);
+
+  border-radius: 11px;
+
+  color:
+    var(--dashboard-text);
+
+  background:
+    var(--dashboard-surface-solid);
+
+  font-size: var(--text-xs);
+
+  cursor: pointer;
+}
+
+.wellness-history-header span,
+.wellness-history-hero
+  > div
+  > span {
+  display: block;
+
+  color:
+    var(--dashboard-primary);
+
+  font-size: var(--text-xs);
+  font-weight: 900;
+
+  letter-spacing:
+    0.09em;
+
+  text-transform: uppercase;
+}
+
+.wellness-history-header h1 {
+  margin:
+    4px
+    0
+    0;
+
+  font-family:
+    "DM Serif Display",
+    serif;
+
+  font-size: var(--text-2xl);
+
+  font-weight: 400;
+}
+
+/* HERO */
+
+.wellness-history-hero {
+  display: grid;
+
+  width:
+    min(
+      900px,
+      100%
+    );
+
+  margin:
+    0
+    auto;
+
+  padding: 24px;
+
+  grid-template-columns:
+    auto
+    1fr
+    auto;
+
+  align-items: center;
+
+  gap: 16px;
+
+  border:
+    1px solid
+    var(--dashboard-border);
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--dashboard-primary-soft),
+      var(--dashboard-surface-solid)
+    );
+}
+
+.wellness-history-hero__icon {
+  display: grid;
+
+  width: 56px;
+  height: 56px;
+
+  place-items: center;
+
+  border-radius: 17px;
+
+  color: #fff;
+
+  background:
+    var(--dashboard-primary);
+}
+
+.wellness-history-hero h2 {
+  margin:
+    5px
+    0
+    0;
+
+  font-family:
+    "DM Serif Display",
+    serif;
+
+  font-size: var(--text-2xl);
+
+  font-weight: 400;
+}
+
+.wellness-history-hero p {
+  margin:
+    7px
+    0
+    0;
+
+  color:
+    var(--dashboard-muted);
+
+  font-size: var(--text-xs);
+}
+
+.wellness-history-count {
+  min-width: 95px;
+
+  padding: 13px;
+
+  border:
+    1px solid
+    var(--dashboard-border);
+
+  border-radius: 15px;
+
+  text-align: center;
+
+  background:
+    var(--dashboard-surface-solid);
+}
+
+.wellness-history-count strong {
+  display: block;
+
+  font-family:
+    "DM Serif Display",
+    serif;
+
+  color:
+    var(--dashboard-primary);
+
+  font-size: var(--text-2xl);
+
+  font-weight: 400;
+}
+
+.wellness-history-count span {
+  color:
+    var(--dashboard-muted);
+
+  font-size: var(--text-xs);
+}
+
+/* TOOLBAR */
+
+.wellness-history-toolbar {
+  display: flex;
+
+  width:
+    min(
+      900px,
+      100%
+    );
+
+  margin:
+    14px
+    auto;
+
+  align-items: center;
+  justify-content:
+    space-between;
+
+  gap: 12px;
+}
+
+.wellness-history-toolbar p {
+  margin: 0;
+
+  color:
+    var(--dashboard-muted);
+
+  font-size: var(--text-xs);
+}
+
+.wellness-history-toolbar button {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  padding:
+    8px
+    10px;
+
+  border:
+    1px solid
+    var(--dashboard-border);
+
+  border-radius: 10px;
+
+  color:
+    var(--dashboard-muted);
+
+  background:
+    var(--dashboard-surface-solid);
+
+  font-size: var(--text-xs);
+
+  cursor: pointer;
+}
+
+/* HISTORY */
+
+.wellness-history-list {
+  width:
+    min(
+      900px,
+      100%
+    );
+
+  margin:
+    0
+    auto;
+}
+
+.wellness-history-day {
+  margin-top: 19px;
+}
+
+.wellness-history-day h3 {
+  margin:
+    0
+    0
+    8px;
+
+  font-size: var(--text-xs);
+  font-weight: 900;
+
+  letter-spacing:
+    0.06em;
+
+  text-transform:
+    uppercase;
+}
+
+.wellness-history-day__items {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.wellness-history-item {
+  display: grid;
+
+  padding:
+    12px
+    13px;
+
+  grid-template-columns:
+    auto
+    minmax(0, 1fr)
+    auto;
+
+  align-items: center;
+
+  gap: 11px;
+
+  border:
+    1px solid
+    var(--dashboard-border);
+
+  border-radius: 14px;
+
+  background:
+    var(--dashboard-surface-solid);
+}
+
+.wellness-history-item__icon {
+  display: grid;
+
+  width: 36px;
+  height: 36px;
+
+  place-items: center;
+
+  border-radius: 11px;
+
+  color:
+    var(--dashboard-primary);
+
+  background:
+    var(--dashboard-primary-soft);
+}
+
+.wellness-history-item__content strong,
+.wellness-history-item__content span {
+  display: block;
+}
+
+.wellness-history-item__content strong {
+  font-size: var(--text-sm);
+}
+
+.wellness-history-item__content span {
+  margin-top: 3px;
+
+  color:
+    var(--dashboard-muted);
+
+  font-size: var(--text-xs);
+
+  text-transform:
+    capitalize;
+}
+
+.wellness-history-item__time {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  color:
+    var(--dashboard-muted);
+
+  font-size: var(--text-xs);
+}
+
+/* EMPTY */
+
+.wellness-history-empty {
+  width:
+    min(
+      620px,
+      100%
+    );
+
+  margin:
+    25px
+    auto
+    0;
+
+  padding:
+    42px
+    25px;
+
+  border:
+    1px solid
+    var(--dashboard-border);
+
+  border-radius: 22px;
+
+  text-align: center;
+
+  background:
+    var(--dashboard-surface-solid);
+}
+
+.wellness-history-empty
+  > div {
+  display: grid;
+
+  width: 54px;
+  height: 54px;
+
+  margin:
+    0
+    auto;
+
+  place-items: center;
+
+  border-radius: 17px;
+
+  color:
+    var(--dashboard-primary);
+
+  background:
+    var(--dashboard-primary-soft);
+}
+
+.wellness-history-empty h2 {
+  margin:
+    14px
+    0
+    0;
+
+  font-family:
+    "DM Serif Display",
+    serif;
+
+  font-size: var(--text-xl);
+
+  font-weight: 400;
+}
+
+.wellness-history-empty p {
+  max-width: 420px;
+
+  margin:
+    8px
+    auto
+    0;
+
+  color:
+    var(--dashboard-muted);
+
+  font-size: var(--text-xs);
+
+  line-height: 1.7;
+}
+
+.wellness-history-empty button {
+  margin-top: 17px;
+
+  padding:
+    10px
+    15px;
+
+  border: 0;
+
+  border-radius: 11px;
+
+  color: #fff;
+
+  background:
+    var(--dashboard-primary);
+
+  font-size: var(--text-xs);
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+/* MOBILE */
+
+@media (
+  max-width: 650px
+) {
+  .wellness-history-page {
+    padding:
+      10px
+      10px
+      85px;
+  }
+
+  .wellness-history-header
+    button {
+    width: 38px;
+
+    padding: 0;
+
+    font-size: 0;
+  }
+
+  .wellness-history-header
+    h1 {
+    font-size: var(--text-xl);
+  }
+
+  .wellness-history-hero {
+    grid-template-columns:
+      auto
+      1fr;
+
+    padding: 18px;
+  }
+
+  .wellness-history-count {
+    grid-column:
+      1 / -1;
+
+    width: 100%;
+  }
+
+  .wellness-history-toolbar {
+    align-items:
+      flex-start;
+
+    flex-direction:
+      column;
+  }
+
+  .wellness-history-item {
+    grid-template-columns:
+      auto
+      1fr;
+  }
+
+  .wellness-history-item__time {
+    grid-column: 2;
+  }
+}

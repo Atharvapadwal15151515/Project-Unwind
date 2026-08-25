@@ -1,0 +1,63 @@
+.wellness-favorite-button {
+  display: grid;
+
+  width: 34px;
+  height: 34px;
+
+  flex-shrink: 0;
+
+  place-items: center;
+
+  padding: 0;
+
+  border:
+    1px solid
+    var(--dashboard-border);
+
+  border-radius: 11px;
+
+  color:
+    var(--dashboard-muted);
+
+  background:
+    var(--dashboard-surface-solid);
+
+  cursor: pointer;
+
+  transition:
+    transform 160ms ease,
+    color 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease;
+}
+
+.wellness-favorite-button:hover {
+  transform:
+    translateY(-1px);
+
+  color:
+    var(--dashboard-primary);
+
+  background:
+    var(--dashboard-primary-soft);
+}
+
+.wellness-favorite-button--active {
+  color: #c76872;
+
+  border-color:
+    rgba(
+      199,
+      104,
+      114,
+      0.22
+    );
+
+  background:
+    rgba(
+      199,
+      104,
+      114,
+      0.08
+    );
+}

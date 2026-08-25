@@ -1,0 +1,417 @@
+.google-profile-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 32px 20px;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(93, 125, 116, 0.14),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(44, 75, 67, 0.12),
+      transparent 30%
+    ),
+    #eef3f1;
+}
+
+.google-profile-card {
+  width: 100%;
+  max-width: 560px;
+
+  padding: 38px 34px 30px;
+
+  background: rgba(255, 255, 255, 0.96);
+
+  border: 1px solid
+    rgba(33, 62, 54, 0.1);
+
+  border-radius: 22px;
+
+  box-shadow:
+    0 20px 60px
+    rgba(24, 48, 42, 0.12);
+
+  backdrop-filter: blur(12px);
+}
+
+.google-profile-heading {
+  margin-bottom: 28px;
+}
+
+.google-profile-heading h1 {
+  margin: 0 0 10px;
+
+  color: #19352f;
+
+  font-size: clamp(
+    28px,
+    4vw,
+    38px
+  );
+
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.google-profile-heading p {
+  margin: 0;
+
+  color: #6a7e78;
+
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.google-profile-error {
+  margin-bottom: 20px;
+
+  padding: 12px 14px;
+
+  color: #9b2f2f;
+
+  background: #fff1f1;
+
+  border: 1px solid
+    rgba(155, 47, 47, 0.16);
+
+  border-radius: 10px;
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.google-profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.google-profile-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.google-profile-field label {
+  color: #294a42;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.google-profile-field input,
+.google-profile-field select {
+  width: 100%;
+  min-height: 48px;
+
+  padding: 0 14px;
+
+  color: #19352f;
+
+  background: #ffffff;
+
+  border: 1px solid
+    rgba(40, 75, 66, 0.18);
+
+  border-radius: 11px;
+
+  font-family: inherit;
+  font-size: 15px;
+
+  outline: none;
+
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.google-profile-field input::placeholder {
+  color: #9aa9a5;
+}
+
+.google-profile-field input:hover,
+.google-profile-field select:hover {
+  border-color:
+    rgba(40, 75, 66, 0.32);
+}
+
+.google-profile-field input:focus,
+.google-profile-field select:focus {
+  border-color: #4f7d70;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(79, 125, 112, 0.12);
+}
+
+.google-profile-field input:disabled,
+.google-profile-field select:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  background: #f3f6f5;
+}
+
+.google-profile-hint {
+  color: #84958f;
+
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.google-profile-submit {
+  width: 100%;
+  min-height: 50px;
+
+  margin-top: 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 20px;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #234f45,
+      #3f7164
+    );
+
+  border: none;
+  border-radius: 12px;
+
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 24px
+    rgba(35, 79, 69, 0.2);
+
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    opacity 0.16s ease;
+}
+
+.google-profile-submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 14px 30px
+    rgba(35, 79, 69, 0.24);
+}
+
+.google-profile-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.google-profile-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.google-profile-cancel {
+  width: 100%;
+
+  margin-top: 12px;
+
+  padding: 10px 14px;
+
+  color: #61736e;
+
+  background: transparent;
+
+  border: none;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    color 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.google-profile-cancel:hover:not(:disabled) {
+  color: #294a42;
+
+  background:
+    rgba(41, 74, 66, 0.05);
+
+  border-radius: 9px;
+}
+
+.google-profile-cancel:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .google-profile-page {
+    padding: 18px 14px;
+  }
+
+  .google-profile-card {
+    padding: 28px 20px 24px;
+
+    border-radius: 18px;
+  }
+
+  .google-profile-heading {
+    margin-bottom: 24px;
+  }
+
+  .google-profile-heading h1 {
+    font-size: 28px;
+  }
+}
+/*
+|--------------------------------------------------------------------------
+| Google Complete Profile
+|--------------------------------------------------------------------------
+*/
+
+.google-complete-profile {
+  width: 100%;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Profile Photo Section
+|--------------------------------------------------------------------------
+*/
+
+.google-complete-profile__photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-bottom: 6px;
+}
+
+.google-complete-profile__photo-text {
+  margin-top: 8px;
+
+  color: #71817c;
+
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Google Account Notice
+|--------------------------------------------------------------------------
+*/
+
+.google-account-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  padding: 12px 14px;
+  margin-bottom: 4px;
+
+  background:
+    rgba(57, 91, 80, 0.06);
+
+  border: 1px solid
+    rgba(57, 91, 80, 0.1);
+
+  border-radius: 11px;
+
+  color: #526861;
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Terms
+|--------------------------------------------------------------------------
+*/
+
+.google-complete-profile
+.register-terms {
+  margin-top: 2px;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Submit Button
+|--------------------------------------------------------------------------
+*/
+
+.google-complete-profile
+.auth-submit-button {
+  margin-top: 2px;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Select Fields
+|--------------------------------------------------------------------------
+*/
+
+.google-complete-profile
+.auth-field__control select {
+  width: 100%;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  cursor: pointer;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Disabled State
+|--------------------------------------------------------------------------
+*/
+
+.google-complete-profile
+.auth-field__control select:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Mobile
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 640px) {
+  .google-complete-profile__photo {
+    margin-bottom: 2px;
+  }
+
+  .google-account-notice {
+    padding: 11px 12px;
+
+    font-size: 12px;
+  }
+}

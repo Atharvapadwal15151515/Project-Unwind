@@ -1,0 +1,71 @@
+.wellness-mood-selector {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 8px;
+}
+
+.wellness-mood-chip {
+  display: inline-flex;
+
+  min-height: 39px;
+
+  align-items: center;
+
+  gap: 6px;
+
+  padding:
+    0
+    12px;
+
+  border:
+    1px solid
+    var(--dashboard-border);
+
+  border-radius: 999px;
+
+  color:
+    var(--dashboard-text);
+
+  background:
+    var(--dashboard-surface-solid);
+
+  cursor: pointer;
+
+  transition:
+    transform 150ms ease,
+    border-color 150ms ease,
+    background 150ms ease;
+}
+
+.wellness-mood-chip:hover {
+  transform:
+    translateY(-1px);
+
+  background:
+    var(--dashboard-surface);
+}
+
+.wellness-mood-chip--selected {
+  border-color:
+    color-mix(
+      in srgb,
+      var(--dashboard-primary) 28%,
+      transparent
+    );
+
+  color:
+    var(--dashboard-primary);
+
+  background:
+    var(--dashboard-primary-soft);
+}
+
+.wellness-mood-chip span {
+  font-size: 15px;
+}
+
+.wellness-mood-chip strong {
+  font-size: var(--text-xs);
+}

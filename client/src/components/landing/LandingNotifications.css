@@ -1,0 +1,1023 @@
+/* =========================================================
+   LANDING NOTIFICATIONS
+   ========================================================= */
+
+.landing-notifications {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+}
+
+
+/* =========================================================
+   THEME VARIABLES
+   ========================================================= */
+
+.landing-notifications {
+  --notification-bg: rgba(255, 255, 255, 0.94);
+  --notification-bg-solid: #ffffff;
+
+  --notification-surface: rgba(247, 249, 248, 0.9);
+  --notification-surface-hover: rgba(241, 246, 243, 1);
+
+  --notification-border: rgba(22, 55, 39, 0.1);
+
+  --notification-text: #18231d;
+  --notification-text-soft: #66736c;
+  --notification-text-muted: #8b9790;
+
+  --notification-green: #4f7d65;
+  --notification-green-dark: #355b48;
+  --notification-green-soft: rgba(79, 125, 101, 0.1);
+
+  --notification-danger: #b85858;
+  --notification-danger-soft: rgba(184, 88, 88, 0.1);
+
+  --notification-warning: #aa7a3b;
+  --notification-warning-soft: rgba(170, 122, 59, 0.11);
+
+  --notification-shadow:
+    0 18px 50px rgba(15, 35, 25, 0.12),
+    0 4px 14px rgba(15, 35, 25, 0.05);
+
+  --notification-trigger-bg: rgba(255, 255, 255, 0.12);
+  --notification-trigger-hover: rgba(255, 255, 255, 0.2);
+}
+
+
+/* =========================================================
+   DARK MODE
+   Supports:
+   html[data-theme="dark"]
+   body[data-theme="dark"]
+   .dark
+   ========================================================= */
+
+html[data-theme="dark"] .landing-notifications,
+body[data-theme="dark"] .landing-notifications,
+.dark .landing-notifications {
+  --notification-bg: rgba(18, 22, 20, 0.95);
+  --notification-bg-solid: #121715;
+
+  --notification-surface: rgba(29, 35, 32, 0.92);
+  --notification-surface-hover: rgba(37, 46, 41, 0.98);
+
+  --notification-border: rgba(255, 255, 255, 0.08);
+
+  --notification-text: #eef4f0;
+  --notification-text-soft: #aab7af;
+  --notification-text-muted: #7f8c84;
+
+  --notification-green: #86b59b;
+  --notification-green-dark: #9cc5ad;
+  --notification-green-soft: rgba(134, 181, 155, 0.12);
+
+  --notification-danger: #e18a8a;
+  --notification-danger-soft: rgba(225, 138, 138, 0.1);
+
+  --notification-warning: #d6ae72;
+  --notification-warning-soft: rgba(214, 174, 114, 0.11);
+
+  --notification-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.46),
+    0 4px 16px rgba(0, 0, 0, 0.24);
+
+  --notification-trigger-bg: rgba(255, 255, 255, 0.06);
+  --notification-trigger-hover: rgba(255, 255, 255, 0.11);
+}
+
+
+/* =========================================================
+   NOTIFICATION BELL
+   ========================================================= */
+
+.landing-notifications__trigger {
+  position: relative;
+
+  width: 42px;
+  height: 42px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+
+  background: var(--notification-trigger-bg);
+  color: inherit;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.landing-notifications__trigger:hover {
+  transform: translateY(-2px);
+
+  background: var(--notification-trigger-hover);
+
+  border-color: rgba(255, 255, 255, 0.24);
+
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.landing-notifications__trigger:active {
+  transform: scale(0.96);
+}
+
+.landing-notifications__trigger:focus-visible {
+  outline: 2px solid var(--notification-green);
+  outline-offset: 3px;
+}
+
+
+/* =========================================================
+   BADGE
+   ========================================================= */
+
+.landing-notifications__badge {
+  position: absolute;
+  top: -5px;
+  right: -6px;
+
+  min-width: 18px;
+  height: 18px;
+
+  padding: 0 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+
+  border: 2px solid var(--notification-bg-solid);
+
+  background: #5f8f73;
+  color: #ffffff;
+
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+
+  box-shadow:
+    0 3px 8px rgba(38, 87, 60, 0.25);
+}
+
+
+/* =========================================================
+   DROPDOWN PANEL
+   ========================================================= */
+
+.landing-notifications__panel {
+  position: absolute;
+
+  top: calc(100% + 14px);
+  right: 0;
+
+  width: min(410px, calc(100vw - 32px));
+  max-height: min(640px, calc(100vh - 100px));
+
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 22px;
+
+  border:
+    1px solid
+    var(--notification-border);
+
+  background:
+    var(--notification-bg);
+
+  color:
+    var(--notification-text);
+
+  box-shadow:
+    var(--notification-shadow);
+
+  backdrop-filter:
+    blur(24px);
+
+  -webkit-backdrop-filter:
+    blur(24px);
+
+  overflow: hidden;
+
+  transform-origin: top right;
+}
+
+
+/* tiny dropdown arrow */
+
+.landing-notifications__panel::before {
+  content: "";
+
+  position: absolute;
+
+  top: -6px;
+  right: 17px;
+
+  width: 12px;
+  height: 12px;
+
+  background:
+    var(--notification-bg);
+
+  border-top:
+    1px solid
+    var(--notification-border);
+
+  border-left:
+    1px solid
+    var(--notification-border);
+
+  transform:
+    rotate(45deg);
+
+  z-index: -1;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.landing-notifications__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 16px;
+
+  padding:
+    18px 18px 16px;
+
+  border-bottom:
+    1px solid
+    var(--notification-border);
+}
+
+.landing-notifications__heading {
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+}
+
+.landing-notifications__heading-icon {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 12px;
+
+  background:
+    var(--notification-green-soft);
+
+  color:
+    var(--notification-green);
+}
+
+.landing-notifications__heading div {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+.landing-notifications__heading strong {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+
+  color:
+    var(--notification-text);
+}
+
+.landing-notifications__heading small {
+  font-size: 11px;
+  font-weight: 500;
+
+  color:
+    var(--notification-text-muted);
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+   ========================================================= */
+
+.landing-notifications__close {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border: none;
+  border-radius: 10px;
+
+  background: transparent;
+
+  color:
+    var(--notification-text-soft);
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.landing-notifications__close:hover {
+  background:
+    var(--notification-surface-hover);
+
+  color:
+    var(--notification-text);
+
+  transform:
+    rotate(4deg);
+}
+
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.landing-notifications__content {
+  flex: 1;
+
+  max-height: 470px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding: 8px;
+}
+
+
+/* custom scrollbar */
+
+.landing-notifications__content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.landing-notifications__content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.landing-notifications__content::-webkit-scrollbar-thumb {
+  background:
+    var(--notification-border);
+
+  border-radius: 999px;
+}
+
+.landing-notifications__content::-webkit-scrollbar-thumb:hover {
+  background:
+    var(--notification-text-muted);
+}
+
+
+/* =========================================================
+   INDIVIDUAL NOTIFICATION
+   ========================================================= */
+
+.landing-notification {
+  position: relative;
+
+  display: flex;
+  align-items: flex-start;
+
+  gap: 13px;
+
+  padding: 14px;
+
+  border-radius: 16px;
+
+  text-decoration: none;
+
+  color:
+    var(--notification-text);
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.landing-notification:not(:last-child) {
+  margin-bottom: 3px;
+}
+
+.landing-notification:hover {
+  background:
+    var(--notification-surface-hover);
+
+  transform:
+    translateX(2px);
+}
+
+
+/* subtle left indicator */
+
+.landing-notification::before {
+  content: "";
+
+  position: absolute;
+
+  left: 2px;
+  top: 18px;
+  bottom: 18px;
+
+  width: 3px;
+
+  border-radius: 999px;
+
+  background:
+    transparent;
+
+  transition:
+    background 0.2s ease;
+}
+
+.landing-notification:hover::before {
+  background:
+    var(--notification-green);
+}
+
+
+/* =========================================================
+   ICON
+   ========================================================= */
+
+.landing-notification__icon {
+  width: 39px;
+  height: 39px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 13px;
+
+  background:
+    var(--notification-green-soft);
+
+  color:
+    var(--notification-green);
+
+  transition:
+    transform 0.2s ease;
+}
+
+.landing-notification:hover
+.landing-notification__icon {
+  transform:
+    scale(1.05);
+}
+
+
+/* =========================================================
+   BODY
+   ========================================================= */
+
+.landing-notification__body {
+  min-width: 0;
+  flex: 1;
+}
+
+.landing-notification__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 10px;
+
+  margin-bottom: 5px;
+}
+
+.landing-notification__top strong {
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.35;
+
+  color:
+    var(--notification-text);
+}
+
+.landing-notification__date {
+  flex-shrink: 0;
+
+  font-size: 10px;
+  font-weight: 500;
+
+  color:
+    var(--notification-text-muted);
+}
+
+.landing-notification__body p {
+  margin: 0;
+
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.55;
+
+  color:
+    var(--notification-text-soft);
+
+  display: -webkit-box;
+
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   META
+   ========================================================= */
+
+.landing-notification__meta {
+  display: flex;
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 6px;
+
+  margin-top: 9px;
+}
+
+.landing-notification__meta > span {
+  padding:
+    4px 7px;
+
+  border-radius: 999px;
+
+  background:
+    var(--notification-surface);
+
+  color:
+    var(--notification-text-muted);
+
+  font-size: 9px;
+  font-weight: 600;
+
+  line-height: 1;
+
+  text-transform: capitalize;
+}
+
+
+/* =========================================================
+   PRIORITY
+   ========================================================= */
+
+.landing-notification__meta
+.landing-notification__priority {
+  background:
+    var(--notification-warning-soft);
+
+  color:
+    var(--notification-warning);
+}
+
+.landing-notification--urgent
+.landing-notification__icon {
+  background:
+    var(--notification-danger-soft);
+
+  color:
+    var(--notification-danger);
+}
+
+.landing-notification--urgent::before {
+  background:
+    var(--notification-danger);
+}
+
+.landing-notification--high
+.landing-notification__icon {
+  background:
+    var(--notification-warning-soft);
+
+  color:
+    var(--notification-warning);
+}
+
+
+/* =========================================================
+   EMPTY / LOADING / ERROR STATES
+   ========================================================= */
+
+.landing-notifications__state {
+  min-height: 190px;
+
+  padding: 35px 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  color:
+    var(--notification-text-soft);
+}
+
+.landing-notifications__state > svg {
+  margin-bottom: 12px;
+
+  color:
+    var(--notification-green);
+}
+
+.landing-notifications__state strong {
+  margin-bottom: 5px;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  color:
+    var(--notification-text);
+}
+
+.landing-notifications__state small {
+  max-width: 220px;
+
+  font-size: 11px;
+  line-height: 1.5;
+
+  color:
+    var(--notification-text-muted);
+}
+
+
+/* =========================================================
+   LOADER
+   ========================================================= */
+
+.landing-notifications__loader {
+  width: 27px;
+  height: 27px;
+
+  margin-bottom: 14px;
+
+  border-radius: 50%;
+
+  border:
+    2px solid
+    var(--notification-border);
+
+  border-top-color:
+    var(--notification-green);
+
+  animation:
+    landing-notification-spin
+    0.8s linear infinite;
+}
+
+@keyframes landing-notification-spin {
+  to {
+    transform:
+      rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.landing-notifications__footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 42px;
+
+  padding:
+    10px 16px;
+
+  border-top:
+    1px solid
+    var(--notification-border);
+
+  background:
+    var(--notification-surface);
+}
+
+.landing-notifications__footer span {
+  font-size: 10px;
+  font-weight: 500;
+
+  color:
+    var(--notification-text-muted);
+}
+
+
+/* =========================================================
+   LIGHT NAVBAR SUPPORT
+   =========================================================
+   If the navbar becomes white after scrolling,
+   this keeps the trigger readable.
+   ========================================================= */
+
+.landing-navbar--scrolled
+.landing-notifications__trigger {
+  color:
+    var(--notification-text);
+
+  background:
+    var(--notification-surface);
+
+  border-color:
+    var(--notification-border);
+}
+
+.landing-navbar--scrolled
+.landing-notifications__trigger:hover {
+  background:
+    var(--notification-surface-hover);
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .landing-notifications__panel {
+    position: fixed;
+
+    top: 78px;
+    left: 16px;
+    right: 16px;
+
+    width: auto;
+
+    max-height:
+      calc(100vh - 100px);
+
+    border-radius: 20px;
+
+    transform-origin: top center;
+  }
+
+  .landing-notifications__panel::before {
+    display: none;
+  }
+
+  .landing-notifications__content {
+    max-height:
+      calc(100vh - 210px);
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+  .landing-notifications__panel {
+    top: 70px;
+    left: 10px;
+    right: 10px;
+
+    border-radius: 18px;
+  }
+
+  .landing-notifications__header {
+    padding:
+      15px;
+  }
+
+  .landing-notifications__content {
+    padding: 6px;
+  }
+
+  .landing-notification {
+    padding: 12px;
+
+    gap: 11px;
+  }
+
+  .landing-notification__icon {
+    width: 36px;
+    height: 36px;
+
+    border-radius: 11px;
+  }
+
+  .landing-notification__top strong {
+    font-size: 13px;
+  }
+
+  .landing-notification__body p {
+    font-size: 11.5px;
+  }
+
+  .landing-notifications__trigger {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
+  .landing-notifications *,
+  .landing-notifications *::before,
+  .landing-notifications *::after {
+    animation-duration:
+      0.01ms !important;
+
+    animation-iteration-count:
+      1 !important;
+
+    transition-duration:
+      0.01ms !important;
+  }
+}
+
+/* Header actions */
+
+.landing-notifications__header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.landing-notifications__clear {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  padding: 7px 9px;
+
+  border: none;
+  border-radius: 9px;
+
+  background: transparent;
+  color: var(--notification-green);
+
+  font-size: 10px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.landing-notifications__clear:hover {
+  background:
+    var(--notification-green-soft);
+}
+
+
+/* Notification top actions */
+
+.landing-notification__top-actions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  flex-shrink: 0;
+}
+
+
+/* Individual dismiss button */
+
+.landing-notification__dismiss {
+  width: 25px;
+  height: 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 8px;
+
+  background: transparent;
+
+  color:
+    var(--notification-text-muted);
+
+  cursor: pointer;
+
+  opacity: 0;
+
+  transition:
+    opacity 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.landing-notification:hover
+.landing-notification__dismiss {
+  opacity: 1;
+}
+
+.landing-notification__dismiss:hover {
+  background:
+    var(--notification-danger-soft);
+
+  color:
+    var(--notification-danger);
+}
+
+
+/* Bottom row */
+
+.landing-notification__bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 10px;
+}
+
+
+/* View action */
+
+.landing-notification__action {
+  flex-shrink: 0;
+
+  padding: 5px 9px;
+
+  border-radius: 8px;
+
+  background:
+    var(--notification-green-soft);
+
+  color:
+    var(--notification-green);
+
+  text-decoration: none;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.landing-notification__action:hover {
+  background:
+    var(--notification-surface-hover);
+
+  transform:
+    translateX(2px);
+}
+
+
+/* Mobile */
+
+@media (max-width: 480px) {
+  .landing-notifications__clear span {
+    display: none;
+  }
+
+  .landing-notification__dismiss {
+    opacity: 1;
+  }
+}
