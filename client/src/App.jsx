@@ -156,7 +156,7 @@ import AdminReportDetailsPage
   from "./pages/admin/adminReportDetailsPage";
 
   import AdminAccessPage
-  from "./pages/admin/AdminAccessPage";
+  from "./pages/admin/adminAccessPage";
 
   import AdminTestimonialsPage
   from "./pages/admin/adminTestimonialPage";
