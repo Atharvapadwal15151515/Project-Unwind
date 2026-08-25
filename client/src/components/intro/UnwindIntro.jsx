@@ -11,12 +11,10 @@ import unwindIntroVideo
 export default function UnwindIntro({
   onComplete
 }) {
-  const videoRef =
-    useRef(null);
+  const videoRef = useRef(null);
 
   useEffect(() => {
-    const video =
-      videoRef.current;
+    const video = videoRef.current;
 
     if (!video) {
       return;
@@ -32,17 +30,21 @@ export default function UnwindIntro({
     );
 
     video.currentTime = 0;
-    video.volume = 1;
     video.muted = false;
+    video.volume = 1;
 
-    video
-      .play()
-      .catch((error) => {
+    const startVideo = async () => {
+      try {
+        await video.play();
+      } catch (error) {
         console.warn(
-          "Intro autoplay with audio was blocked:",
+          "Browser blocked autoplay with audio:",
           error
         );
-      });
+      }
+    };
+
+    startVideo();
 
     return () => {
       video.removeEventListener(
@@ -60,7 +62,6 @@ export default function UnwindIntro({
         ref={videoRef}
         className="unwind-intro-video"
         src={unwindIntroVideo}
-        autoPlay
         playsInline
         preload="auto"
       />
