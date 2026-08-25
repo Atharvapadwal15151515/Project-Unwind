@@ -31,7 +31,7 @@ import {
   getAdminReports
 } from "../../services/admin/adminReport.service";
 
-import "./AdminReportsPage.css";
+import "./adminReportsPage.css";
 
 
 const STATUS_OPTIONS = [

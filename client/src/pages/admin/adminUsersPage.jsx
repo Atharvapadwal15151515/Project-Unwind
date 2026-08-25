@@ -28,7 +28,7 @@ import {
   getAdminUsers
 } from "../../services/admin/adminUser.service";
 
-import "./AdminUsersPage.css";
+import "./adminUsersPage.css";
 
 
 function AdminUsersPage() {

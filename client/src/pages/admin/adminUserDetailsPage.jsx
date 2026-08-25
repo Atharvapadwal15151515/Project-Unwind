@@ -40,7 +40,7 @@ import {
   restoreAdminUser
 } from "../../services/admin/adminModeration.service";
 
-import "./AdminUserDetailsPage.css";
+import "./adminUserDetailsPage.css";
 
 
 function AdminUserDetailsPage() {

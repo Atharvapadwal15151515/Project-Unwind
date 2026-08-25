@@ -24,7 +24,7 @@ import {
   getAdminDashboard
 } from "../../services/admin/adminDashboard.service";
 
-import "./AdminDashboardPage.css";
+import "./adminDashboardPage.css";
 
 
 function AdminDashboardPage() {

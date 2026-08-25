@@ -44,7 +44,7 @@ import {
 import {
   removeAdminCommunityContent
 } from "../../services/admin/adminCommunity.service";
-import "./AdminReportDetailsPage.css";
+import "./adminReportDetailsPage.css";
 
 
 const RESOLUTION_ACTIONS = [

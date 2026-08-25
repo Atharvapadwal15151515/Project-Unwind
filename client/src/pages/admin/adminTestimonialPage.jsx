@@ -23,7 +23,7 @@ import {
   rejectAdminTestimonial
 } from "../../services/admin/adminTestimonial.service";
 
-import "./AdminTestimonialPage.css";
+import "./adminTestimonialPage.css";
 
 
 function AdminTestimonialsPage() {

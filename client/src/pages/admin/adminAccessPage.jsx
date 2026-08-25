@@ -18,7 +18,7 @@ import {
   verifyAdminAccess
 } from "../../services/admin/adminAccess.service";
 
-import "./AdminAccessPage.css";
+import "./adminAccessPage.css";
 
 
 function AdminAccessPage() {
