@@ -1,6 +1,7 @@
 import {
   useEffect,
-  useRef
+  useRef,
+  useState
 } from "react";
 
 import "./UnwindIntro.css";
@@ -11,10 +12,17 @@ import unwindIntroVideo
 export default function UnwindIntro({
   onComplete
 }) {
-  const videoRef = useRef(null);
+  const videoRef =
+    useRef(null);
+
+  const [
+    needsInteraction,
+    setNeedsInteraction
+  ] = useState(false);
 
   useEffect(() => {
-    const video = videoRef.current;
+    const video =
+      videoRef.current;
 
     if (!video) {
       return;
@@ -29,32 +37,48 @@ export default function UnwindIntro({
       handleEnded
     );
 
-    video.currentTime = 0;
     video.muted = false;
     video.volume = 1;
 
-    const startVideo = async () => {
-      try {
-        await video.play();
-      } catch (error) {
-        console.warn(
-          "Browser blocked autoplay with audio:",
-          error
-        );
-      }
-    };
-
-    startVideo();
+    video
+      .play()
+      .then(() => {
+        setNeedsInteraction(false);
+      })
+      .catch(() => {
+        setNeedsInteraction(true);
+      });
 
     return () => {
       video.removeEventListener(
         "ended",
         handleEnded
       );
-
-      video.pause();
     };
   }, [onComplete]);
+
+  const handleStart = async () => {
+    const video =
+      videoRef.current;
+
+    if (!video) {
+      return;
+    }
+
+    try {
+      video.muted = false;
+      video.volume = 1;
+
+      await video.play();
+
+      setNeedsInteraction(false);
+    } catch (error) {
+      console.warn(
+        "Intro video playback failed:",
+        error
+      );
+    }
+  };
 
   return (
     <div className="unwind-intro">
@@ -65,6 +89,16 @@ export default function UnwindIntro({
         playsInline
         preload="auto"
       />
+
+      {needsInteraction && (
+        <button
+          type="button"
+          className="unwind-intro-start"
+          onClick={handleStart}
+        >
+          Enter UNWIND
+        </button>
+      )}
     </div>
   );
 }
