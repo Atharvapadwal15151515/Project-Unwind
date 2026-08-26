@@ -1204,8 +1204,21 @@ isMessageDeleted={
             </header>
 
             <div className="messages-details-panel__body">
-              <section className="messages-room-summary">
-                <span className="messages-room-summary__icon">
+            <section className="messages-room-summary">
+
+  <button
+    type="button"
+    className="messages-room-summary__close"
+    onClick={() =>
+      setDetailsOpen(false)
+    }
+    aria-label="Close room details"
+    title="Close"
+  >
+    <X size={18} />
+  </button>
+
+  <span className="messages-room-summary__icon">
                   {activeRoomLocked ? (
                     <Lock
                       size={22}
