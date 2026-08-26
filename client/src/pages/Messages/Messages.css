@@ -1715,6 +1715,20 @@
   .message-composer textarea {
     font-size: var(--text-sm);
   }
+
+  .message-composer__emoji-picker {
+  position: fixed;
+
+  right: 12px;
+  bottom: 90px;
+  left: 12px;
+}
+
+.message-composer__emoji-picker
+  .EmojiPickerReact {
+  width: 100% !important;
+  max-width: 100%;
+}
 }
 
 /* =========================================================
@@ -1851,8 +1865,52 @@
 
 .message-composer {
   grid-template-columns:
+    auto
     minmax(0, 1fr)
-    auto !important;
+    auto;
+}
+.message-composer__emoji-wrapper {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+}
+
+.message-composer__emoji-button {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  padding: 0;
+
+  border: 0;
+  border-radius: 11px;
+
+  color:
+    var(--dashboard-muted);
+
+  background:
+    transparent;
+
+  cursor: pointer;
+}
+
+.message-composer__emoji-button:hover {
+  color:
+    var(--dashboard-primary);
+
+  background:
+    var(--dashboard-primary-soft);
+}
+
+.message-composer__emoji-picker {
+  position: absolute;
+
+  z-index: 1200;
+
+  bottom:
+    calc(100% + 10px);
+
+  left: 0;
 }
 
 /* ---------------------------------------------------------

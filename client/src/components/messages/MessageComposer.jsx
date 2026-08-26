@@ -1,7 +1,9 @@
+import EmojiPicker from "emoji-picker-react";
 import {
   LoaderCircle,
   Reply,
   Send,
+  Smile,
   X
 } from "lucide-react";
 
@@ -25,9 +27,15 @@ function MessageComposer({
     value,
     setValue
   ] = useState("");
+  const [
+  emojiOpen,
+  setEmojiOpen
+] = useState(false);
 
   const textareaRef =
     useRef(null);
+    const emojiPickerRef =
+  useRef(null);
 
   useEffect(() => {
     if (
@@ -52,6 +60,80 @@ function MessageComposer({
     getMessageText
   ]);
 
+  useEffect(() => {
+  const handleClickOutside =
+    (event) => {
+      if (
+        emojiOpen &&
+        emojiPickerRef.current &&
+        !emojiPickerRef.current.contains(
+          event.target
+        )
+      ) {
+        setEmojiOpen(false);
+      }
+    };
+
+  document.addEventListener(
+    "mousedown",
+    handleClickOutside
+  );
+
+  return () => {
+    document.removeEventListener(
+      "mousedown",
+      handleClickOutside
+    );
+  };
+}, [emojiOpen]);
+
+  const insertEmoji =
+  (emoji) => {
+    const textarea =
+      textareaRef.current;
+
+    if (!textarea) {
+      setValue(
+        (current) =>
+          `${current}${emoji}`
+      );
+
+      return;
+    }
+
+    const start =
+      textarea.selectionStart;
+
+    const end =
+      textarea.selectionEnd;
+
+    setValue(
+      (current) =>
+        current.slice(
+          0,
+          start
+        ) +
+        emoji +
+        current.slice(
+          end
+        )
+    );
+
+    requestAnimationFrame(
+      () => {
+        const nextPosition =
+          start +
+          emoji.length;
+
+        textarea.focus();
+
+        textarea.setSelectionRange(
+          nextPosition,
+          nextPosition
+        );
+      }
+    );
+  };
   const submit =
     async () => {
       const text =
@@ -154,7 +236,48 @@ function MessageComposer({
       )}
 
       <div className="message-composer">
+<div
+  ref={emojiPickerRef}
+  className="message-composer__emoji-wrapper"
+>
+  <button
+    type="button"
+    className="message-composer__emoji-button"
+    disabled={disabled}
+    onClick={() =>
+      setEmojiOpen(
+        (current) =>
+          !current
+      )
+    }
+    aria-label="Choose emoji"
+  >
+    <Smile size={19} />
+  </button>
 
+  {emojiOpen && (
+    <div
+      ref={emojiPickerRef}
+      className="message-composer__emoji-picker"
+    >
+      <EmojiPicker
+        onEmojiClick={(
+          emojiData
+        ) => {
+          insertEmoji(
+            emojiData.emoji
+          );
+        }}
+        lazyLoadEmojis
+        searchDisabled={false}
+        skinTonesDisabled={false}
+        previewConfig={{
+          showPreview: false
+        }}
+      />
+    </div>
+  )}
+</div>
         <textarea
           ref={textareaRef}
           rows={1}
