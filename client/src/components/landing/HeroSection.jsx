@@ -54,11 +54,6 @@ const {
   className="premium-hero__media"
   aria-hidden="true"
 >
-  <img
-    src="/images/hero-poster.jpg"
-    alt=""
-  />
-
   <div className="premium-hero__overlay" />
 </div>
 
