@@ -2891,6 +2891,82 @@ button:disabled {
   transform: none;
 }
 
+/* =========================================================
+   MOBILE VOICE NOTE READY UI
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .journal-voice-recorder__preview {
+    gap: 12px;
+  }
+
+
+  .journal-voice-recorder__custom-player {
+    grid-template-columns:
+      auto
+      minmax(0, 1fr);
+
+    gap: 12px;
+
+    padding: 13px;
+
+    border-radius: 15px;
+  }
+
+
+  .journal-voice-recorder__play {
+    width: 48px;
+    height: 48px;
+  }
+
+
+  .journal-voice-recorder__custom-player
+  strong {
+    font-size:
+      var(--text-base);
+  }
+
+
+  .journal-voice-recorder__custom-player
+  small {
+    font-size:
+      var(--text-xs);
+  }
+
+
+  .journal-voice-recorder__preview-actions {
+    grid-template-columns:
+      1fr;
+
+    gap: 9px;
+  }
+
+
+  .journal-voice-recorder__preview-actions
+  button {
+    min-height: 52px;
+
+    justify-content:
+      flex-start;
+
+    padding:
+      10px
+      14px;
+
+    border-radius: 14px;
+
+    font-size:
+      var(--text-base);
+  }
+
+
+  .journal-voice-recorder__preview-actions
+  button svg {
+    flex: 0 0 auto;
+  }
+}
+
 .journal-voice-recorder__error,
 .journal-voice-section__error,
 .journal-voice-transcript__error {
