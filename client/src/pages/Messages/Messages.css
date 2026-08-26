@@ -1486,6 +1486,8 @@
   }
 
   .messages-layout {
+    position: relative;
+
     width: 100%;
 
     height:
@@ -1516,42 +1518,84 @@
       8px
       9px;
   }
-}
 
-.message-composer-wrapper {
-  width: min(820px, 100%);
-  margin: 0 auto;
-}
+  .message-composer-wrapper {
+    width:
+      min(
+        820px,
+        100%
+      );
+
+    margin:
+      0 auto;
+  }
 
   .messages-sidebar-shell {
     position: absolute;
+
     z-index: 220;
+
     top: 0;
     bottom: 0;
     left: 0;
-    width: min(300px, 88vw);
-    box-shadow: 18px 0 45px rgba(8, 33, 28, 0.18);
-    transform: translateX(-105%);
-    transition: transform 200ms ease;
+
+    width:
+      min(
+        300px,
+        88vw
+      );
+
+    box-shadow:
+      18px
+      0
+      45px
+      rgba(
+        8,
+        33,
+        28,
+        0.18
+      );
+
+    transform:
+      translateX(-105%);
+
+    transition:
+      transform
+      200ms ease;
   }
 
   .messages-sidebar-shell--open {
-    transform: translateX(0);
+    transform:
+      translateX(0);
   }
 
   .messages-mobile-overlay {
     position: fixed;
+
     z-index: 210;
+
     inset: 0;
+
     border: 0;
-    background: rgba(10, 31, 27, 0.4);
+
+    background:
+      rgba(
+        10,
+        31,
+        27,
+        0.4
+      );
+
     opacity: 0;
+
     pointer-events: none;
   }
 
   .messages-mobile-overlay--open {
     display: block;
+
     opacity: 1;
+
     pointer-events: auto;
   }
 
@@ -1561,26 +1605,43 @@
 
   .messages-mobile-menu-button {
     position: absolute;
+
     top: 12px;
     left: 12px;
+
     display: grid;
+
     width: 35px;
     height: 35px;
+
     place-items: center;
+
     padding: 0;
-    border: 1px solid var(--dashboard-border);
+
+    border:
+      1px solid
+      var(--dashboard-border);
+
     border-radius: 10px;
-    color: var(--dashboard-text);
-    background: var(--dashboard-surface);
+
+    color:
+      var(--dashboard-text);
+
+    background:
+      var(--dashboard-surface);
   }
 
   .message-list {
-    padding: 17px 12px 24px;
+    padding:
+      17px
+      12px
+      24px;
   }
 
   .message-bubble-content {
     max-width: 82%;
   }
+}
 
 
 @media (max-width: 520px) {
