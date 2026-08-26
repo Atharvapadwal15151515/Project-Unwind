@@ -604,21 +604,49 @@ export async function regeneratePrivateRoomInvite({
   userId,
 }) {
   await requirePrivateRoom(roomId);
-  await requirePrivateRoomOwner(roomId, userId);
-
-  const inviteToken = generateInviteToken();
-
-  const room = await updatePrivateRoomInviteToken(
+  await requirePrivateRoomOwner(
     roomId,
-    inviteToken
+    userId
   );
+
+  const roomCode =
+    await createUniqueRoomCode();
+
+  const result =
+    await pool.query(
+      `
+        UPDATE chat_rooms
+        SET
+          room_code = $2,
+          updated_at = NOW()
+        WHERE room_id = $1
+          AND room_type = 'private'
+          AND is_active = TRUE
+        RETURNING *
+      `,
+      [
+        roomId,
+        roomCode
+      ]
+    );
+
+  const room =
+    result.rows[0];
+
+  if (!room) {
+    throw createServiceError(
+      "Unable to regenerate room code.",
+      500,
+      "ROOM_CODE_REGENERATION_FAILED"
+    );
+  }
 
   return {
     room,
-    invite_token: inviteToken,
+    room_code:
+      roomCode
   };
 }
-
 export async function removeMemberFromPrivateRoom({
   roomId,
   ownerUserId,

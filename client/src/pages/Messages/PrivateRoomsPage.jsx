@@ -1455,7 +1455,7 @@ isMessageDeleted={
                           size={15}
                         />
 
-                        Regenerate invite
+                        Regenerate Code
                       </button>
                     </div>
                   )}

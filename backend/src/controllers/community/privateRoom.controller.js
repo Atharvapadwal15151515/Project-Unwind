@@ -307,7 +307,8 @@ export async function regeneratePrivateRoomInviteController(
 
     return res.status(200).json({
       success: true,
-      message: "Private room invite regenerated.",
+      message:
+  "Private room code regenerated.",
       data: room,
     });
   } catch (error) {
