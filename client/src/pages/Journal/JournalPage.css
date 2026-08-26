@@ -2586,37 +2586,309 @@
   }
 }
 
+/* =========================================================
+   VOICE NOTE READY UI
+========================================================= */
+
 .journal-voice-recorder__preview {
   display: grid;
-  gap: 11px;
-}
 
-.journal-voice-recorder__preview audio {
+  gap: 14px;
+
   width: 100%;
 }
 
-.journal-voice-recorder__preview-actions {
-  display: flex;
 
-  gap: 9px;
+/* Hide native audio controls.
+   We already use our custom player button. */
 
-  flex-wrap: wrap;
+.journal-voice-recorder__preview > audio {
+  display: none;
 }
 
-.journal-voice-recorder__preview-actions button {
-  display: inline-flex;
+
+/* =========================================================
+   CUSTOM PLAYER CARD
+========================================================= */
+
+.journal-voice-recorder__custom-player {
+  display: grid;
+
+  width: 100%;
+
+  grid-template-columns:
+    auto
+    minmax(0, 1fr);
+
   align-items: center;
 
-  gap: 6px;
+  gap: 14px;
 
-  padding: 9px 12px;
+  padding: 14px;
 
-  border: 1px solid
-    var(--dashboard-border);
+  border:
+    1px solid
+    color-mix(
+      in srgb,
+      var(--dashboard-primary) 24%,
+      var(--dashboard-border)
+    );
 
-  border-radius: 9px;
+  border-radius: 16px;
+
+  background:
+    color-mix(
+      in srgb,
+      var(--dashboard-primary-soft) 28%,
+      var(--dashboard-surface-solid)
+    );
+
+  box-shadow:
+    0 8px 24px
+    rgba(
+      20,
+      75,
+      65,
+      0.05
+    );
+}
+
+
+/* Play button */
+
+.journal-voice-recorder__play {
+  display: grid;
+
+  width: 50px;
+  height: 50px;
+
+  flex: 0 0 auto;
+
+  place-items: center;
+
+  padding: 0;
+
+  border:
+    2px solid
+    color-mix(
+      in srgb,
+      var(--dashboard-primary) 65%,
+      transparent
+    );
+
+  border-radius: 50%;
+
+  color:
+    var(--dashboard-primary);
+
+  background:
+    color-mix(
+      in srgb,
+      var(--dashboard-primary-soft) 75%,
+      transparent
+    );
 
   cursor: pointer;
+
+  transition:
+    transform 150ms ease,
+    background 150ms ease,
+    border-color 150ms ease;
+}
+
+
+.journal-voice-recorder__play:hover:not(
+  :disabled
+) {
+  transform:
+    scale(1.05);
+
+  border-color:
+    var(--dashboard-primary);
+
+  background:
+    var(--dashboard-primary-soft);
+}
+
+
+/* Voice file information */
+
+.journal-voice-recorder__custom-player
+> div {
+  min-width: 0;
+}
+
+
+.journal-voice-recorder__custom-player
+strong {
+  display: block;
+
+  color:
+    var(--dashboard-text);
+
+  font-size:
+    var(--text-base);
+
+  font-weight: 800;
+}
+
+
+.journal-voice-recorder__custom-player
+small {
+  display: block;
+
+  max-width: 100%;
+
+  margin-top: 4px;
+
+  overflow: hidden;
+
+  color:
+    var(--dashboard-muted);
+
+  font-size:
+    var(--text-xs);
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   PREVIEW ACTIONS
+========================================================= */
+
+.journal-voice-recorder__preview-actions {
+  display: grid;
+
+  width: 100%;
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
+
+  gap: 9px;
+}
+
+
+.journal-voice-recorder__preview-actions
+button {
+  display: inline-flex;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  padding:
+    9px
+    11px;
+
+  border:
+    1px solid
+    var(--dashboard-border);
+
+  border-radius: 12px;
+
+  color:
+    var(--dashboard-text);
+
+  background:
+    var(--dashboard-surface-solid);
+
+  font-size:
+    var(--text-sm);
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    transform 150ms ease,
+    border-color 150ms ease,
+    background 150ms ease;
+}
+
+
+.journal-voice-recorder__preview-actions
+button:hover:not(:disabled) {
+  transform:
+    translateY(-1px);
+}
+
+
+/* Record again */
+
+.journal-voice-recorder__preview-actions
+button:nth-child(1) {
+  color:
+    var(--dashboard-text);
+
+  background:
+    var(--dashboard-surface);
+}
+
+
+/* Use voice note */
+
+.journal-voice-recorder__preview-actions
+button:nth-child(2) {
+  border-color:
+    color-mix(
+      in srgb,
+      var(--dashboard-primary) 32%,
+      var(--dashboard-border)
+    );
+
+  color:
+    var(--dashboard-primary);
+
+  background:
+    var(--dashboard-primary-soft);
+}
+
+
+/* Convert to text */
+
+.journal-voice-recorder__preview-actions
+button:nth-child(3) {
+  border-color:
+    color-mix(
+      in srgb,
+      var(--dashboard-gold) 45%,
+      var(--dashboard-border)
+    );
+
+  color:
+    color-mix(
+      in srgb,
+      var(--dashboard-gold) 75%,
+      var(--dashboard-text)
+    );
+
+  background:
+    color-mix(
+      in srgb,
+      var(--dashboard-surface-solid) 90%,
+      var(--dashboard-gold)
+    );
+}
+
+
+.journal-voice-recorder__preview-actions
+button:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+
+  transform: none;
 }
 
 .journal-voice-recorder__error,
