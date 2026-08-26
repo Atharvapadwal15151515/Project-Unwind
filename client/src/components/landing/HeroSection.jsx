@@ -50,19 +50,17 @@ const {
 
   return (
     <section className="premium-hero">
-      <div className="premium-hero__media" aria-hidden="true">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="/images/hero-poster.jpg"
-        >
-          <source src="/videos/unwind-hero.mp4" type="video/mp4" />
-        </video>
+      <div
+  className="premium-hero__media"
+  aria-hidden="true"
+>
+  <img
+    src="/images/hero-poster.jpg"
+    alt=""
+  />
 
-        <div className="premium-hero__overlay" />
-      </div>
+  <div className="premium-hero__overlay" />
+</div>
 
       <motion.div
         className="premium-hero__orb premium-hero__orb--one"
