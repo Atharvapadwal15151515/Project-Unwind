@@ -1,6 +1,7 @@
 const REFRESH_COOKIE_NAME =
   "refreshToken";
 
+
 function getBaseCookieOptions() {
   const isProduction =
     process.env.NODE_ENV ===
@@ -11,13 +12,12 @@ function getBaseCookieOptions() {
 
     secure: isProduction,
 
-    sameSite: isProduction
-      ? "none"
-      : "lax",
+    sameSite: "lax",
 
     path: "/"
   };
 }
+
 
 export function sendRefreshTokenCookie(
   res,
@@ -30,12 +30,14 @@ export function sendRefreshTokenCookie(
 
   const options = {
     httpOnly: true,
+
     secure: isProduction,
-    sameSite: isProduction
-      ? "none"
-      : "lax",
+
+    sameSite: "lax",
+
     path: "/"
   };
+
 
   if (rememberMe) {
     options.maxAge =
@@ -46,12 +48,14 @@ export function sendRefreshTokenCookie(
       1000;
   }
 
+
   res.cookie(
-    "refreshToken",
+    REFRESH_COOKIE_NAME,
     refreshToken,
     options
   );
 }
+
 
 export function clearRefreshTokenCookie(
   res

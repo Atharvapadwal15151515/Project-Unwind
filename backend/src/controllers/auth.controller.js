@@ -269,6 +269,15 @@ export async function refreshToken(
     const currentRefreshToken =
       req.cookies?.refreshToken;
 
+      if (!currentRefreshToken) {
+  clearRefreshTokenCookie(res);
+
+  return res.status(401).json({
+    success: false,
+    message: "No active session"
+  });
+}
+
     const result =
       await refreshUserSession(
         currentRefreshToken

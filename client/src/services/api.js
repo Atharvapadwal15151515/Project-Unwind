@@ -7,8 +7,12 @@ import {
 } from "../utils/journalSecuritySession";
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_URL ||
-  "http://localhost:5000/api";
+  import.meta.env.PROD
+    ? "/api"
+    : (
+        import.meta.env.VITE_API_URL ||
+        "http://localhost:5000/api"
+      );
 
 const TOKEN_STORAGE_KEY =
   "unwind_access_token";
@@ -233,16 +237,15 @@ api.interceptors.response.use(
       );
 
     if (
-      !isUnauthorized ||
-      originalRequest?._retry ||
-      isRefreshRequest ||
-      isLoginRequest ||
-      isRegisterRequest ||
-      isJournalPinFailure
-    ) {
-      return Promise.reject(error);
-    }
-
+  !isUnauthorized ||
+  originalRequest?._retry ||
+  isRefreshRequest ||
+  isLoginRequest ||
+  isRegisterRequest ||
+  isJournalPinFailure
+) {
+  return Promise.reject(error);
+}
     originalRequest._retry = true;
 
     try {
@@ -255,19 +258,31 @@ api.interceptors.response.use(
         `Bearer ${newAccessToken}`;
 
       return api(originalRequest);
-    } catch (refreshError) {
-      clearAccessToken();
+   } catch (refreshError) {
+  clearAccessToken();
 
-      window.dispatchEvent(
-        new CustomEvent(
-          "unwind:session-expired"
-        )
-      );
+  const status =
+    refreshError?.response?.status;
 
-      return Promise.reject(
-        refreshError
-      );
-    }
+  if (status === 401) {
+    window.dispatchEvent(
+      new CustomEvent(
+        "unwind:session-expired"
+      )
+    );
+
+    return Promise.reject(
+      new Error(
+        "SESSION_EXPIRED"
+      )
+    );
+  }
+
+  return Promise.reject(
+    refreshError
+  );
+}
+ 
   }
 );
 
