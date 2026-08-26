@@ -2622,9 +2622,13 @@
 
   align-items: center;
 
-  gap: 14px;
+  gap: 16px;
 
-  padding: 14px;
+  padding:
+    16px
+    18px;
+
+  min-height: 78px;
 
   border:
     1px solid
@@ -2765,14 +2769,12 @@ small {
   width: 100%;
 
   grid-template-columns:
-    repeat(
-      3,
-      minmax(0, 1fr)
-    );
+    minmax(0, 0.9fr)
+    minmax(0, 1.15fr)
+    minmax(0, 1.25fr);
 
-  gap: 9px;
+  gap: 10px;
 }
-
 
 .journal-voice-recorder__preview-actions
 button {
@@ -2780,22 +2782,22 @@ button {
 
   width: 100%;
   min-width: 0;
-  min-height: 44px;
+  min-height: 48px;
 
   align-items: center;
   justify-content: center;
 
-  gap: 7px;
+  gap: 8px;
 
   padding:
-    9px
-    11px;
+    10px
+    14px;
 
   border:
     1px solid
     var(--dashboard-border);
 
-  border-radius: 12px;
+  border-radius: 13px;
 
   color:
     var(--dashboard-text);
@@ -2806,16 +2808,40 @@ button {
   font-size:
     var(--text-sm);
 
-  font-weight: 800;
+  font-weight: 750;
+
+  line-height: 1.2;
+
+  white-space: nowrap;
 
   cursor: pointer;
 
   transition:
-    transform 150ms ease,
-    border-color 150ms ease,
-    background 150ms ease;
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
 }
 
+.journal-voice-recorder__preview-actions
+button svg {
+  flex: 0 0 auto;
+}
+
+.journal-voice-recorder__preview-actions
+button:hover:not(:disabled) {
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 7px 18px
+    rgba(
+      20,
+      75,
+      65,
+      0.08
+    );
+}
 
 .journal-voice-recorder__preview-actions
 button:hover:not(:disabled) {
