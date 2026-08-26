@@ -680,7 +680,7 @@ useEffect(() => {
                     size={17}
                   />
 
-                  Pause
+                  
                 </>
               )}
             </button>
@@ -696,7 +696,7 @@ useEffect(() => {
                 size={17}
               />
 
-              Stop
+              
             </button>
           </div>
         </div>
