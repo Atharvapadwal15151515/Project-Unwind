@@ -4,7 +4,6 @@ import {
   DoorOpen,
   Flag,
   Info,
-  Link2,
   LoaderCircle,
   Lock,
   Menu,
@@ -42,6 +41,9 @@ import TypingIndicator from "../../components/messages/TypingIndicator";
 
 import {
   getPrivateRoomDescription,
+getPrivateRoomId,
+getPrivateRoomCode,
+getPrivateRoomInviteToken,getPrivateRoomDescription,
   getPrivateRoomId,
   getPrivateRoomInviteToken,
   getPrivateRoomMaxMembers,
@@ -266,17 +268,10 @@ const confirm = useConfirm();
       activeRoom
     );
 
-  const inviteToken =
-    getPrivateRoomInviteToken(
-      activeRoom
-    );
-
-    const inviteLink =
-  inviteToken
-    ? `${window.location.origin}/dashboard/private-rooms?invite=${encodeURIComponent(
-        inviteToken
-      )}`
-    : "";
+  const roomCode =
+  getPrivateRoomCode(
+    activeRoom
+  );
 
   /*
   |--------------------------------------------------------------------------
@@ -695,19 +690,21 @@ const confirm = useConfirm();
   |--------------------------------------------------------------------------
   */
 
-  const copyInviteLink =
+ const copyRoomCode =
   async () => {
-    if (!inviteLink) {
+    if (!roomCode) {
       return;
     }
 
     try {
       await navigator.clipboard.writeText(
-        inviteLink
+        String(
+          roomCode
+        )
       );
     } catch (error) {
       console.error(
-        "Unable to copy invite link:",
+        "Unable to copy room code:",
         error
       );
     }
@@ -1468,7 +1465,7 @@ isMessageDeleted={
                 </section>
               )}
 
-             {inviteLink && (
+            {roomCode && (
   <section className="messages-details-section">
     <div className="messages-details-section__heading">
       <div>
@@ -1477,31 +1474,31 @@ isMessageDeleted={
         </span>
 
         <strong>
-          Invite link
+          Room code
         </strong>
       </div>
 
-      <Link2
+      <Lock
         size={17}
       />
     </div>
 
     <p className="messages-invite-description">
-      Share this link with someone
-      you want to invite to this
-      private room.
+      Share this 8-digit code with
+      someone you want to invite to
+      this private room.
     </p>
 
     <div className="messages-invite-token">
       <code>
-        Private invite link
+        {roomCode}
       </code>
 
       <button
         type="button"
-        title="Copy invite link"
+        title="Copy room code"
         onClick={
-          copyInviteLink
+          copyRoomCode
         }
       >
         <Copy
@@ -1511,7 +1508,6 @@ isMessageDeleted={
     </div>
   </section>
 )}
-
               <section className="messages-details-section">
                 <div className="messages-details-section__heading">
                   <div>

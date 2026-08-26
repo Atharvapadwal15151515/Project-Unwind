@@ -1180,7 +1180,7 @@
 
   background: transparent;
 
-  color: #111111;
+  color: var(--dashboard-text);
 }
 
 
@@ -1213,7 +1213,7 @@
   width: 55%;
   height: 55%;
 
-  color: #111111;
+  color: var(--dashboard-text);
 
   stroke-width: 2;
 }
@@ -1905,14 +1905,14 @@
 /* Mobile */
 
 @media (max-width: 720px) {
- .dashboard-topbar {
-  min-height: 72px;
+.dashboard-topbar {
+  min-height: 68px;
 
   padding:
-    10px
-    16px;
+    9px
+    10px;
 
-  gap: 12px;
+  gap: 8px;
 
   background:
     color-mix(
@@ -1939,11 +1939,77 @@
 
   overflow: hidden;
 
-  font-size: 22px;
+  font-size: 19px;
   line-height: 1.15;
 
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.dashboard-topbar__left {
+  min-width: 0;
+  flex: 1;
+
+  gap: 8px;
+}
+
+.dashboard-topbar__page-heading {
+  min-width: 0;
+  flex: 1;
+}
+
+.dashboard-topbar__right {
+  gap: 5px;
+}
+
+.dashboard-icon-button,
+.dashboard-search,
+.dashboard-search > button {
+  width: 38px;
+  height: 38px;
+
+  min-width: 38px;
+
+  border-radius: 12px;
+}
+
+.dashboard-user-menu__trigger {
+  width: 38px;
+  height: 38px;
+
+  min-width: 38px;
+
+  padding: 0;
+
+  align-items: center;
+  justify-content: center;
+
+  border:
+    1px solid
+    var(--dashboard-border);
+
+  border-radius: 12px;
+
+  background:
+    var(--dashboard-surface);
+}
+
+.dashboard-user-menu__avatar {
+  width: 32px;
+  height: 32px;
+
+  color:
+    var(--dashboard-text);
+
+  background:
+    var(--dashboard-surface-muted);
+}
+
+.dashboard-user-menu__avatar-placeholder {
+  color:
+    var(--dashboard-text);
+
+  stroke-width: 2;
 }
 
   .dashboard-topbar__page-heading p {
@@ -2126,6 +2192,34 @@
 }
 
 @media (max-width: 430px) {
+  .dashboard-topbar {
+  padding:
+    8px
+    8px;
+}
+
+.dashboard-topbar__right {
+  gap: 3px;
+}
+
+.dashboard-topbar__page-heading h1 {
+  font-size: 18px;
+}
+
+.dashboard-icon-button,
+.dashboard-search,
+.dashboard-search > button,
+.dashboard-user-menu__trigger {
+  width: 36px;
+  height: 36px;
+
+  min-width: 36px;
+}
+
+.dashboard-user-menu__avatar {
+  width: 30px;
+  height: 30px;
+}
   .dashboard-topbar__right {
     gap: 4px;
   }
