@@ -1479,7 +1479,7 @@
   }
 }
 
-@media (max-width: 780px) {
+
 @media (max-width: 780px) {
   .messages-page {
     padding: 8px;
@@ -1581,7 +1581,7 @@
   .message-bubble-content {
     max-width: 82%;
   }
-}
+
 
 @media (max-width: 520px) {
   .messages-chat-header {
@@ -1618,13 +1618,19 @@
     opacity: 1;
   }
 
-  .messages-details-panel {
-    top: 10px;
-    right: 10px;
-    bottom: 10px;
-    width: calc(100vw - 20px);
-  }
+ .messages-details-panel {
+  top: 0;
+  right: 0;
+  bottom: 0;
 
+  width: min(
+    360px,
+    92vw
+  );
+
+  border-radius:
+    18px 0 0 18px;
+}
 .messages-composer-footer {
   position: relative;
 
@@ -2205,4 +2211,43 @@
   .direct-message-item-title time {
     font-size: var(--text-xs);
   }
+}
+
+/* ==========================================================
+   UNWIND SCROLLBARS
+========================================================== */
+
+/* Firefox */
+.messages-page * {
+  scrollbar-width: thin;
+  scrollbar-color:
+    rgba(111, 212, 174, 0.32)
+    transparent;
+}
+
+
+/* Chrome / Edge / Safari */
+.messages-page *::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.messages-page *::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.messages-page *::-webkit-scrollbar-thumb {
+  background:
+    rgba(111, 212, 174, 0.26);
+
+  border-radius: 999px;
+}
+
+.messages-page *::-webkit-scrollbar-thumb:hover {
+  background:
+    rgba(111, 212, 174, 0.45);
+}
+
+.messages-page *::-webkit-scrollbar-corner {
+  background: transparent;
 }

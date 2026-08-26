@@ -153,3 +153,40 @@ video {
   color: var(--muted);
   line-height: 1.7;
 }
+
+/* Firefox */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color:
+    rgba(111, 212, 174, 0.28)
+    transparent;
+}
+
+
+/* Chrome / Edge / Safari */
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background:
+    rgba(111, 212, 174, 0.25);
+
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background:
+    rgba(111, 212, 174, 0.45);
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}

@@ -6,7 +6,7 @@ import {
   Navigate,
   Route,
   Routes,
-  uselocation
+  useLocation
 } from "react-router-dom";
 
 import UnwindIntro
@@ -246,14 +246,19 @@ function NotFoundPage() {
 }
 
 function App() {
-
   const location =
     useLocation();
 
   const [
     introComplete,
     setIntroComplete
-  ] = useState(false);
+  ] = useState(() => {
+    return (
+      sessionStorage.getItem(
+        "unwind_intro_seen"
+      ) === "true"
+    );
+  });
 
   const shouldShowIntro =
     location.pathname === "/" &&
@@ -263,6 +268,11 @@ function App() {
     return (
       <UnwindIntro
         onComplete={() => {
+          sessionStorage.setItem(
+            "unwind_intro_seen",
+            "true"
+          );
+
           setIntroComplete(true);
         }}
       />

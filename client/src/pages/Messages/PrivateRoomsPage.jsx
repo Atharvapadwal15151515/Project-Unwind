@@ -356,32 +356,37 @@ const confirm = useConfirm();
   */
 
   const handleJoinRoom =
-    async (
-      event
-    ) => {
-      event.preventDefault();
+  async (
+    event
+  ) => {
+    event.preventDefault();
 
-      const value =
-        joinValue.trim();
+    const value =
+      joinValue.trim();
 
-      if (!value) {
-        return;
-      }
+    if (
+      !/^\d{8}$/.test(
+        value
+      )
+    ) {
+      return;
+    }
 
-      try {
-       await joinByCode(
-  value
-);
+    try {
+      await joinByCode(
+        value
+      );
 
-        setJoinValue("");
-        setJoinModalOpen(
-          false
-        );
+      setJoinValue("");
 
-        setMobileRoomsOpen(
-          false
-        );
-      } catch {
+      setJoinModalOpen(
+        false
+      );
+
+      setMobileRoomsOpen(
+        false
+      );
+    } catch {
         // Hook handles the error.
       }
     };
@@ -1972,25 +1977,7 @@ isMessageDeleted={
               </button>
             </header>
 
-            <div className="messages-tab-switch">
-              
-              <button
-                type="button"
-                className={
-                  joinMode ===
-                  "invite"
-                    ? "messages-tab-switch__active"
-                    : ""
-                }
-                onClick={() =>
-                  setJoinMode(
-                    "invite"
-                  )
-                }
-              >
-                Invite token
-              </button>
-            </div>
+            
 
             <form
               onSubmit={
@@ -2003,15 +1990,23 @@ isMessageDeleted={
   </span>
 
   <input
-    required
-    placeholder="Enter room code"
-    value={joinValue}
-    onChange={(event) =>
-      setJoinValue(
-        event.target.value
-      )
-    }
-  />
+  required
+  type="text"
+  inputMode="numeric"
+  autoComplete="off"
+  placeholder="Enter 8-digit room code"
+  value={joinValue}
+  maxLength={8}
+  pattern="[0-9]{8}"
+  onChange={(event) => {
+    const value =
+      event.target.value
+        .replace(/\D/g, "")
+        .slice(0, 8);
+
+    setJoinValue(value);
+  }}
+/>
 </label>
 
               <button

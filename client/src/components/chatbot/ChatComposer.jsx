@@ -1,7 +1,6 @@
 import {
   ArrowUp,
   LoaderCircle,
-  Paperclip,
   Square
 } from "lucide-react";
 
@@ -135,17 +134,7 @@ function ChatComposer({
           .filter(Boolean)
           .join(" ")}
       >
-        <button
-          type="button"
-          className="chat-composer__attachment"
-          disabled
-          title="Attachments coming later"
-          aria-label="Attach file"
-        >
-          <Paperclip
-            size={19}
-          />
-        </button>
+        
 
         <textarea
           ref={textareaRef}

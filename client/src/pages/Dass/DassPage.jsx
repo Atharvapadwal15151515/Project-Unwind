@@ -1482,7 +1482,7 @@ const handleDownloadPdf =
       <>
         <Download size={17} />
 
-        Download PDF
+        Download Report
       </>
     )}
   </button>
