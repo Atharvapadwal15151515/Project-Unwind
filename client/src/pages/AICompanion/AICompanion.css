@@ -1139,3 +1139,146 @@
   border: 0;
   border-top: 1px solid var(--dashboard-border);
 }
+
+/* =========================================================
+   MOBILE AI COMPOSER FIX
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .ai-chat-footer {
+    padding:
+      10px
+      12px
+      12px;
+  }
+
+  .chat-composer-shell {
+    width: 100%;
+  }
+
+  .chat-composer {
+    display: grid;
+
+    width: 100%;
+    min-height: 58px;
+
+    grid-template-columns:
+      minmax(0, 1fr)
+      44px;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding:
+      7px
+      8px
+      7px
+      14px;
+
+    border:
+      1px solid
+      var(--dashboard-border);
+
+    border-radius: 20px;
+
+    background:
+      var(--dashboard-surface);
+
+    box-shadow:
+      0 8px 24px
+      rgba(20, 54, 47, 0.06);
+  }
+
+  .chat-composer textarea {
+    width: 100%;
+
+    min-width: 0;
+    min-height: 42px;
+    max-height: 110px;
+
+    margin: 0;
+
+    padding:
+      10px
+      4px;
+
+    border: 0;
+    outline: 0;
+
+    color:
+      var(--dashboard-text);
+
+    background:
+      transparent;
+
+    font-size:
+      var(--text-base);
+
+    line-height: 1.4;
+
+    resize: none;
+
+    overflow-y: auto;
+  }
+
+  .chat-composer textarea::placeholder {
+    color:
+      var(--dashboard-muted);
+
+    opacity: 0.8;
+  }
+
+  .chat-composer__send {
+    display: grid;
+
+    width: 42px;
+    height: 42px;
+
+    min-width: 42px;
+
+    place-items: center;
+
+    padding: 0;
+
+    border: 0;
+
+    border-radius: 14px;
+
+    color: #fff;
+
+    background:
+      var(--dashboard-primary);
+
+    box-shadow:
+      0 6px 16px
+      color-mix(
+        in srgb,
+        var(--dashboard-primary) 18%,
+        transparent
+      );
+  }
+
+  .chat-composer__send svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .chat-composer__send:disabled {
+    opacity: 0.45;
+  }
+
+  .chat-composer__notice {
+    margin-top: 8px;
+
+    padding:
+      0
+      8px;
+
+    font-size:
+      var(--text-xs);
+
+    line-height: 1.4;
+  }
+}
