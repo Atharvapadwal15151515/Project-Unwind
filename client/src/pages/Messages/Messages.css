@@ -2650,68 +2650,72 @@
 }
 
 
+/* =========================================================
+   PRIVATE ROOM DETAILS CLOSE BUTTON
+   KEEP AT VERY END OF FILE
+========================================================= */
+
 .messages-room-summary {
-  position: relative;
+  position: relative !important;
 }
 
 .messages-room-summary__close {
-  position: absolute;
+  position: absolute !important;
 
-  z-index: 10;
+  z-index: 999 !important;
 
-  top: 14px;
-  right: 14px;
+  top: 12px !important;
+  right: 12px !important;
 
-  display: none;
+  display: grid !important;
 
-  width: 38px;
-  height: 38px;
+  width: 38px !important;
+  height: 38px !important;
+
+  flex-shrink: 0;
 
   place-items: center;
 
-  padding: 0;
+  padding: 0 !important;
 
   border:
     1px solid
-    var(--dashboard-border);
+    var(--dashboard-border) !important;
 
-  border-radius: 11px;
+  border-radius: 11px !important;
 
   color:
-    var(--dashboard-text);
+    var(--dashboard-text) !important;
 
   background:
-    var(--dashboard-surface);
+    var(--dashboard-surface-solid) !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+
+  pointer-events: auto !important;
 
   cursor: pointer;
 
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease;
+  box-shadow:
+    0 4px 14px
+    rgba(0, 0, 0, 0.08);
 }
 
 .messages-room-summary__close:hover {
+  color:
+    var(--dashboard-primary) !important;
+
   background:
-    var(--dashboard-surface-muted);
-
-  border-color:
-    var(--dashboard-accent);
+    var(--dashboard-primary-soft) !important;
 }
 
-.messages-room-summary__close:active {
-  transform: scale(0.94);
-}
+.messages-room-summary__close svg {
+  display: block !important;
 
+  width: 19px;
+  height: 19px;
 
-/*
-|--------------------------------------------------------------------------
-| Tablet / Mobile
-|--------------------------------------------------------------------------
-*/
-
-@media (max-width: 900px) {
-  .messages-room-summary__close {
-    display: grid;
-  }
+  opacity: 1 !important;
+  visibility: visible !important;
 }
