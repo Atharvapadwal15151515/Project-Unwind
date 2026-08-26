@@ -105,7 +105,7 @@ function CtaSection() {
       }}
     >
       {initializing
-        ? "Checking your session..."
+        ? "Settling things in..."
         : isAuthenticated
           ? "Continue your journey"
           : "Create your free account"}

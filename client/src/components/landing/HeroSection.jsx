@@ -149,7 +149,7 @@ const {
   }}
 >
   {initializing
-    ? "Checking your session..."
+    ? "Settling things in..."
     : isAuthenticated
       ? "Continue your journey"
       : "Begin your journey"}

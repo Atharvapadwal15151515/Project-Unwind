@@ -35,11 +35,11 @@ function Footer() {
               and meaningful human connection.
             </p>
 
-            <div className="landing-footer__socials">
+         <div className="landing-footer__socials">
 
   {/* Instagram */}
   <a
-    href="YOUR_INSTAGRAM_URL"
+    href="https://www.instagram.com/project_.unwind"
     target="_blank"
     rel="noopener noreferrer"
     aria-label="UNWIND on Instagram"
@@ -50,7 +50,7 @@ function Footer() {
 
   {/* Facebook */}
   <a
-    href="YOUR_FACEBOOK_URL"
+    href="https://www.facebook.com/profile.php?id=61593695645581"
     target="_blank"
     rel="noopener noreferrer"
     aria-label="UNWIND on Facebook"
@@ -61,7 +61,7 @@ function Footer() {
 
   {/* X / Twitter */}
   <a
-    href="YOUR_X_URL"
+    href="https://x.com/unwindindia25"
     target="_blank"
     rel="noopener noreferrer"
     aria-label="UNWIND on X"

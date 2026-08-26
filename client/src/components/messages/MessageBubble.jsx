@@ -13,6 +13,9 @@ import {
   useRef,
   useState
 } from "react";
+import {
+  createPortal
+} from "react-dom";
 
 import MemberAvatar
   from "./MemberAvatar";
@@ -114,6 +117,17 @@ function MessageBubble({
 
   const menuContainerRef =
     useRef(null);
+
+    const menuButtonRef =
+  useRef(null);
+
+const [
+  menuPosition,
+  setMenuPosition
+] = useState({
+  top: 0,
+  left: 0
+});
 
   const copyTimerRef =
     useRef(null);
@@ -244,67 +258,44 @@ function MessageBubble({
   |--------------------------------------------------------------------------
   */
 
-  useEffect(
-    () => {
-      if (!menuOpen) {
-        return undefined;
+  useEffect(() => {
+  const handleOutsideClick =
+    (event) => {
+      const clickedMenu =
+        menuContainerRef
+          .current
+          ?.contains(
+            event.target
+          );
+
+      const clickedButton =
+        menuButtonRef
+          .current
+          ?.contains(
+            event.target
+          );
+
+      if (
+        menuOpen &&
+        !clickedMenu &&
+        !clickedButton
+      ) {
+        setMenuOpen(false);
       }
+    };
 
-      const handlePointerDown =
-        (event) => {
-          if (
-            menuContainerRef
-              .current &&
-            !menuContainerRef
-              .current
-              .contains(
-                event.target
-              )
-          ) {
-            setMenuOpen(
-              false
-            );
-          }
-        };
-
-      const handleKeyDown =
-        (event) => {
-          if (
-            event.key ===
-            "Escape"
-          ) {
-            setMenuOpen(
-              false
-            );
-          }
-        };
-
-      document.addEventListener(
-        "pointerdown",
-        handlePointerDown
-      );
-
-      document.addEventListener(
-        "keydown",
-        handleKeyDown
-      );
-
-      return () => {
-        document.removeEventListener(
-          "pointerdown",
-          handlePointerDown
-        );
-
-        document.removeEventListener(
-          "keydown",
-          handleKeyDown
-        );
-      };
-    },
-    [
-      menuOpen
-    ]
+  document.addEventListener(
+    "mousedown",
+    handleOutsideClick
   );
+
+  return () => {
+    document.removeEventListener(
+      "mousedown",
+      handleOutsideClick
+    );
+  };
+}, [menuOpen]);
 
   /*
   |--------------------------------------------------------------------------
@@ -452,14 +443,83 @@ function MessageBubble({
             }
           >
             <button
+            ref={menuButtonRef}
               type="button"
               className="message-bubble-menu-button"
               onClick={() => {
-                setMenuOpen(
-                  (current) =>
-                    !current
-                );
-              }}
+  if (!menuOpen) {
+    const button =
+      menuButtonRef.current;
+
+    if (button) {
+      const rect =
+        button.getBoundingClientRect();
+
+      const MENU_WIDTH = 170;
+      const MENU_HEIGHT =
+        isOwn
+          ? 190
+          : 145;
+
+      const GAP = 8;
+      const EDGE = 12;
+
+      let left =
+        isOwn
+          ? rect.right -
+            MENU_WIDTH
+          : rect.left;
+
+      left =
+        Math.max(
+          EDGE,
+          Math.min(
+            left,
+            window.innerWidth -
+              MENU_WIDTH -
+              EDGE
+          )
+        );
+
+      const roomBelow =
+        window.innerHeight -
+        rect.bottom;
+
+      const shouldOpenAbove =
+        roomBelow <
+        MENU_HEIGHT + GAP;
+
+      let top =
+        shouldOpenAbove
+          ? rect.top -
+            MENU_HEIGHT -
+            GAP
+          : rect.bottom +
+            GAP;
+
+      top =
+        Math.max(
+          EDGE,
+          Math.min(
+            top,
+            window.innerHeight -
+              MENU_HEIGHT -
+              EDGE
+          )
+        );
+
+      setMenuPosition({
+        top,
+        left
+      });
+    }
+  }
+
+  setMenuOpen(
+    (current) =>
+      !current
+  );
+}}
               aria-label="Message options"
               aria-expanded={
                 menuOpen
@@ -470,11 +530,19 @@ function MessageBubble({
               />
             </button>
 
-            {menuOpen && (
-              <div
-                className="message-bubble-menu"
-                role="menu"
-              >
+            {menuOpen &&
+  createPortal(
+    <div
+      ref={menuContainerRef}
+      className="message-bubble-menu message-bubble-menu--portal"
+      role="menu"
+      style={{
+        top:
+          `${menuPosition.top}px`,
+        left:
+          `${menuPosition.left}px`
+      }}
+    >
                 {/* Reply */}
 
                 {!deleted && (
@@ -602,7 +670,8 @@ function MessageBubble({
                       Delete
                     </button>
                   )}
-              </div>
+              </div>,
+              document.body
             )}
           </div>
         </div>
