@@ -2547,18 +2547,96 @@
 
 .journal-voice-recorder__recording button {
   display: inline-flex;
+
+  min-width: 110px;
+  min-height: 44px;
+
   align-items: center;
+  justify-content: center;
 
-  gap: 6px;
+  gap: 7px;
 
-  padding: 8px 11px;
+  padding:
+    9px
+    14px;
 
-  border-radius: 9px;
-
-  border: 1px solid
+  border:
+    1px solid
     var(--dashboard-border);
 
+  border-radius: 12px;
+
+  color:
+    var(--dashboard-text);
+
+  background:
+    var(--dashboard-surface-muted);
+
+  font-size:
+    var(--text-sm);
+
+  font-weight: 800;
+
   cursor: pointer;
+
+  transition:
+    transform 150ms ease,
+    border-color 150ms ease,
+    background 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.journal-voice-recorder__recording
+button:hover:not(:disabled) {
+  transform:
+    translateY(-1px);
+
+  box-shadow:
+    0 6px 16px
+    rgba(
+      20,
+      75,
+      65,
+      0.07
+    );
+}
+
+.journal-voice-recorder__recording
+button:first-of-type {
+  border-color:
+    color-mix(
+      in srgb,
+      var(--dashboard-primary) 28%,
+      var(--dashboard-border)
+    );
+
+  color:
+    var(--dashboard-primary);
+
+  background:
+    var(--dashboard-primary-soft);
+}
+
+.journal-voice-recorder__recording
+button:last-of-type {
+  border-color:
+    rgba(
+      182,
+      83,
+      88,
+      0.25
+    );
+
+  color:
+    #b65358;
+
+  background:
+    rgba(
+      182,
+      83,
+      88,
+      0.1
+    );
 }
 
 .journal-voice-recorder__pulse {
