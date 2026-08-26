@@ -1902,15 +1902,230 @@
     var(--dashboard-primary-soft);
 }
 
+/* =========================================================
+   UNWIND EMOJI PICKER
+========================================================= */
+
 .message-composer__emoji-picker {
   position: absolute;
 
   z-index: 1200;
 
-  bottom:
-    calc(100% + 10px);
-
+  bottom: calc(100% + 12px);
   left: 0;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    var(--dashboard-border);
+
+  border-radius: 22px;
+
+  background:
+    var(--dashboard-surface-solid);
+
+  box-shadow:
+    0 20px 55px
+    rgba(8, 33, 28, 0.22);
+}
+
+
+/* Main picker */
+
+.message-composer__emoji-picker
+.EmojiPickerReact {
+  --epr-bg-color:
+    var(--dashboard-surface-solid);
+
+  --epr-category-label-bg-color:
+    var(--dashboard-surface-solid);
+
+  --epr-text-color:
+    var(--dashboard-text);
+
+  --epr-search-input-bg-color:
+    var(--dashboard-surface-muted);
+
+  --epr-search-input-text-color:
+    var(--dashboard-text);
+
+  --epr-search-input-placeholder-color:
+    var(--dashboard-muted);
+
+  --epr-hover-bg-color:
+    var(--dashboard-primary-soft);
+
+  --epr-focus-bg-color:
+    var(--dashboard-primary-soft);
+
+  --epr-highlight-color:
+    var(--dashboard-primary);
+
+  --epr-category-icon-active-color:
+    var(--dashboard-primary);
+
+  border: 0 !important;
+
+  border-radius: 22px !important;
+
+  background:
+    var(--dashboard-surface-solid) !important;
+
+  font-family:
+    "Inter",
+    sans-serif !important;
+}
+
+
+/* Search box */
+
+.message-composer__emoji-picker
+.epr-search-container {
+  padding:
+    14px
+    14px
+    8px !important;
+}
+
+.message-composer__emoji-picker
+.epr-search-container input {
+  height: 40px !important;
+
+  border:
+    1px solid
+    var(--dashboard-border) !important;
+
+  border-radius:
+    12px !important;
+
+  color:
+    var(--dashboard-text) !important;
+
+  background:
+    var(--dashboard-surface-muted) !important;
+
+  box-shadow:
+    none !important;
+}
+
+.message-composer__emoji-picker
+.epr-search-container input:focus {
+  border-color:
+    var(--dashboard-primary) !important;
+
+  box-shadow:
+    0 0 0 3px
+    color-mix(
+      in srgb,
+      var(--dashboard-primary) 12%,
+      transparent
+    ) !important;
+}
+
+
+/* Emoji category icons */
+
+.message-composer__emoji-picker
+.epr-category-nav {
+  padding:
+    5px
+    12px
+    9px !important;
+
+  border-bottom:
+    1px solid
+    var(--dashboard-border);
+}
+
+.message-composer__emoji-picker
+.epr-category-nav button {
+  border-radius:
+    10px !important;
+
+  transition:
+    150ms ease;
+}
+
+.message-composer__emoji-picker
+.epr-category-nav button:hover {
+  background:
+    var(--dashboard-primary-soft) !important;
+}
+
+
+/* Smileys & People heading */
+
+.message-composer__emoji-picker
+.epr-emoji-category-label {
+  padding:
+    10px
+    14px !important;
+
+  color:
+    var(--dashboard-muted) !important;
+
+  background:
+    var(--dashboard-surface-solid) !important;
+
+  font-size:
+    var(--text-xs) !important;
+
+  font-weight:
+    800 !important;
+
+  letter-spacing:
+    0.06em;
+
+  text-transform:
+    uppercase;
+}
+
+
+/* Individual emojis */
+
+.message-composer__emoji-picker
+.epr-emoji-category-content button {
+  border-radius:
+    12px !important;
+
+  transition:
+    transform 140ms ease,
+    background 140ms ease;
+}
+
+.message-composer__emoji-picker
+.epr-emoji-category-content button:hover {
+  background:
+    var(--dashboard-primary-soft) !important;
+
+  transform:
+    scale(1.15);
+}
+
+
+/* Cute rounded scrollbar */
+
+.message-composer__emoji-picker
+.epr-body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.message-composer__emoji-picker
+.epr-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.message-composer__emoji-picker
+.epr-body::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+
+  background:
+    color-mix(
+      in srgb,
+      var(--dashboard-primary) 60%,
+      transparent
+    );
 }
 
 /* ---------------------------------------------------------

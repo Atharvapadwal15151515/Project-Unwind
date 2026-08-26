@@ -260,21 +260,37 @@ function MessageComposer({
       ref={emojiPickerRef}
       className="message-composer__emoji-picker"
     >
-      <EmojiPicker
-        onEmojiClick={(
-          emojiData
-        ) => {
-          insertEmoji(
-            emojiData.emoji
-          );
-        }}
-        lazyLoadEmojis
-        searchDisabled={false}
-        skinTonesDisabled={false}
-        previewConfig={{
-          showPreview: false
-        }}
-      />
+     <EmojiPicker
+  theme={
+    document.documentElement
+      .dataset.theme === "dark"
+      ? "dark"
+      : "light"
+  }
+
+  width={360}
+  height={430}
+
+  onEmojiClick={(
+    emojiData
+  ) => {
+    insertEmoji(
+      emojiData.emoji
+    );
+  }}
+
+  lazyLoadEmojis
+
+  searchDisabled={false}
+
+  searchPlaceHolder="Search emojis..."
+
+  skinTonesDisabled={false}
+
+  previewConfig={{
+    showPreview: false
+  }}
+/>
     </div>
   )}
 </div>
