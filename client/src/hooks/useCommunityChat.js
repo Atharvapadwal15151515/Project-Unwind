@@ -38,6 +38,48 @@ import {
 const INITIAL_MESSAGE_LIMIT = 5;
 const OLDER_MESSAGE_LIMIT = 20;
 
+const COMMUNITY_CHAT_CACHE_KEY =
+  "unwind_public_chat_recent_messages";
+
+function getCachedMessages() {
+  try {
+    const value =
+      sessionStorage.getItem(
+        COMMUNITY_CHAT_CACHE_KEY
+      );
+
+    if (!value) {
+      return [];
+    }
+
+    const parsed =
+      JSON.parse(value);
+
+    return Array.isArray(parsed)
+      ? parsed
+      : [];
+  } catch {
+    return [];
+  }
+}
+
+function cacheMessages(
+  messages
+) {
+  try {
+    sessionStorage.setItem(
+      COMMUNITY_CHAT_CACHE_KEY,
+      JSON.stringify(
+        messages.slice(
+          -INITIAL_MESSAGE_LIMIT
+        )
+      )
+    );
+  } catch {
+    // Ignore storage failure.
+  }
+}
+
 const EVENTS = {
   JOIN:
     "public-chat:join",
@@ -206,9 +248,14 @@ function useCommunityChat(
   ] = useState(null);
 
   const [
-    messages,
-    setMessages
-  ] = useState([]);
+  messages,
+  setMessages
+] = useState(
+  () =>
+    sortMessages(
+      getCachedMessages()
+    )
+);
 
   const [
     members,
@@ -347,9 +394,16 @@ const identityMode =
               ];
             }
 
-            return sortMessages(
-              nextMessages
-            );
+            const sortedMessages =
+  sortMessages(
+    nextMessages
+  );
+
+cacheMessages(
+  sortedMessages
+);
+
+return sortedMessages;
           }
         );
       },
@@ -573,16 +627,22 @@ if (cancelled) {
   return;
 }
 
-setMessages(
+const freshMessages =
   sortMessages(
     Array.isArray(
       history?.messages
     )
       ? history.messages
       : []
-  )
+  );
+
+setMessages(
+  freshMessages
 );
 
+cacheMessages(
+  freshMessages
+);
 setPagination(
   history?.pagination ?? {
     has_more: false,
@@ -794,14 +854,22 @@ if (
        * Render immediately.
        */
       setMessages(
-        (
-          currentMessages
-        ) =>
-          sortMessages([
-            ...currentMessages,
-            optimisticMessage
-          ])
-      );
+  (
+    currentMessages
+  ) => {
+    const nextMessages =
+      sortMessages([
+        ...currentMessages,
+        optimisticMessage
+      ]);
+
+    cacheMessages(
+      nextMessages
+    );
+
+    return nextMessages;
+  }
+);
 
       setError("");
 
@@ -874,29 +942,43 @@ if (
             if (
               alreadyExists
             ) {
-              return sortMessages(
-                withoutTemporary.map(
-                  (
-                    message
-                  ) =>
-                    String(
-                      getCommunityChatMessageId(
-                        message
-                      )
-                    ) ===
-                    String(
-                      realMessageId
-                    )
-                      ? savedMessage
-                      : message
-                )
-              );
-            }
+  const nextMessages =
+    sortMessages(
+      withoutTemporary.map(
+        (
+          message
+        ) =>
+          String(
+            getCommunityChatMessageId(
+              message
+            )
+          ) ===
+          String(
+            realMessageId
+          )
+            ? savedMessage
+            : message
+      )
+    );
 
-            return sortMessages([
-              ...withoutTemporary,
-              savedMessage
-            ]);
+  cacheMessages(
+    nextMessages
+  );
+
+  return nextMessages;
+}
+
+const nextMessages =
+  sortMessages([
+    ...withoutTemporary,
+    savedMessage
+  ]);
+
+cacheMessages(
+  nextMessages
+);
+
+return nextMessages;
           }
         );
 
