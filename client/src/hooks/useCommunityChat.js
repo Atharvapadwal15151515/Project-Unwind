@@ -122,9 +122,78 @@ function sortMessages(
 | Hook
 |--------------------------------------------------------------------------
 */
+function createOptimisticMessage({
+  messageText,
+  userId,
+  visibleName,
+  identityMode,
+  replyMessage = null
+}) {
+  const temporaryId =
+    `temp-${Date.now()}-${Math.random()
+      .toString(36)
+      .slice(2)}`;
+
+  return {
+    chat_message_id:
+      temporaryId,
+
+    sender_user_id:
+      userId,
+
+    sender_visible_name:
+      visibleName ||
+      "Community member",
+
+    sender_identity_mode:
+      identityMode ||
+      "username",
+
+    message_text:
+      messageText,
+
+    created_at:
+      new Date().toISOString(),
+
+    is_deleted:
+      false,
+
+    is_edited:
+      false,
+
+    reply_to_message_id:
+      replyMessage
+        ?.chat_message_id ??
+      null,
+
+    reply_message_id:
+      replyMessage
+        ?.chat_message_id ??
+      null,
+
+    reply_sender_visible_name:
+      replyMessage
+        ?.sender_visible_name ??
+      null,
+
+    reply_message_text:
+      replyMessage
+        ?.message_text ??
+      null,
+
+    reply_is_deleted:
+      Boolean(
+        replyMessage
+          ?.is_deleted
+      ),
+
+    optimistic: true
+  };
+}
 
 function useCommunityChat(
-  enabled = true
+  enabled = true,
+  currentUserId = null
 ) {
   const [
     profileData,
@@ -664,65 +733,181 @@ function useCommunityChat(
   */
 
   const sendMessage =
-    useCallback(
-      async (
-        messageText,
-        replyToMessageId =
-          null
-      ) => {
-        try {
-          setSending(
-            true
+  useCallback(
+    async (
+      messageText,
+      replyToMessageId =
+        null,
+      replyMessage =
+        null
+    ) => {
+      const optimisticMessage =
+        createOptimisticMessage({
+          messageText,
+
+          userId:
+            currentUserId,
+
+          visibleName,
+
+          identityMode,
+
+          replyMessage
+        });
+
+      /*
+       * Render immediately.
+       */
+      setMessages(
+        (
+          currentMessages
+        ) =>
+          sortMessages([
+            ...currentMessages,
+            optimisticMessage
+          ])
+      );
+
+      setError("");
+
+      try {
+        const result =
+          await emitSocketEvent(
+            EVENTS.SEND,
+            {
+              message_text:
+                messageText,
+
+              reply_to_message_id:
+                replyToMessageId
+            }
           );
 
-          setError("");
+        const savedMessage =
+          result?.message;
 
-          const result =
-            await emitSocketEvent(
-              EVENTS.SEND,
-              {
-                message_text:
-                  messageText,
-
-                reply_to_message_id:
-                  replyToMessageId
-              }
-            );
-
-          /*
-           * Socket broadcast will
-           * normally insert this,
-           * but upsert also protects
-           * against missed broadcasts.
-           */
-          upsertMessage(
-            result?.message
-          );
-
-          return (
-            result?.message ??
-            null
-          );
-        } catch (
-          requestError
-        ) {
-          setError(
-            requestError
-              ?.message ||
-            "Unable to send message."
-          );
-
-          throw requestError;
-        } finally {
-          setSending(
-            false
+        if (!savedMessage) {
+          throw new Error(
+            "Message was not saved."
           );
         }
-      },
-      [
-        upsertMessage
-      ]
-    );
+
+        /*
+         * Replace temporary bubble
+         * with the real DB message.
+         */
+        setMessages(
+          (
+            currentMessages
+          ) => {
+            const withoutTemporary =
+              currentMessages.filter(
+                (
+                  message
+                ) =>
+                  String(
+                    getCommunityChatMessageId(
+                      message
+                    )
+                  ) !==
+                  String(
+                    optimisticMessage
+                      .chat_message_id
+                  )
+              );
+
+            const realMessageId =
+              getCommunityChatMessageId(
+                savedMessage
+              );
+
+            const alreadyExists =
+              withoutTemporary.some(
+                (
+                  message
+                ) =>
+                  String(
+                    getCommunityChatMessageId(
+                      message
+                    )
+                  ) ===
+                  String(
+                    realMessageId
+                  )
+              );
+
+            if (
+              alreadyExists
+            ) {
+              return sortMessages(
+                withoutTemporary.map(
+                  (
+                    message
+                  ) =>
+                    String(
+                      getCommunityChatMessageId(
+                        message
+                      )
+                    ) ===
+                    String(
+                      realMessageId
+                    )
+                      ? savedMessage
+                      : message
+                )
+              );
+            }
+
+            return sortMessages([
+              ...withoutTemporary,
+              savedMessage
+            ]);
+          }
+        );
+
+        return savedMessage;
+      } catch (
+        requestError
+      ) {
+        /*
+         * Remove failed optimistic
+         * message.
+         */
+        setMessages(
+          (
+            currentMessages
+          ) =>
+            currentMessages.filter(
+              (
+                message
+              ) =>
+                String(
+                  getCommunityChatMessageId(
+                    message
+                  )
+                ) !==
+                String(
+                  optimisticMessage
+                    .chat_message_id
+                )
+            )
+        );
+
+        setError(
+          requestError
+            ?.message ||
+          "Unable to send message."
+        );
+
+        throw requestError;
+      }
+    },
+    [
+      currentUserId,
+      identityMode,
+      visibleName
+    ]
+  );
 
   /*
   |--------------------------------------------------------------------------

@@ -134,26 +134,45 @@ function MessageComposer({
       }
     );
   };
-  const submit =
-    async () => {
-      const text =
-        value.trim();
+const submit =
+  () => {
+    const text =
+      value.trim();
 
-      if (
-        !text ||
-        disabled ||
-        sending
-      ) {
-        return;
-      }
+    if (
+      !text ||
+      disabled ||
+      sending
+    ) {
+      return;
+    }
 
-      await onSend?.(
+    /*
+     * Clear immediately.
+     */
+    setValue("");
+
+    setEmojiOpen(
+      false
+    );
+
+    /*
+     * Sending continues in
+     * background.
+     */
+    Promise.resolve(
+      onSend?.(
         text
-      );
-
-      setValue("");
-    };
-
+      )
+    ).catch(
+      () => {
+        /*
+         * Error is already handled
+         * by the chat hook.
+         */
+      }
+    );
+  };
   const handleKeyDown =
     (event) => {
       if (

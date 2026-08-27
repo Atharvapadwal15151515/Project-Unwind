@@ -297,7 +297,8 @@ const [
 
     clearError
   } = useCommunityChat(
-  hasEnteredChat
+  hasEnteredChat,
+  currentUserId
 );
 
   /*
@@ -421,40 +422,45 @@ const [
   */
 
   const handleSubmit =
-    async (
-      text
-    ) => {
-      if (
-        editingMessage
-      ) {
-        await editMessage(
-          getCommunityChatMessageId(
-            editingMessage
-          ),
-          text
-        );
-
-        setEditingMessage(
-          null
-        );
-
-        return;
-      }
-
-      await sendMessage(
-        text,
-
-        replyMessage
-          ? getCommunityChatMessageId(
-              replyMessage
-            )
-          : null
+  async (
+    text
+  ) => {
+    if (
+      editingMessage
+    ) {
+      await editMessage(
+        getCommunityChatMessageId(
+          editingMessage
+        ),
+        text
       );
 
-      setReplyMessage(
+      setEditingMessage(
         null
       );
-    };
+
+      return;
+    }
+
+    const currentReply =
+      replyMessage;
+
+    setReplyMessage(
+      null
+    );
+
+    await sendMessage(
+      text,
+
+      currentReply
+        ? getCommunityChatMessageId(
+            currentReply
+          )
+        : null,
+
+      currentReply
+    );
+  };
 
   /*
   |--------------------------------------------------------------------------
