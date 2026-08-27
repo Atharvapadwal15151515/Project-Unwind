@@ -7,11 +7,17 @@ import {
   Smile
 } from "lucide-react";
 
-function getNumericValue(entry, keys) {
+function getNumericValue(
+  entry,
+  keys
+) {
   for (const key of keys) {
-    const value = Number(entry?.[key]);
+    const value =
+      Number(entry?.[key]);
 
-    if (Number.isFinite(value)) {
+    if (
+      Number.isFinite(value)
+    ) {
       return value;
     }
   }
@@ -19,29 +25,56 @@ function getNumericValue(entry, keys) {
   return 0;
 }
 
-function getSleepMinutes(entry) {
-  return getNumericValue(entry, [
-    "total_sleep_minutes",
-    "totalSleepMinutes",
-    "sleep_duration_minutes",
-    "sleepDurationMinutes"
-  ]);
+function getSleepMinutes(
+  entry
+) {
+  return getNumericValue(
+    entry,
+    [
+      "total_sleep_minutes",
+      "totalSleepMinutes",
+      "sleep_duration_minutes",
+      "sleepDurationMinutes"
+    ]
+  );
 }
 
-function getScoreMessage(score) {
+function clampPercentage(
+  value
+) {
+  return Math.max(
+    0,
+    Math.min(
+      Math.round(value),
+      100
+    )
+  );
+}
+
+function getScoreMessage(
+  score
+) {
   if (score >= 85) {
-    return "You are building a balanced day.";
+    return (
+      "You are building a balanced day."
+    );
   }
 
   if (score >= 65) {
-    return "You are moving in a positive direction.";
+    return (
+      "You are moving in a positive direction."
+    );
   }
 
   if (score >= 35) {
-    return "A few gentle check-ins can help.";
+    return (
+      "A few gentle check-ins can help."
+    );
   }
 
-  return "Start with one small check-in.";
+  return (
+    "Start with one small check-in."
+  );
 }
 
 function WellnessScoreCard({
@@ -53,104 +86,256 @@ function WellnessScoreCard({
   habits,
   completedHabitCount
 }) {
-  const moodScore = getNumericValue(
-    moodEntry,
-    ["mood_score", "moodScore"]
-  );
+  const moodScore =
+    getNumericValue(
+      moodEntry,
+      [
+        "mood_score",
+        "moodScore"
+      ]
+    );
 
-  const energyScore = getNumericValue(
-    energyEntry,
-    ["energy_score", "energyScore"]
-  );
+  const energyScore =
+    getNumericValue(
+      energyEntry,
+      [
+        "energy_score",
+        "energyScore"
+      ]
+    );
 
   const sleepMinutes =
-    getSleepMinutes(sleepEntry);
+    getSleepMinutes(
+      sleepEntry
+    );
 
   const habitPercentage =
     habits.length > 0
-      ? Math.round(
-          (completedHabitCount /
-            habits.length) *
+      ? clampPercentage(
+          (
+            completedHabitCount /
+            habits.length
+          ) *
             100
         )
-      : 0;
+      : null;
+
+  const moodPercentage =
+    moodScore > 0
+      ? clampPercentage(
+          (
+            moodScore /
+            5
+          ) *
+            100
+        )
+      : null;
+
+  const energyPercentage =
+    energyScore > 0
+      ? clampPercentage(
+          (
+            energyScore /
+            5
+          ) *
+            100
+        )
+      : null;
+
+  const sleepPercentage =
+    sleepMinutes > 0
+      ? clampPercentage(
+          (
+            sleepMinutes /
+            480
+          ) *
+            100
+        )
+      : null;
+
+  const waterPercentage =
+    waterTotal > 0
+      ? clampPercentage(
+          (
+            waterTotal /
+            2500
+          ) *
+            100
+        )
+      : null;
 
   const metrics = [
     {
       label: "Mood",
-      value: moodScore
-        ? `${moodScore}/5`
-        : "Not logged",
+      value:
+        moodScore > 0
+          ? `${moodScore}/5`
+          : "Not logged",
+      percentage:
+        moodPercentage,
       icon: Smile
     },
+
     {
       label: "Energy",
-      value: energyScore
-        ? `${energyScore}/5`
-        : "Not logged",
-      icon: BatteryCharging
+      value:
+        energyScore > 0
+          ? `${energyScore}/5`
+          : "Not logged",
+      percentage:
+        energyPercentage,
+      icon:
+        BatteryCharging
     },
+
     {
       label: "Sleep",
-      value: sleepMinutes
-        ? `${Math.floor(
-            sleepMinutes / 60
-          )}h ${sleepMinutes % 60}m`
-        : "Not logged",
+      value:
+        sleepMinutes > 0
+          ? `${Math.floor(
+              sleepMinutes /
+                60
+            )}h ${
+              sleepMinutes %
+              60
+            }m`
+          : "Not logged",
+      percentage:
+        sleepPercentage,
       icon: MoonStar
     },
+
     {
       label: "Water",
-      value: `${waterTotal || 0} ml`,
+      value:
+        waterTotal > 0
+          ? `${
+              waterTotal
+            } ml`
+          : "Not logged",
+      percentage:
+        waterPercentage,
       icon: Droplets
     },
+
     {
       label: "Habits",
-      value: habits.length
-        ? `${habitPercentage}%`
-        : "None today",
-      icon: CheckCircle2
+      value:
+        habits.length > 0
+          ? `${completedHabitCount} / ${habits.length}`
+          : "Not set",
+      percentage:
+        habitPercentage,
+      icon:
+        CheckCircle2
     }
   ];
 
   return (
-    <article className="wellness-score-card">
-      <header>
+    <article
+      className="wellness-score-card"
+    >
+      <header
+        className="wellness-score-card__header"
+      >
         <div>
-          <span className="tracker-card__eyebrow">
-            <Activity size={14} />
+          <span
+            className="tracker-card__eyebrow"
+          >
+            <Activity
+              size={14}
+            />
+
             Overall wellness
           </span>
 
-          <h2>Today&apos;s balance</h2>
+          <h2>
+            Today&apos;s
+            balance
+          </h2>
 
-          <p>{getScoreMessage(score)}</p>
+          <p>
+            {getScoreMessage(
+              score
+            )}
+          </p>
         </div>
 
         <div
-          className="wellness-score-card__ring"
-          style={{
-            "--wellness-score": `${score}%`
-          }}
+          className="wellness-score-card__overall"
         >
+          <strong>
+            {score}%
+          </strong>
+
           <span>
-            <strong>{score}%</strong>
-            <small>today</small>
+            overall
           </span>
         </div>
       </header>
 
-      <div className="wellness-score-card__metrics">
+      <div
+        className="wellness-score-card__chart"
+      >
         {metrics.map(
-          ({ label, value, icon: Icon }) => (
-            <div key={label}>
-              <span>
-                <Icon size={16} />
-              </span>
+          ({
+            label,
+            value,
+            percentage,
+            icon: Icon
+          }) => (
+            <div
+              className="wellness-metric"
+              key={label}
+            >
+              <div
+                className="wellness-metric__top"
+              >
+                <div
+                  className="wellness-metric__identity"
+                >
+                  <span
+                    className="wellness-metric__icon"
+                  >
+                    <Icon
+                      size={16}
+                    />
+                  </span>
 
-              <div>
-                <small>{label}</small>
-                <strong>{value}</strong>
+                  <span>
+                    {label}
+                  </span>
+                </div>
+
+                <strong>
+                  {value}
+                </strong>
+              </div>
+
+              <div
+                className={
+                  percentage ===
+                  null
+                    ? "wellness-metric__track wellness-metric__track--empty"
+                    : "wellness-metric__track"
+                }
+                aria-label={
+                  percentage ===
+                  null
+                    ? `${label} not available`
+                    : `${label} ${percentage}%`
+                }
+              >
+                {percentage !==
+                  null && (
+                  <span
+                    className="wellness-metric__fill"
+                    style={{
+                      width:
+                        `${percentage}%`
+                    }}
+                  />
+                )}
               </div>
             </div>
           )
