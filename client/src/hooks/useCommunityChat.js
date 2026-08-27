@@ -253,8 +253,34 @@ function useCommunityChat(
     setError
   ] = useState("");
 
-  const typingTimerRef =
-    useRef(null);
+ const typingTimerRef =
+  useRef(null);
+
+/*
+|--------------------------------------------------------------------------
+| Public identity
+|--------------------------------------------------------------------------
+*/
+
+const visibleName =
+  useMemo(
+    () =>
+      profileData
+        ?.visibleName ||
+      profileData
+        ?.visible_name ||
+      "Community member",
+    [
+      profileData
+    ]
+  );
+
+const identityMode =
+  profileData
+    ?.profile
+    ?.identity_mode ||
+  "username";
+    
 
   /*
   |--------------------------------------------------------------------------
@@ -732,6 +758,7 @@ function useCommunityChat(
   |--------------------------------------------------------------------------
   */
 
+
   const sendMessage =
   useCallback(
     async (
@@ -1086,24 +1113,7 @@ function useCommunityChat(
   |--------------------------------------------------------------------------
   */
 
-  const visibleName =
-    useMemo(
-      () =>
-        profileData
-          ?.visibleName ||
-        profileData
-          ?.visible_name ||
-        "Community member",
-      [
-        profileData
-      ]
-    );
-
-  const identityMode =
-    profileData
-      ?.profile
-      ?.identity_mode ||
-    "username";
+  
 
   return {
     room,
