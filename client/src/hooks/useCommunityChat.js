@@ -558,54 +558,62 @@ const identityMode =
         /*
          * Load history and members.
          */
-        const [
-          history
-        ] =
-          await Promise.all([
-            getPublicChatHistory({
-  limit:
-    INITIAL_MESSAGE_LIMIT
-}),
+       /*
+ * Load history first.
+ * This is the only blocking work
+ * required before showing chat.
+ */
+const history =
+  await getPublicChatHistory({
+    limit:
+      INITIAL_MESSAGE_LIMIT
+  });
 
-            loadMembers()
-          ]);
+if (cancelled) {
+  return;
+}
 
-        if (cancelled) {
-          return;
-        }
+setMessages(
+  sortMessages(
+    Array.isArray(
+      history?.messages
+    )
+      ? history.messages
+      : []
+  )
+);
 
-        setMessages(
-          sortMessages(
-            Array.isArray(
-              history?.messages
-            )
-              ? history.messages
-              : []
-          )
-        );
+setPagination(
+  history?.pagination ?? {
+    has_more: false,
+    next_cursor: null
+  }
+);
 
-        setPagination(
-          history?.pagination ?? {
-            has_more:
-              false,
+/*
+ * Chat is usable now.
+ * Stop the main loader immediately.
+ */
+setLoading(
+  false
+);
 
-            next_cursor:
-              null
-          }
-        );
+/*
+ * Non-critical work in background.
+ */
+loadMembers().catch(
+  () => {}
+);
 
-        /*
-         * Initial room read state.
-         */
-        if (
-          joinedRoom?.room_id
-        ) {
-          await markPublicChatRead(
-            joinedRoom.room_id
-          ).catch(
-            () => null
-          );
-        }
+if (
+  joinedRoom?.room_id
+) {
+  markPublicChatRead(
+    joinedRoom.room_id
+  ).catch(
+    () => {}
+  );
+}
       } catch (
         requestError
       ) {
