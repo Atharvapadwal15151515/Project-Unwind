@@ -135,6 +135,19 @@ app.get("/", (req, res) => {
   });
 });
 
+app.get(
+  "/api/health",
+  (req, res) => {
+    res.status(200).json({
+      success: true,
+      status: "healthy",
+      service: "Unwind API",
+      timestamp:
+        new Date().toISOString()
+    });
+  }
+);
+
 app.use(
   "/api/notifications",
   notificationRoutes
