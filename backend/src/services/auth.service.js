@@ -118,7 +118,6 @@ export async function registerUser({
         INSERT INTO user_profiles (
           user_id,
           full_name,
-          display_name,
           date_of_birth,
           gender,
           occupation_type
