@@ -687,20 +687,6 @@ if (!hasEnteredChat) {
   );
 }
 
-  if (loading) {
-    return (
-      <div className="community-chat-loading">
-        <LoaderCircle
-          size={26}
-          className="messages-spin"
-        />
-
-        <p>
-          Connecting to the community…
-        </p>
-      </div>
-    );
-  }
 
   return (
     <section className="community-chat-page">
@@ -760,7 +746,9 @@ if (!hasEnteredChat) {
           <div className="community-chat-live-pill">
             <span />
 
-            {onlineUsers.length} online
+            {loading
+  ? "Connecting…"
+  : `${onlineUsers.length} online`}
           </div>
 
           <button
@@ -873,7 +861,7 @@ if (!hasEnteredChat) {
                 currentUserId
               }
               loading={
-                false
+                loading
               }
               loadingOlder={
                 loadingOlder
@@ -984,7 +972,8 @@ if (!hasEnteredChat) {
                 sending
               }
               disabled={
-                false
+                 loading ||
+  !room
               }
               replyMessage={
                 replyMessage
