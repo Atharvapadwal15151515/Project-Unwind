@@ -327,10 +327,7 @@ function WellnessScoreCard({
             Overall wellness
           </span>
 
-          <h2>
-            Today&apos;s
-            balance
-          </h2>
+         
 
           <p>
             {getScoreMessage(
