@@ -240,14 +240,20 @@ return completeMessage;
 }
 
 export async function sendPublicChatMessage({
+  roomId,
   userId,
   messageText,
   replyToMessageId = null
 }) {
-  const room = await findOrCreatePublicChatRoom();
+  if (!roomId) {
+    throw new AppError(
+      "Public chat room is unavailable.",
+      400
+    );
+  }
 
   return sendChatMessage({
-    roomId: room.room_id,
+    roomId,
     userId,
     messageText,
     replyToMessageId,

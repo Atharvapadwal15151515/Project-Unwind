@@ -4,7 +4,6 @@ import {
 } from "./socketEvents.js";
 
 import {
-  getPublicChatRoom,
   joinPublicChatRoom,
   leavePublicChatRoom
 } from "../services/community/chatRoom.service.js";
@@ -105,19 +104,40 @@ export default function registerPublicChat(io, socket) {
     }
   );
 
- socket.on(
+socket.on(
   SOCKET_EVENTS.PUBLIC_CHAT_SEND_MESSAGE,
-  async (payload, callback) => {
+  async (payload = {}, callback) => {
     try {
       await requireSocketCommunityAccess(
         socket.user.user_id
       );
 
-      const room =
-        await getPublicChatRoom();
+      /*
+       * We already stored this when
+       * PUBLIC_CHAT_JOIN succeeded.
+       *
+       * Do not query the database
+       * again just to discover the
+       * same public room.
+       */
+      const roomId =
+        socket.data.publicRoomId;
+
+      if (!roomId) {
+        return callback?.({
+          success: false,
+          message:
+            "Join the public chat before sending messages.",
+          code:
+            "PUBLIC_CHAT_NOT_JOINED",
+          status_code: 400
+        });
+      }
 
       const message =
         await sendPublicChatMessage({
+          roomId,
+
           userId:
             socket.user.user_id,
 
@@ -125,10 +145,16 @@ export default function registerPublicChat(io, socket) {
             payload.message_text,
 
           replyToMessageId:
-            payload.reply_to_message_id
+            payload.reply_to_message_id ??
+            null
         });
 
-      io.to(room.room_id).emit(
+      /*
+       * Broadcast the saved message
+       * immediately to everyone
+       * currently inside this room.
+       */
+      io.to(roomId).emit(
         SOCKET_EVENTS.PUBLIC_CHAT_NEW_MESSAGE,
         message
       );
@@ -143,7 +169,8 @@ export default function registerPublicChat(io, socket) {
         success: false,
 
         message:
-          error.message,
+          error.message ||
+          "Unable to send message.",
 
         code:
           error.code ||
