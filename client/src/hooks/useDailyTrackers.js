@@ -447,14 +447,13 @@ export function useDailyTrackers() {
                 endDate,
                 sortOrder: "desc"
               }),
-
-              getSleepEntries({
-                page: 1,
-                limit: 1,
-                startDate,
-                endDate,
-                sortOrder: "desc"
-              }),
+getSleepEntries({
+  page: 1,
+  limit: 1,
+  startDate: selectedDate,
+  endDate: selectedDate,
+  sortOrder: "desc"
+}),
 
               getWaterLogs({
                 page: 1,
