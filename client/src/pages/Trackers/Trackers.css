@@ -277,7 +277,7 @@
     minmax(0, 2.2fr)
     minmax(340px, 0.95fr);
 
-  align-items: stretch;
+  align-items: start;
 
   gap: 22px;
 }
@@ -632,6 +632,12 @@
       var(--dashboard-primary-soft),
       var(--dashboard-surface)
     );
+}
+
+.trackers-encouragement-card {
+  align-self: start;
+  height: auto;
+  min-height: 0;
 }
 
 .trackers-encouragement-card > span {

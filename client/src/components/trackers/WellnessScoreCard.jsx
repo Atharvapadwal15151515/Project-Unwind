@@ -309,134 +309,105 @@ function WellnessScoreCard({
     }
   ];
 
-  return (
-    <article
-      className="wellness-score-card"
+return (
+  <article
+    className="wellness-score-card"
+  >
+    <header
+      className="wellness-score-card__header"
     >
-      <header
-        className="wellness-score-card__header"
-      >
-        <div>
-          <span
-            className="tracker-card__eyebrow"
+      <div>
+        <span
+          className="tracker-card__eyebrow"
+        >
+          <Activity size={14} />
+
+          Overall wellness
+        </span>
+
+        <h2>
+          Today&apos;s balance
+        </h2>
+
+        <p>
+          {getScoreMessage(score)}
+        </p>
+      </div>
+    </header>
+
+    <div
+      className="wellness-score-card__chart"
+    >
+      {metrics.map(
+        (
+          {
+            label,
+            value,
+            percentage,
+            icon: Icon
+          },
+          index
+        ) => (
+          <div
+            className="wellness-metric"
+            key={label}
           >
-            <Activity
-              size={14}
-            />
-
-            Overall wellness
-          </span>
-
-         
-
-          <p>
-            {getScoreMessage(
-              score
-            )}
-          </p>
-        </div>
-
-       <header
-  className="wellness-score-card__header"
->
-  <div>
-    <span
-      className="tracker-card__eyebrow"
-    >
-      <Activity size={14} />
-
-      Overall wellness
-    </span>
-
-    <h2>
-      Today&apos;s balance
-    </h2>
-
-    <p>
-      {getScoreMessage(score)}
-    </p>
-  </div>
-</header>
-      </header>
-
-      <div
-        className="wellness-score-card__chart"
-      >
-        {metrics.map(
-  (
-    {
-      label,
-      value,
-      percentage,
-      icon: Icon
-    },
-    index
-  ) => (
             <div
-              className="wellness-metric"
-              key={label}
+              className="wellness-metric__top"
             >
               <div
-                className="wellness-metric__top"
+                className="wellness-metric__identity"
               >
-                <div
-                  className="wellness-metric__identity"
+                <span
+                  className="wellness-metric__icon"
+                >
+                  <Icon size={16} />
+                </span>
+
+                <span>
+                  {label}
+                </span>
+              </div>
+
+              <strong>
+                {value}
+              </strong>
+            </div>
+
+            <div
+              className={
+                percentage === null
+                  ? "wellness-metric__track wellness-metric__track--empty"
+                  : "wellness-metric__track"
+              }
+              aria-label={
+                percentage === null
+                  ? `${label} not available`
+                  : `${label} ${percentage}%`
+              }
+            >
+              {percentage !== null && (
+                <span
+                  className="wellness-metric__fill"
+                  style={{
+                    "--metric-width":
+                      `${percentage}%`,
+                    animationDelay:
+                      `${index * 110}ms`
+                  }}
                 >
                   <span
-                    className="wellness-metric__icon"
-                  >
-                    <Icon
-                      size={16}
-                    />
-                  </span>
-
-                  <span>
-                    {label}
-                  </span>
-                </div>
-
-                <strong>
-                  {value}
-                </strong>
-              </div>
-
-              <div
-                className={
-                  percentage ===
-                  null
-                    ? "wellness-metric__track wellness-metric__track--empty"
-                    : "wellness-metric__track"
-                }
-                aria-label={
-                  percentage ===
-                  null
-                    ? `${label} not available`
-                    : `${label} ${percentage}%`
-                }
-              >
-                {percentage !==
-                  null && (
-           <span
-  className="wellness-metric__fill"
-  style={{
-    "--metric-width":
-      `${percentage}%`,
-    animationDelay:
-      `${index * 110}ms`
-  }}
->
-  <span
-    className="wellness-metric__glow"
-  />
-</span>
-                )}
-              </div>
+                    className="wellness-metric__glow"
+                  />
+                </span>
+              )}
             </div>
-          )
-        )}
-      </div>
-    </article>
-  );
+          </div>
+        )
+      )}
+    </div>
+  </article>
+);
 }
 
 export default WellnessScoreCard;
