@@ -195,26 +195,23 @@ export async function sendChatMessage({
       client
     });
 
-    await updateChatRoomLastActivity({
-      roomId,
-      client
-    });
+   await client.query("COMMIT");
 
-    await updateLastRead({
-      roomId,
-      userId,
-      client
-    });
-
-    await client.query("COMMIT");
-
-    const completeMessage =
+const completeMessage =
   await findChatMessageById({
     messageId:
-      createdMessage
-        .chat_message_id
+      createdMessage.chat_message_id
   });
 
+Promise.allSettled([
+  updateChatRoomLastActivity({
+    roomId
+  }),
+  updateLastRead({
+    roomId,
+    userId
+  })
+]).catch(() => {});
 if (replyTarget) {
   await notifyPublicChatReply({
     replyTarget,
