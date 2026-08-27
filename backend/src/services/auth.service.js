@@ -49,7 +49,6 @@ export async function registerUser({
   username,
   password,
   fullName,
-  displayName = null,
   dateOfBirth = null,
   gender = null,
   occupationType = null
@@ -113,28 +112,26 @@ export async function registerUser({
 
     const user = userResult.rows[0];
 
-    const profileResult = await client.query(
-      `
-        INSERT INTO user_profiles (
-          user_id,
-          full_name,
-          date_of_birth,
-          gender,
-          occupation_type
-        )
-        VALUES ($1, $2, $3, $4, $5, $6)
-        RETURNING *
-      `,
-      [
-        user.user_id,
-        fullName.trim(),
-        displayName?.trim() || null,
-        dateOfBirth,
-        gender,
-        occupationType
-      ]
-    );
-
+   const profileResult = await client.query(
+  `
+    INSERT INTO user_profiles (
+      user_id,
+      full_name,
+      date_of_birth,
+      gender,
+      occupation_type
+    )
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING *
+  `,
+  [
+    user.user_id,
+    fullName.trim(),
+    dateOfBirth,
+    gender,
+    occupationType
+  ]
+);
     const settingsResult = await client.query(
       `
         INSERT INTO user_settings (user_id)
