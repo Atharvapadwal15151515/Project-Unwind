@@ -28,14 +28,92 @@ function getNumericValue(
 function getSleepMinutes(
   entry
 ) {
-  return getNumericValue(
-    entry,
-    [
-      "total_sleep_minutes",
-      "totalSleepMinutes",
-      "sleep_duration_minutes",
-      "sleepDurationMinutes"
-    ]
+  if (!entry) {
+    return 0;
+  }
+
+  /*
+   * First use a duration already
+   * calculated by the backend.
+   */
+  const storedMinutes =
+    Number(
+      entry?.total_sleep_minutes ??
+      entry?.totalSleepMinutes ??
+      entry?.sleep_duration_minutes ??
+      entry?.sleepDurationMinutes
+    );
+
+  if (
+    Number.isFinite(
+      storedMinutes
+    ) &&
+    storedMinutes > 0
+  ) {
+    return storedMinutes;
+  }
+
+  /*
+   * Some sleep entries only contain
+   * sleep + wake timestamps.
+   */
+  const sleepStart =
+    entry?.sleep_start_time ??
+    entry?.sleepStartTime;
+
+  const wakeTime =
+    entry?.wake_time ??
+    entry?.wakeTime;
+
+  if (
+    !sleepStart ||
+    !wakeTime
+  ) {
+    return 0;
+  }
+
+  const start =
+    new Date(
+      sleepStart
+    ).getTime();
+
+  const end =
+    new Date(
+      wakeTime
+    ).getTime();
+
+  if (
+    !Number.isFinite(start) ||
+    !Number.isFinite(end)
+  ) {
+    return 0;
+  }
+
+  let difference =
+    end - start;
+
+  /*
+   * Defensive handling for APIs
+   * returning time values crossing
+   * midnight.
+   */
+  if (difference <= 0) {
+    difference +=
+      24 *
+      60 *
+      60 *
+      1000;
+  }
+
+  const minutes =
+    Math.round(
+      difference /
+      60000
+    );
+
+  return Math.max(
+    minutes,
+    0
   );
 }
 
