@@ -339,29 +339,42 @@ function WellnessScoreCard({
           </p>
         </div>
 
-        <div
-          className="wellness-score-card__overall"
-        >
-          <strong>
-            {score}%
-          </strong>
+       <header
+  className="wellness-score-card__header"
+>
+  <div>
+    <span
+      className="tracker-card__eyebrow"
+    >
+      <Activity size={14} />
 
-          <span>
-            overall
-          </span>
-        </div>
+      Overall wellness
+    </span>
+
+    <h2>
+      Today&apos;s balance
+    </h2>
+
+    <p>
+      {getScoreMessage(score)}
+    </p>
+  </div>
+</header>
       </header>
 
       <div
         className="wellness-score-card__chart"
       >
         {metrics.map(
-          ({
-            label,
-            value,
-            percentage,
-            icon: Icon
-          }) => (
+  (
+    {
+      label,
+      value,
+      percentage,
+      icon: Icon
+    },
+    index
+  ) => (
             <div
               className="wellness-metric"
               key={label}
@@ -406,13 +419,19 @@ function WellnessScoreCard({
               >
                 {percentage !==
                   null && (
-                  <span
-                    className="wellness-metric__fill"
-                    style={{
-                      width:
-                        `${percentage}%`
-                    }}
-                  />
+           <span
+  className="wellness-metric__fill"
+  style={{
+    "--metric-width":
+      `${percentage}%`,
+    animationDelay:
+      `${index * 110}ms`
+  }}
+>
+  <span
+    className="wellness-metric__glow"
+  />
+</span>
                 )}
               </div>
             </div>
