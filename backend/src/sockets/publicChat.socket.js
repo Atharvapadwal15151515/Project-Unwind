@@ -44,6 +44,29 @@ function broadcastTypingUsers(io, roomId) {
   );
 }
 
+const COMMUNITY_ACCESS_CACHE_MS = 15000;
+
+async function ensureCommunityAccessCached(socket) {
+  const now = Date.now();
+
+  const lastChecked =
+    socket.data.communityAccessCheckedAt || 0;
+
+  if (
+    now - lastChecked <
+    COMMUNITY_ACCESS_CACHE_MS
+  ) {
+    return;
+  }
+
+  await requireSocketCommunityAccess(
+    socket.user.user_id
+  );
+
+  socket.data.communityAccessCheckedAt =
+    now;
+}
+
 export default function registerPublicChat(io, socket) {
   socket.on(
     SOCKET_EVENTS.PUBLIC_CHAT_JOIN,
@@ -108,10 +131,9 @@ socket.on(
   SOCKET_EVENTS.PUBLIC_CHAT_SEND_MESSAGE,
   async (payload = {}, callback) => {
     try {
-      await requireSocketCommunityAccess(
-        socket.user.user_id
-      );
-
+      await ensureCommunityAccessCached(
+  socket
+);
       /*
        * We already stored this when
        * PUBLIC_CHAT_JOIN succeeded.

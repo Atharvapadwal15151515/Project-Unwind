@@ -98,7 +98,6 @@ export function getSocket() {
   return socket;
 }
 
-window.__unwindGetSocket = () => socket;
 
 /*
 |--------------------------------------------------------------------------
