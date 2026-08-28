@@ -230,7 +230,7 @@ export async function authenticate(
       return res.status(401).json({
         success: false,
         message:
-          "Access token expired"
+          "Your session has expired. Please sign in again."
       });
     }
 

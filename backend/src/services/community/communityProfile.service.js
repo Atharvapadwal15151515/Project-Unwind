@@ -285,11 +285,13 @@ export async function getCommunityProfile(
     );
 
   if (!profile) {
-    throw new AppError(
-      "Community profile not found",
-      404
+  const createdProfile =
+    await createCommunityProfile(
+      userId
     );
-  }
+
+  return createdProfile;
+}
 
   return {
     profile,
