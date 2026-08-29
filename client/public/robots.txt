@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://project-unwind-mu.vercel.app/sitemap.xml
