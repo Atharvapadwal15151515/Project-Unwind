@@ -15,6 +15,7 @@ import {
   Mail,
   MonitorSmartphone,
   ShieldCheck,
+  Sparkles,
   Trash2,
   UserRound
 } from "lucide-react";
@@ -204,6 +205,35 @@ function Setting() {
 
   const location =
     useLocation();
+
+    /*
+|--------------------------------------------------------------------------
+| Intro preference
+|--------------------------------------------------------------------------
+*/
+
+const [
+  skipIntro,
+  setSkipIntro
+] = useState(() => {
+  return (
+    localStorage.getItem(
+      "unwind_skip_intro"
+    ) === "true"
+  );
+});
+
+const handleIntroPreferenceChange =
+  (shouldSkip) => {
+    setSkipIntro(
+      shouldSkip
+    );
+
+    localStorage.setItem(
+      "unwind_skip_intro",
+      String(shouldSkip)
+    );
+  };
 
 
   /*
@@ -901,6 +931,16 @@ const handleVerifyDeleteOtp =
         </a>
 
         <a
+  href="#experience"
+>
+  <Sparkles
+    size={17}
+  />
+
+  Experience
+</a>
+
+        <a
           href="#security"
           className={
             securityFocused
@@ -1053,6 +1093,172 @@ const handleVerifyDeleteOtp =
               </button>
             </div>
           </article>
+
+          {/*
+|--------------------------------------------------------------------------
+| Entrance Experience
+|--------------------------------------------------------------------------
+*/}
+
+<article
+  id="experience"
+  className="account-settings__card"
+>
+  <div
+    className="account-settings__section-heading"
+  >
+    <span
+      className="account-settings__icon-box"
+    >
+      <Sparkles
+        size={20}
+      />
+    </span>
+
+    <div>
+      <h2>
+        Your entrance
+      </h2>
+
+      <p>
+        Choose how Unwind
+        welcomes you.
+      </p>
+    </div>
+  </div>
+
+  <div
+    className="account-settings__entrance-options"
+  >
+    <button
+      type="button"
+      className={[
+        "account-settings__entrance-option",
+
+        !skipIntro
+          ? "is-selected"
+          : ""
+      ].join(" ")}
+      onClick={() =>
+        handleIntroPreferenceChange(
+          false
+        )
+      }
+      aria-pressed={
+        !skipIntro
+      }
+    >
+      <span
+        className="account-settings__entrance-art account-settings__entrance-art--scenic"
+        aria-hidden="true"
+      >
+        <span>
+          〰
+        </span>
+
+        <span>
+          〰
+        </span>
+
+        <span>
+          〰
+        </span>
+
+        <span
+          className="account-settings__entrance-line"
+        />
+
+        <span
+          className="account-settings__entrance-dot"
+        />
+      </span>
+
+      <span
+        className="account-settings__entrance-copy"
+      >
+        <strong>
+          Take the scenic way
+        </strong>
+
+        <span>
+          Play the Unwind intro
+          once each session.
+        </span>
+      </span>
+
+      <span
+        className="account-settings__entrance-check"
+      >
+        {/*
+          Selection indicator
+        */}
+      </span>
+    </button>
+
+    <button
+      type="button"
+      className={[
+        "account-settings__entrance-option",
+
+        skipIntro
+          ? "is-selected"
+          : ""
+      ].join(" ")}
+      onClick={() =>
+        handleIntroPreferenceChange(
+          true
+        )
+      }
+      aria-pressed={
+        skipIntro
+      }
+    >
+      <span
+        className="account-settings__entrance-art account-settings__entrance-art--direct"
+        aria-hidden="true"
+      >
+        <span
+          className="account-settings__entrance-straight-line"
+        />
+
+        <span
+          className="account-settings__entrance-arrow"
+        >
+          →
+        </span>
+
+        <span
+          className="account-settings__entrance-dot"
+        />
+      </span>
+
+      <span
+        className="account-settings__entrance-copy"
+      >
+        <strong>
+          Straight in
+        </strong>
+
+        <span>
+          Skip the intro and
+          enter Unwind immediately.
+        </span>
+      </span>
+
+      <span
+        className="account-settings__entrance-check"
+      />
+    </button>
+  </div>
+
+  <p
+    className="account-settings__entrance-note"
+  >
+    {skipIntro
+      ? "Straight in is active. Your next visit will skip the intro."
+      : "The intro will play once when a new browser session begins."}
+  </p>
+</article>
 
 
           {/*

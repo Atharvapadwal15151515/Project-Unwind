@@ -260,9 +260,15 @@ function App() {
     );
   });
 
-  const shouldShowIntro =
-    location.pathname === "/" &&
-    !introComplete;
+ const skipIntro =
+  localStorage.getItem(
+    "unwind_skip_intro"
+  ) === "true";
+
+const shouldShowIntro =
+  location.pathname === "/" &&
+  !skipIntro &&
+  !introComplete;
 
   if (shouldShowIntro) {
     return (
