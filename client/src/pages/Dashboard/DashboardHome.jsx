@@ -17,25 +17,27 @@ import CommunityPreview from "../../components/dashboard/CommunityPreview";
 import RecentActivity from "../../components/dashboard/RecentActivity";
 
 function getDisplayName(user) {
-  const preferredName =
+  const username =
+    user?.username;
+
+  if (
+    username &&
+    !username.includes("@")
+  ) {
+    return username;
+  }
+
+  const fallbackName =
     user?.display_name ||
     user?.displayName ||
     user?.full_name ||
-    user?.fullName ||
-    user?.username;
+    user?.fullName;
 
-  if (preferredName && !preferredName.includes("@")) {
-    return preferredName;
-  }
-
-  if (user?.username && !user.username.includes("@")) {
-    return user.username;
-  }
-
-  if (user?.email) {
-    const emailName = user.email.split("@")[0];
-
-    return emailName || "there";
+  if (
+    fallbackName &&
+    !fallbackName.includes("@")
+  ) {
+    return fallbackName;
   }
 
   return "there";
