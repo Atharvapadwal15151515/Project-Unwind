@@ -1,0 +1,29 @@
+# Unwind
+
+Unwind is a privacy-focused mental wellness web application designed to provide supportive wellness tools without replacing professional medical care.
+
+## Main Features
+
+- Wellness Dashboard
+- AI Companion
+- Private Journal
+- DASS-21 Self-Assessment
+- Wellness Trackers
+- Community Posts
+- Public Chat
+- Private Rooms
+- Direct Messaging
+- Notifications
+- Account and Privacy Settings
+
+## Important Pages
+
+- [Unwind Home](https://project-unwind-mu.vercel.app/)
+- [Login](https://project-unwind-mu.vercel.app/login)
+- [Register](https://project-unwind-mu.vercel.app/register)
+
+## About
+
+Unwind focuses on privacy, emotional wellbeing, journaling, self-reflection and supportive community interaction.
+
+The platform does not provide medical diagnosis or emergency healthcare services.
