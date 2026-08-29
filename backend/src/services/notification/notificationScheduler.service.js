@@ -757,10 +757,7 @@ async function loadHabitReminders() {
       ]
     );
 
-  console.log(
-    `🔔 Habit reminders currently enabled: ${result.rows.length}`
-  );
-
+  
   return result.rows;
 }
 
@@ -1376,20 +1373,7 @@ if (
     return false;
   }
 
-  console.log(
-    "✅ HABIT DATE CHECK PASSED:",
-    {
-      habit:
-        habit.habit_name,
-
-      today:
-        context.dateKey,
-
-      startDate,
-
-      endDate
-    }
-  );
+ 
 
   /*
   |--------------------------------------------------------------------------
@@ -1409,9 +1393,7 @@ if (
         context.dateKey
     })
   ) {
-    console.log(
-      `⏭️ Habit reminder skipped because "${habit.habit_name}" already has a log for ${context.dateKey}`
-    );
+   
 
     return false;
   }
@@ -1437,10 +1419,7 @@ if (
         context.occurrenceKey
     })
   ) {
-    console.log(
-      `⏭️ Habit reminder already sent | ${habit.habit_name} | ${context.occurrenceKey}`
-    );
-
+    
     return false;
   }
 

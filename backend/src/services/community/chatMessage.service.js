@@ -263,7 +263,8 @@ export async function getChatMessageHistory({
   userId,
   limit = 30,
   beforeCreatedAt = null,
-  beforeMessageId = null
+  beforeMessageId = null,
+  requireMembership = true
 }) {
   const room = await findActiveChatRoomById({
     roomId
@@ -273,10 +274,12 @@ export async function getChatMessageHistory({
     throw new AppError("Chat room not found.", 404);
   }
 
+ if (requireMembership) {
   await getActiveMember({
     roomId,
     userId
   });
+}
 
   const normalizedLimit = Math.min(
     Math.max(Number(limit) || 30, 1),
@@ -320,14 +323,23 @@ export async function getPublicChatMessageHistory({
   beforeCreatedAt = null,
   beforeMessageId = null
 }) {
-  const room = await findOrCreatePublicChatRoom();
+  const room =
+    await findOrCreatePublicChatRoom();
 
   return getChatMessageHistory({
-    roomId: room.room_id,
+    roomId:
+      room.room_id,
+
     userId,
+
     limit,
+
     beforeCreatedAt,
-    beforeMessageId
+
+    beforeMessageId,
+
+    requireMembership:
+      false
   });
 }
 
