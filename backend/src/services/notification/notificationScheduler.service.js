@@ -1224,7 +1224,18 @@ async function habitAlreadyLogged({
 async function processHabitReminder(
   habit,
   now
-) {
+) { const context =
+    getOccurrenceContext({
+      now,
+
+      timezone:
+        habit.timezone,
+
+      reminderTime:
+        habit.reminder_time
+    });
+  
+  
   if (!context) {
   return false;
 }
@@ -1287,21 +1298,9 @@ if (
    * selected by the user.
    */
 
-  const context =
-    getOccurrenceContext({
-      now,
+ 
 
-      timezone:
-        habit.timezone,
-
-      reminderTime:
-        habit.reminder_time
-    });
-
-  if (!context) {
-    return false;
-  }
-
+  
   /*
   |--------------------------------------------------------------------------
   | Frequency

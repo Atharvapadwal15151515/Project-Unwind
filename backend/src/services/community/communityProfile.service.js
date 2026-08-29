@@ -279,19 +279,33 @@ export async function getCommunityProfile(
     );
   }
 
-  const profile =
+  let profile =
     await findCommunityProfileByUserId(
       userId
     );
 
-  if (!profile) {
-  const createdProfile =
-    await createCommunityProfile(
-      userId
-    );
+  /*
+  |--------------------------------------------------------------------------
+  | Automatically create missing community profile
+  |--------------------------------------------------------------------------
+  |
+  | Some existing users may not have a community_profiles row yet.
+  | Create one automatically with a unique anonymous alias.
+  |
+  */
 
-  return createdProfile;
-}
+  if (!profile) {
+    const anonymousAlias =
+      await createUniqueAnonymousAlias();
+
+    profile =
+      await createCommunityProfile({
+        userId,
+        anonymousAlias,
+        identityMode:
+          "anonymous"
+      });
+  }
 
   return {
     profile,
