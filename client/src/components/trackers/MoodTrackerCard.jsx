@@ -3,7 +3,9 @@ import {
   Save,
   Smile
 } from "lucide-react";
-
+import {
+  UnwindSlider
+} from "../common/UnwindControls/UnwindControls";
 import {
   useEffect,
   useState
@@ -224,20 +226,21 @@ function MoodTrackerCard({
               </strong>
             </span>
 
-            <input
-              type="range"
-              min="1"
-              max="5"
-              value={form.intensity}
-              onChange={(event) =>
-                setForm((current) => ({
-                  ...current,
-                  intensity: Number(
-                    event.target.value
-                  )
-                }))
-              }
-            />
+           <UnwindSlider
+  min={1}
+  max={5}
+  step={1}
+  value={form.intensity}
+  showValue
+  onChange={(event) =>
+    setForm((current) => ({
+      ...current,
+      intensity: Number(
+        event.target.value
+      )
+    }))
+  }
+/>
           </label>
 
           <label>
@@ -248,20 +251,21 @@ function MoodTrackerCard({
               </strong>
             </span>
 
-            <input
-              type="range"
-              min="1"
-              max="10"
-              value={form.stressScore}
-              onChange={(event) =>
-                setForm((current) => ({
-                  ...current,
-                  stressScore: Number(
-                    event.target.value
-                  )
-                }))
-              }
-            />
+            <UnwindSlider
+  min={1}
+  max={10}
+  step={1}
+  value={form.stressScore}
+  showValue
+  onChange={(event) =>
+    setForm((current) => ({
+      ...current,
+      stressScore: Number(
+        event.target.value
+      )
+    }))
+  }
+/>
           </label>
         </div>
 

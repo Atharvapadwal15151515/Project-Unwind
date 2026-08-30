@@ -20,7 +20,11 @@ import AuthAlert from "../../components/auth/AuthAlert";
 import PasswordStrength from "../../components/auth/PasswordStrength";
 import ProfilePhotoPicker from "../../components/auth/ProfilePhotoPicker";
 import GoogleAuthButton from "../../components/auth/GoogleAuthButton";
-
+import {
+  UnwindCheckbox,
+  UnwindDatePicker,
+  UnwindSelect
+} from "../../components/common/UnwindControls/UnwindControls";
 import { useAuth } from "../../context/AuthContext";
 import { getApiErrorMessage } from "../../services/api";
 
@@ -488,152 +492,122 @@ function RegisterPage() {
 
         <div className="auth-form__row">
 
-          <AuthInput
-            label="Date of birth"
-            name="dateOfBirth"
-            type="date"
-
-            value={
-              formData.dateOfBirth
-            }
-
-            onChange={
-              updateField
-            }
-
-            icon={
-              CalendarDays
-            }
-          />
-
-
           <label className="auth-field">
+  <span className="auth-field__label">
+    Date of birth
+  </span>
 
-            <span className="auth-field__label">
-              Gender
-            </span>
+  <UnwindDatePicker
+    name="dateOfBirth"
+    value={formData.dateOfBirth}
+    onChange={updateField}
+    placeholder="Select date of birth"
+    max={
+      new Date()
+        .toISOString()
+        .slice(0, 10)
+    }
+  />
+</label>
 
-            <span className="auth-field__control">
 
-              <UserRound
-                className="auth-field__icon"
-                size={18}
-              />
+         <label className="auth-field">
 
-              <select
-                name="gender"
+  <span className="auth-field__label">
+    Gender
+  </span>
 
-                value={
-                  formData.gender
-                }
+  <UnwindSelect
+    name="gender"
+    value={formData.gender}
+    onChange={updateField}
+    placeholder="Select gender"
+    leadingIcon={
+      <UserRound size={18} />
+    }
+  >
+    <option value="">
+      Prefer not to say
+    </option>
 
-                onChange={
-                  updateField
-                }
-              >
-                <option value="">
-                  Prefer not to say
-                </option>
+    <option value="male">
+      Male
+    </option>
 
-                <option value="male">
-                  Male
-                </option>
+    <option value="female">
+      Female
+    </option>
 
-                <option value="female">
-                  Female
-                </option>
+    <option value="non_binary">
+      Non-binary
+    </option>
 
-                <option value="non_binary">
-                  Non-binary
-                </option>
+    <option value="other">
+      Other
+    </option>
+  </UnwindSelect>
 
-                <option value="other">
-                  Other
-                </option>
-              </select>
-
-            </span>
-
-          </label>
-
+</label>
         </div>
 
 
         {/* Occupation */}
 
-        <label className="auth-field">
+       <label className="auth-field">
 
-          <span className="auth-field__label">
-            Occupation
-          </span>
+  <span className="auth-field__label">
+    Occupation
+  </span>
 
-          <span className="auth-field__control">
+  <UnwindSelect
+    name="occupationType"
+    value={formData.occupationType}
+    onChange={updateField}
+    placeholder="Select occupation"
+    leadingIcon={
+      <BriefcaseBusiness size={18} />
+    }
+  >
+    <option value="">
+      Select occupation
+    </option>
 
-            <BriefcaseBusiness
-              className="auth-field__icon"
-              size={18}
-            />
+    <option value="student">
+      Student
+    </option>
 
-            <select
-              name="occupationType"
+    <option value="employed">
+      Employed
+    </option>
 
-              value={
-                formData.occupationType
-              }
+    <option value="self_employed">
+      Self-employed
+    </option>
 
-              onChange={
-                updateField
-              }
-            >
-              <option value="">
-                Select occupation
-              </option>
+    <option value="unemployed">
+      Currently not employed
+    </option>
 
-              <option value="student">
-                Student
-              </option>
+    <option value="other">
+      Other
+    </option>
+  </UnwindSelect>
 
-              <option value="employed">
-                Employed
-              </option>
-
-              <option value="self_employed">
-                Self-employed
-              </option>
-
-              <option value="unemployed">
-                Currently not employed
-              </option>
-
-              <option value="other">
-                Other
-              </option>
-            </select>
-
-          </span>
-
-        </label>
+</label>
 
 
         {/* Terms */}
 
         <label className="register-terms">
 
-          <input
-            type="checkbox"
-
-            checked={
-              acceptedTerms
-            }
-
-            onChange={(
-              event
-            ) =>
-              setAcceptedTerms(
-                event.target.checked
-              )
-            }
-          />
+        <UnwindCheckbox
+  checked={acceptedTerms}
+  onChange={(event) =>
+    setAcceptedTerms(
+      event.target.checked
+    )
+  }
+/>
 
           <span>
             I have read and agree to the{" "}

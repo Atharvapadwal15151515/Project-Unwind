@@ -3,7 +3,9 @@ import {
   useRef,
   useState
 } from "react";
-
+import {
+  UnwindDatePicker
+} from "../common/UnwindControls/UnwindControls";
 import {
   Archive,
   ArchiveRestore,
@@ -629,35 +631,30 @@ function JournalEditorModal({
                   DATE CARD
                  =============================================== */}
 
-              <div className="journal-diary-date-card">
-                <div className="journal-diary-date-card__heading">
-                  <CalendarDays
-                    size={15}
-                  />
+<div className="journal-diary-date-card">
+  <div className="journal-diary-date-card__heading">
+    <CalendarDays
+      size={15}
+    />
 
-                  <span>
-                    Date
-                  </span>
-                </div>
+    <span>
+      Date
+    </span>
+  </div>
 
-                <input
-                  type="date"
-                  value={
-                    editor.entryDate
-                  }
-                  disabled={
-                    controlsDisabled
-                  }
-                  onChange={(
-                    event
-                  ) =>
-                    onFieldChange(
-                      "entryDate",
-                      event.target.value
-                    )
-                  }
-                />
-              </div>
+  <UnwindDatePicker
+    name="entryDate"
+    value={editor.entryDate}
+    disabled={controlsDisabled}
+    placeholder="Select journal date"
+    onChange={(event) =>
+      onFieldChange(
+        "entryDate",
+        event.target.value
+      )
+    }
+  />
+</div>
 
 
               {/* ===============================================

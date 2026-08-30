@@ -2,7 +2,6 @@ import {
   Bell,
   CalendarDays,
   Check,
-  ChevronDown,
   Clock3,
   LoaderCircle,
   Plus,
@@ -10,7 +9,10 @@ import {
   Target,
   X
 } from "lucide-react";
-
+import {
+  UnwindDatePicker,
+  UnwindSelect
+} from "../common/UnwindControls/UnwindControls";
 import {
   useEffect,
   useMemo,
@@ -597,57 +599,41 @@ function CreateHabitModal({
             <label className="habit-field">
               <span>Category</span>
 
-              <div className="habit-select">
-                <select
-                  value={form.category}
-                  onChange={(event) =>
-                    updateField(
-                      "category",
-                      event.target.value
-                    )
-                  }
-                >
-                  {categories.map(
-                    (category) => (
-                      <option
-                        key={
-                          category.value
-                        }
-                        value={
-                          category.value
-                        }
-                      >
-                        {category.label}
-                      </option>
-                    )
-                  )}
-                </select>
-
-                <ChevronDown
-                  size={16}
-                />
-              </div>
+              <UnwindSelect
+  value={form.category}
+  onChange={(event) =>
+    updateField(
+      "category",
+      event.target.value
+    )
+  }
+>
+  {categories.map(
+    (category) => (
+      <option
+        key={category.value}
+        value={category.value}
+      >
+        {category.label}
+      </option>
+    )
+  )}
+</UnwindSelect>
             </label>
 
             <label className="habit-field">
               <span>Start date</span>
 
-              <div className="habit-input-icon">
-                <CalendarDays
-                  size={16}
-                />
-
-                <input
-                  type="date"
-                  value={form.startDate}
-                  onChange={(event) =>
-                    updateField(
-                      "startDate",
-                      event.target.value
-                    )
-                  }
-                />
-              </div>
+<UnwindDatePicker
+  name="startDate"
+  value={form.startDate}
+  onChange={(event) =>
+    updateField(
+      "startDate",
+      event.target.value
+    )
+  }
+/>
             </label>
           </div>
 
@@ -739,32 +725,26 @@ function CreateHabitModal({
               <label className="habit-field">
                 <span>Unit</span>
 
-                <div className="habit-select">
-                  <select
-                    value={form.targetUnit}
-                    onChange={(event) =>
-                      updateField(
-                        "targetUnit",
-                        event.target.value
-                      )
-                    }
-                  >
-                    {targetUnitOptions.map(
-                      (unit) => (
-                        <option
-                          key={unit}
-                          value={unit}
-                        >
-                          {unit}
-                        </option>
-                      )
-                    )}
-                  </select>
-
-                  <ChevronDown
-                    size={16}
-                  />
-                </div>
+               <UnwindSelect
+  value={form.targetUnit}
+  onChange={(event) =>
+    updateField(
+      "targetUnit",
+      event.target.value
+    )
+  }
+>
+  {targetUnitOptions.map(
+    (unit) => (
+      <option
+        key={unit}
+        value={unit}
+      >
+        {unit}
+      </option>
+    )
+  )}
+</UnwindSelect>
               </label>
             </div>
           )}
@@ -856,23 +836,18 @@ function CreateHabitModal({
                 <small>Optional</small>
               </span>
 
-              <div className="habit-input-icon">
-                <CalendarDays
-                  size={16}
-                />
-
-                <input
-                  type="date"
-                  min={form.startDate}
-                  value={form.endDate}
-                  onChange={(event) =>
-                    updateField(
-                      "endDate",
-                      event.target.value
-                    )
-                  }
-                />
-              </div>
+              <UnwindDatePicker
+  name="endDate"
+  value={form.endDate}
+  min={form.startDate}
+  placeholder="No end date"
+  onChange={(event) =>
+    updateField(
+      "endDate",
+      event.target.value
+    )
+  }
+/>
             </label>
 
             <div className="habit-reminder">

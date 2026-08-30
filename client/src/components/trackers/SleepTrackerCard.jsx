@@ -5,7 +5,8 @@ import {
   Save,
   Star
 } from "lucide-react";
-
+import UnwindDateTimePicker
+  from "../common/UnwindControls/UnwindDateTimePicker";
 import {
   useEffect,
   useMemo,
@@ -556,22 +557,18 @@ function SleepTrackerCard({
               Bedtime
             </span>
 
-            <input
-              type="datetime-local"
-              value={
-                form.bedtime
-              }
-              onChange={(
-                event
-              ) =>
-                updateField(
-                  "bedtime",
-                  event.target
-                    .value
-                )
-              }
-              required
-            />
+<UnwindDateTimePicker
+  name="bedtime"
+  label="Bedtime"
+  value={form.bedtime}
+  onChange={(event) =>
+    updateField(
+      "bedtime",
+      event.target.value
+    )
+  }
+  required
+/>
           </label>
 
           <label>
@@ -579,22 +576,20 @@ function SleepTrackerCard({
               Fell asleep
             </span>
 
-            <input
-              type="datetime-local"
-              value={
-                form.sleepStartTime
-              }
-              onChange={(
-                event
-              ) =>
-                updateField(
-                  "sleepStartTime",
-                  event.target
-                    .value
-                )
-              }
-              required
-            />
+            <UnwindDateTimePicker
+  name="sleepStartTime"
+  label="Fell asleep"
+  value={
+    form.sleepStartTime
+  }
+  onChange={(event) =>
+    updateField(
+      "sleepStartTime",
+      event.target.value
+    )
+  }
+  required
+/>
           </label>
 
           <label>
@@ -602,22 +597,18 @@ function SleepTrackerCard({
               Woke up
             </span>
 
-            <input
-              type="datetime-local"
-              value={
-                form.wakeTime
-              }
-              onChange={(
-                event
-              ) =>
-                updateField(
-                  "wakeTime",
-                  event.target
-                    .value
-                )
-              }
-              required
-            />
+           <UnwindDateTimePicker
+  name="wakeTime"
+  label="Woke up"
+  value={form.wakeTime}
+  onChange={(event) =>
+    updateField(
+      "wakeTime",
+      event.target.value
+    )
+  }
+  required
+/>
           </label>
 
           <label>
@@ -625,21 +616,19 @@ function SleepTrackerCard({
               Left bed
             </span>
 
-            <input
-              type="datetime-local"
-              value={
-                form.gotOutOfBedTime
-              }
-              onChange={(
-                event
-              ) =>
-                updateField(
-                  "gotOutOfBedTime",
-                  event.target
-                    .value
-                )
-              }
-            />
+<UnwindDateTimePicker
+  name="gotOutOfBedTime"
+  label="Left bed"
+  value={
+    form.gotOutOfBedTime
+  }
+  onChange={(event) =>
+    updateField(
+      "gotOutOfBedTime",
+      event.target.value
+    )
+  }
+/>
           </label>
         </div>
 

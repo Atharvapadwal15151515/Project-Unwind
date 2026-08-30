@@ -7,7 +7,9 @@ import {
   AnimatePresence,
   motion
 } from "framer-motion";
-
+import {
+  UnwindRadioGroup
+} from "../common/UnwindControls/UnwindControls";
 import {
   AlertTriangle,
   CheckCircle2,
@@ -359,56 +361,30 @@ function ReportPostModal({
                     </div>
                   </div>
 
-                  <fieldset className="community-report-reasons">
-                    <legend>
-                      Why are you
-                      reporting this?
-                    </legend>
+<fieldset className="community-report-reasons">
+  <legend>
+    Why are you
+    reporting this?
+  </legend>
 
-                    {REPORT_REASONS.map(
-                      (item) => (
-                        <label
-                          key={
-                            item.value
-                          }
-                          className={
-                            reason ===
-                            item.value
-                              ? "community-report-reason community-report-reason--selected"
-                              : "community-report-reason"
-                          }
-                        >
-                          <input
-                            type="radio"
-                            name="report-reason"
-                            value={
-                              item.value
-                            }
-                            checked={
-                              reason ===
-                              item.value
-                            }
-                            onChange={(
-                              event
-                            ) =>
-                              setReason(
-                                event
-                                  .target
-                                  .value
-                              )
-                            }
-                          />
-
-                          <span>
-                            {
-                              item.label
-                            }
-                          </span>
-                        </label>
-                      )
-                    )}
-                  </fieldset>
-
+  <UnwindRadioGroup
+    name="report-reason"
+    value={reason}
+    onChange={(event) =>
+      setReason(
+        event.target.value
+      )
+    }
+    options={
+      REPORT_REASONS.map(
+        (item) => ({
+          value: item.value,
+          label: item.label
+        })
+      )
+    }
+  />
+</fieldset>
                   <label className="community-report-description">
                     <span>
                       Additional details

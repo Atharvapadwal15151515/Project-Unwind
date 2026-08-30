@@ -19,7 +19,11 @@ import AuthLayout from "../../components/auth/AuthLayout";
 import AuthInput from "../../components/auth/AuthInput";
 import AuthAlert from "../../components/auth/AuthAlert";
 import ProfilePhotoPicker from "../../components/auth/ProfilePhotoPicker";
-
+import {
+  UnwindCheckbox,
+  UnwindDatePicker,
+  UnwindSelect
+} from "../../components/common/UnwindControls/UnwindControls";
 import {
   completeGoogleProfile,
   getGoogleSignupToken,
@@ -429,25 +433,24 @@ function GoogleCompleteProfilePage() {
           />
 
 
-          <AuthInput
-            label="Date of birth"
-            name="dateOfBirth"
-            type="date"
+          <label className="auth-field">
+  <span className="auth-field__label">
+    Date of birth
+  </span>
 
-            value={
-              formData.dateOfBirth
-            }
-
-            onChange={
-              updateField
-            }
-
-            icon={
-              CalendarDays
-            }
-
-            required
-          />
+  <UnwindDatePicker
+  name="dateOfBirth"
+  value={formData.dateOfBirth}
+  onChange={updateField}
+  placeholder="Select date of birth"
+  max={
+    new Date()
+      .toISOString()
+      .slice(0, 10)
+  }
+  required
+/>
+</label>
 
         </div>
 
@@ -460,53 +463,38 @@ function GoogleCompleteProfilePage() {
             Gender
           </span>
 
-          <span className="auth-field__control">
+         <UnwindSelect
+  name="gender"
+  value={formData.gender}
+  onChange={updateField}
+  placeholder="Select gender"
+  icon={UserRound}
+  required
+>
+  <option value="">
+    Select gender
+  </option>
 
-            <UserRound
-              className="auth-field__icon"
-              size={18}
-            />
+  <option value="male">
+    Male
+  </option>
 
-            <select
-              name="gender"
+  <option value="female">
+    Female
+  </option>
 
-              value={
-                formData.gender
-              }
+  <option value="non_binary">
+    Non-binary
+  </option>
 
-              onChange={
-                updateField
-              }
+  <option value="other">
+    Other
+  </option>
 
-              required
-            >
-              <option value="">
-                Select gender
-              </option>
-
-              <option value="male">
-                Male
-              </option>
-
-              <option value="female">
-                Female
-              </option>
-
-              <option value="non_binary">
-                Non-binary
-              </option>
-
-              <option value="other">
-                Other
-              </option>
-
-              <option value="prefer_not_to_say">
-                Prefer not to say
-              </option>
-
-            </select>
-
-          </span>
+  <option value="prefer_not_to_say">
+    Prefer not to say
+  </option>
+</UnwindSelect>
 
         </label>
 
@@ -519,53 +507,44 @@ function GoogleCompleteProfilePage() {
             Occupation
           </span>
 
-          <span className="auth-field__control">
+<label className="auth-field">
+  <span className="auth-field__label">
+    Occupation
+  </span>
 
-            <BriefcaseBusiness
-              className="auth-field__icon"
-              size={18}
-            />
+  <UnwindSelect
+    name="occupationType"
+    value={formData.occupationType}
+    onChange={updateField}
+    placeholder="Select occupation"
+    icon={BriefcaseBusiness}
+    required
+  >
+    <option value="">
+      Select occupation
+    </option>
 
-            <select
-              name="occupationType"
+    <option value="student">
+      Student
+    </option>
 
-              value={
-                formData.occupationType
-              }
+    <option value="employed">
+      Employed
+    </option>
 
-              onChange={
-                updateField
-              }
+    <option value="self_employed">
+      Self-employed
+    </option>
 
-              required
-            >
-              <option value="">
-                Select occupation
-              </option>
+    <option value="unemployed">
+      Currently not employed
+    </option>
 
-              <option value="student">
-                Student
-              </option>
-
-              <option value="employed">
-                Employed
-              </option>
-
-              <option value="self_employed">
-                Self-employed
-              </option>
-
-              <option value="unemployed">
-                Currently not employed
-              </option>
-
-              <option value="other">
-                Other
-              </option>
-
-            </select>
-
-          </span>
+    <option value="other">
+      Other
+    </option>
+  </UnwindSelect>
+</label>
 
         </label>
 
@@ -574,21 +553,14 @@ function GoogleCompleteProfilePage() {
 
         <label className="register-terms">
 
-          <input
-            type="checkbox"
-
-            checked={
-              acceptedTerms
-            }
-
-            onChange={(
-              event
-            ) =>
-              setAcceptedTerms(
-                event.target.checked
-              )
-            }
-          />
+          <UnwindCheckbox
+  checked={acceptedTerms}
+  onChange={(event) =>
+    setAcceptedTerms(
+      event.target.checked
+    )
+  }
+/>
 
 
           <span>

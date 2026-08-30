@@ -434,24 +434,17 @@ function EmotionalCheckin() {
               </strong>
             </div>
 
-            <input
-              type="range"
-              min="1"
-              max="10"
-              value={
-                intensity
-              }
-              onChange={(
-                event
-              ) =>
-                setIntensity(
-                  Number(
-                    event.target
-                      .value
-                  )
-                )
-              }
-            />
+            <UnwindSlider
+  min={1}
+  max={10}
+  value={value}
+  showValue
+  onChange={(event) =>
+    setValue(
+      Number(event.target.value)
+    )
+  }
+/>
 
             <div className="emotional-intensity__labels">
               <span>
