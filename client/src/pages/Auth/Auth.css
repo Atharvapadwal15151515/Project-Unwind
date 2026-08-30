@@ -1415,3 +1415,133 @@ button.unwind-checkbox:focus-visible {
       14px !important;
   }
 }
+
+/* =========================================================
+   AUTH — SELECT DROPDOWN LIGHT PANEL
+   ========================================================= */
+
+.auth-page .unwind-select__content {
+  background:
+    rgba(
+      250,
+      253,
+      252,
+      0.98
+    ) !important;
+
+  border:
+    1px solid
+    rgba(
+      31,
+      111,
+      97,
+      0.14
+    ) !important;
+
+  border-radius:
+    16px !important;
+
+  padding:
+    7px !important;
+
+  box-shadow:
+    0 18px 45px
+    rgba(
+      19,
+      62,
+      53,
+      0.14
+    ) !important;
+
+  backdrop-filter:
+    blur(18px);
+
+  -webkit-backdrop-filter:
+    blur(18px);
+}
+
+
+/* Normal options */
+
+.auth-page .unwind-select__item {
+  min-height:
+    46px !important;
+
+  padding:
+    0
+    12px !important;
+
+  border-radius:
+    11px !important;
+
+  background:
+    transparent !important;
+
+  color:
+    #24483f !important;
+
+  font-weight:
+    600 !important;
+
+  cursor:
+    pointer !important;
+
+  transition:
+    background-color 140ms ease,
+    color 140ms ease,
+    transform 140ms ease !important;
+}
+
+
+/* Mouse / keyboard hover */
+
+.auth-page
+.unwind-select__item[data-highlighted] {
+  outline:
+    none !important;
+
+  background:
+    #edf7f4 !important;
+
+  color:
+    #176b5c !important;
+
+  transform:
+    translateX(2px);
+}
+
+
+/* Selected option */
+
+.auth-page
+.unwind-select__item[data-state="checked"] {
+  background:
+    #e3f3ef !important;
+
+  color:
+    #176b5c !important;
+
+  font-weight:
+    700 !important;
+}
+
+
+/* Selected + highlighted */
+
+.auth-page
+.unwind-select__item[data-state="checked"][data-highlighted] {
+  background:
+    #d9efea !important;
+
+  color:
+    #125c50 !important;
+}
+
+
+/* Check icon */
+
+.auth-page
+.unwind-select__item-indicator {
+  color:
+    #258675 !important;
+}
