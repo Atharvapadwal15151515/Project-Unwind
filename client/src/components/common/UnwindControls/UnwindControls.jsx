@@ -325,6 +325,7 @@ export function UnwindSelect({
   id,
   icon: Icon,
   sideOffset = 7,
+  variant = "default",
   ...rest
 }) {
   const fallbackId = useId();
@@ -421,11 +422,16 @@ export function UnwindSelect({
 
         <Select.Portal>
           <Select.Content
-            className={cx("unwind-select__content", contentClassName)}
-            position="popper"
-            sideOffset={sideOffset}
-            collisionPadding={12}
-          >
+  className={cx(
+    "unwind-select__content",
+    variant !== "default" &&
+      `unwind-select__content--${variant}`,
+    contentClassName
+  )}
+  position="popper"
+  sideOffset={sideOffset}
+  collisionPadding={12}
+>
             <Select.ScrollUpButton className="unwind-select__scroll-button">
               <ChevronUp size={16} />
             </Select.ScrollUpButton>

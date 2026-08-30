@@ -1709,3 +1709,158 @@ button.unwind-date__today:disabled {
       );
   }
 }
+
+/* =========================================================
+   SELECT — LIGHT VARIANT
+   ========================================================= */
+
+.unwind-select__content--light {
+  background:
+    rgba(
+      250,
+      253,
+      252,
+      0.98
+    ) !important;
+
+  border:
+    1px solid
+    rgba(
+      31,
+      111,
+      97,
+      0.14
+    ) !important;
+
+  border-radius:
+    16px !important;
+
+  box-shadow:
+    0 20px 55px
+    rgba(
+      18,
+      58,
+      50,
+      0.13
+    ),
+    0 4px 14px
+    rgba(
+      18,
+      58,
+      50,
+      0.06
+    ) !important;
+
+  backdrop-filter:
+    blur(18px);
+
+  -webkit-backdrop-filter:
+    blur(18px);
+}
+
+
+.unwind-select__content--light
+.unwind-select__viewport {
+  padding:
+    7px !important;
+}
+
+
+.unwind-select__content--light
+.unwind-select__item {
+  min-height:
+    44px !important;
+
+  padding:
+    0
+    38px
+    0
+    14px !important;
+
+  margin:
+    2px
+    0 !important;
+
+  border-radius:
+    11px !important;
+
+  background:
+    transparent !important;
+
+  color:
+    #294a43 !important;
+
+  font-size:
+    0.95rem !important;
+
+  font-weight:
+    600 !important;
+
+  cursor:
+    pointer !important;
+
+  transition:
+    background-color 130ms ease,
+    color 130ms ease,
+    transform 130ms ease !important;
+}
+
+
+.unwind-select__content--light
+.unwind-select__item[data-highlighted] {
+  outline:
+    none !important;
+
+  background:
+    #edf7f4 !important;
+
+  color:
+    #176b5c !important;
+
+  transform:
+    translateX(2px);
+}
+
+
+.unwind-select__content--light
+.unwind-select__item[data-state="checked"] {
+  background:
+    linear-gradient(
+      135deg,
+      #ddf2ed,
+      #edf8f5
+    ) !important;
+
+  color:
+    #176b5c !important;
+
+  font-weight:
+    700 !important;
+}
+
+
+.unwind-select__content--light
+.unwind-select__item[data-state="checked"][data-highlighted] {
+  background:
+    #d4ebe5 !important;
+
+  color:
+    #125c50 !important;
+}
+
+
+.unwind-select__content--light
+.unwind-select__indicator {
+  color:
+    #258675 !important;
+}
+
+
+.unwind-select__content--light
+.unwind-select__scroll-button {
+  background:
+    #f4faf8 !important;
+
+  color:
+    #287667 !important;
+}
