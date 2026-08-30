@@ -11,7 +11,6 @@ import {
 import {
   AtSign,
   BriefcaseBusiness,
-  CalendarDays,
   UserRound
 } from "lucide-react";
 
