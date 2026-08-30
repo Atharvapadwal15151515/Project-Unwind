@@ -901,3 +901,270 @@
       rgba(181, 255, 105, 0.3)
     );
 }
+
+/* =========================================================
+   SHARED UNWIND CONTROLS — AUTH LIGHT THEME
+   ========================================================= */
+
+/*
+ * Auth pages always use a light surface.
+ * These overrides only affect shared controls rendered
+ * inside .auth-page.
+ */
+
+
+/* ---------------------------------------------------------
+   SELECT
+   --------------------------------------------------------- */
+
+.auth-page .unwind-select__trigger {
+  width: 100%;
+  min-height: 52px;
+
+  padding: 0;
+
+  border: 0;
+  outline: 0;
+
+  background: transparent;
+
+  color: #173d36;
+
+  box-shadow: none;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.auth-page .unwind-select__trigger:hover {
+  background: transparent;
+}
+
+.auth-page .unwind-select__trigger:focus-visible,
+.auth-page .unwind-select__trigger[data-state="open"] {
+  outline: none;
+  box-shadow: none;
+}
+
+
+/* Select placeholder */
+
+.auth-page
+.unwind-select__trigger
+[data-placeholder] {
+  color: #a0afab;
+}
+
+
+/* Select chevron */
+
+.auth-page
+.unwind-select__trigger
+svg {
+  color: #77908a;
+}
+
+
+/* ---------------------------------------------------------
+   DATE PICKER
+   --------------------------------------------------------- */
+
+.auth-page .unwind-date__trigger {
+  width: 100%;
+  min-height: 52px;
+
+  padding: 0;
+
+  border: 0;
+  outline: 0;
+
+  background: transparent;
+
+  color: #173d36;
+
+  box-shadow: none;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.auth-page .unwind-date__trigger:hover {
+  background: transparent;
+}
+
+.auth-page .unwind-date__trigger:focus-visible,
+.auth-page .unwind-date__trigger[data-state="open"] {
+  outline: none;
+  box-shadow: none;
+}
+
+.auth-page
+.unwind-date__trigger
+svg {
+  color: #77908a;
+}
+
+
+/* ---------------------------------------------------------
+   CHECKBOX
+   --------------------------------------------------------- */
+
+.auth-page .unwind-checkbox {
+  width: 20px;
+  height: 20px;
+
+  min-width: 20px;
+  min-height: 20px;
+
+  padding: 0;
+
+  border:
+    1.5px solid
+    rgba(
+      31,
+      111,
+      97,
+      0.35
+    );
+
+  border-radius: 6px;
+
+  background: #ffffff;
+
+  color: #ffffff;
+
+  box-shadow: none;
+
+  cursor: pointer;
+
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 120ms ease;
+}
+
+
+.auth-page
+.unwind-checkbox:hover {
+  border-color:
+    #1f6f61;
+
+  background:
+    #f3f9f7;
+}
+
+
+.auth-page
+.unwind-checkbox[data-state="checked"] {
+  border-color:
+    #1f6f61;
+
+  background:
+    #1f6f61;
+
+  color:
+    #ffffff;
+}
+
+
+.auth-page
+.unwind-checkbox:focus-visible {
+  outline: none;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(
+      31,
+      111,
+      97,
+      0.1
+    );
+}
+
+
+.auth-page
+.unwind-checkbox:active {
+  transform:
+    scale(0.94);
+}
+
+
+/* ---------------------------------------------------------
+   AUTH FIELD WRAPPER + SHARED CONTROLS
+   --------------------------------------------------------- */
+
+/*
+ * The white auth-field__control wrapper owns the border.
+ * Shared controls inside it should therefore remain
+ * transparent and borderless.
+ */
+
+.auth-page
+.auth-field__control
+.unwind-select__trigger,
+
+.auth-page
+.auth-field__control
+.unwind-date__trigger {
+  flex: 1;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 50px;
+
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+
+  border-radius: 0;
+
+  background: transparent;
+
+  box-shadow: none;
+}
+
+
+/* ---------------------------------------------------------
+   DISABLED STATES
+   --------------------------------------------------------- */
+
+.auth-page
+.unwind-select__trigger:disabled,
+
+.auth-page
+.unwind-date__trigger:disabled {
+  color: #91a09c;
+
+  cursor: not-allowed;
+
+  opacity: 0.65;
+}
+
+
+.auth-page
+.unwind-checkbox:disabled {
+  cursor: not-allowed;
+
+  opacity: 0.55;
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------- */
+
+@media (
+  max-width: 560px
+) {
+  .auth-page
+  .unwind-select__trigger,
+
+  .auth-page
+  .unwind-date__trigger {
+    min-height: 48px;
+  }
+}
