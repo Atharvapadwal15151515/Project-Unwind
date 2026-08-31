@@ -44,6 +44,34 @@ import {
 function getAttachmentSource(
   attachment
 ) {
+  const type =
+    getJournalAttachmentType(
+      attachment
+    ) || "document";
+
+  /*
+   * Documents must prefer the original file URL.
+   * A preview URL may point to a generated preview
+   * rather than the actual PDF/document.
+   */
+  if (type === "document") {
+    return (
+      attachment?.fileUrl ||
+      attachment?.file_url ||
+      attachment?.secureUrl ||
+      attachment?.secure_url ||
+      attachment?.resourceUrl ||
+      attachment?.resource_url ||
+      attachment?.url ||
+      attachment?.previewUrl ||
+      attachment?.preview_url ||
+      ""
+    );
+  }
+
+  /*
+   * Images/video/audio may safely prefer previews.
+   */
   return (
     attachment?.previewUrl ||
     attachment?.preview_url ||
@@ -56,6 +84,49 @@ function getAttachmentSource(
     attachment?.url ||
     ""
   );
+}
+
+function openJournalAttachment(
+  attachment
+) {
+  const source =
+    getAttachmentSource(
+      attachment
+    );
+
+  if (!source) {
+    console.error(
+      "Journal attachment has no usable URL:",
+      attachment
+    );
+
+    return;
+  }
+
+  console.log(
+    "Opening journal attachment:",
+    {
+      name:
+        getAttachmentName(
+          attachment
+        ),
+      source,
+      attachment
+    }
+  );
+
+  const opened =
+    window.open(
+      source,
+      "_blank",
+      "noopener,noreferrer"
+    );
+
+  if (!opened) {
+    console.warn(
+      "Browser blocked journal attachment popup."
+    );
+  }
 }
 
 
@@ -491,22 +562,30 @@ function JournalCoverAttachment({
 
 
         {source ? (
-          <a
-            href={source}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={`Open ${name}`}
-            onClick={(
-              event
-            ) =>
-              event.stopPropagation()
-            }
-          >
-            <ExternalLink
-              size={15}
-            />
-          </a>
-        ) : null}
+  <button
+    type="button"
+    className="journal-page-document-cover__open"
+    aria-label={`Open ${name}`}
+    onPointerDown={(
+      event
+    ) =>
+      event.stopPropagation()
+    }
+    onClick={(
+      event
+    ) => {
+      event.stopPropagation();
+
+      openJournalAttachment(
+        attachment
+      );
+    }}
+  >
+    <ExternalLink
+      size={15}
+    />
+  </button>
+) : null}
       </div>
 
 
@@ -728,18 +807,22 @@ function JournalGalleryAttachment({
 
 
             {source ? (
-              <a
-                href={source}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <ExternalLink
-                  size={14}
-                />
+  <button
+    type="button"
+    className="journal-attachment-viewer__document-open"
+    onClick={() =>
+      openJournalAttachment(
+        attachment
+      )
+    }
+  >
+    <ExternalLink
+      size={14}
+    />
 
-                Open document
-              </a>
-            ) : null}
+    Open document
+  </button>
+) : null}
           </div>
         ) : null}
       </div>
