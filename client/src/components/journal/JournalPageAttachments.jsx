@@ -7,7 +7,8 @@ import {
 import {
   createPortal
 } from "react-dom";
-
+import UnwindAudioPlayer
+  from "../common/UnwindControls/UnwindAudioPlayer";
 import {
   ExternalLink,
   FileText,
@@ -771,14 +772,9 @@ function JournalGalleryAttachment({
 
 
             {source ? (
-              <audio
-                src={source}
-                controls
-                preload="metadata"
-              >
-                Your browser does not
-                support audio playback.
-              </audio>
+              <UnwindAudioPlayer
+  src={source}
+/>
             ) : (
               <span>
                 Audio unavailable
