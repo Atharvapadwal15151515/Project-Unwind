@@ -88,26 +88,38 @@ function NotificationRedirectPage() {
 
   return (
     <main className="notification-redirect-page">
+
+      {/* Ambient background */}
+
       <div className="notification-redirect-orb notification-redirect-orb--one" />
+
       <div className="notification-redirect-orb notification-redirect-orb--two" />
+
       <div className="notification-redirect-orb notification-redirect-orb--three" />
 
+
       <section className="notification-redirect-shell">
+
+        {/* Animated visual */}
+
         <div className="notification-redirect-scene">
+
           <div className="notification-redirect-ring notification-redirect-ring--outer" />
+
           <div className="notification-redirect-ring notification-redirect-ring--middle" />
+
           <div className="notification-redirect-ring notification-redirect-ring--inner" />
 
+
           <div className="notification-redirect-bell">
+
             <Bell
               size={34}
               strokeWidth={1.8}
             />
 
-            <span className="notification-redirect-bell__badge">
-              1
-            </span>
           </div>
+
 
           <Sparkles
             className="notification-redirect-sparkle notification-redirect-sparkle--one"
@@ -123,41 +135,53 @@ function NotificationRedirectPage() {
             className="notification-redirect-sparkle notification-redirect-sparkle--three"
             size={12}
           />
+
         </div>
 
 
+        {/* Main content */}
+
         <div className="notification-redirect-copy">
+
           <span className="notification-redirect-eyebrow">
             UNWIND NOTIFICATIONS
           </span>
 
+
           <h1>
-            Your notifications
-            moved somewhere better.
+            Taking you to your
+            notification center.
           </h1>
 
+
           <p>
-            We&apos;re taking you to your
-            dashboard notification center,
-            where everything is easier to
-            manage.
+            You&apos;ll be redirected to your
+            dashboard, where you can review
+            recent updates, account notices,
+            moderation decisions, reminders,
+            and community activity.
           </p>
 
 
           <div className="notification-redirect-status">
+
             <div className="notification-redirect-status__top">
+
               <span>
-                Redirecting automatically
+                Opening notification center
               </span>
 
               <strong>
                 {secondsLeft}s
               </strong>
+
             </div>
+
 
             <div className="notification-redirect-progress">
               <span />
             </div>
+
           </div>
 
 
@@ -168,7 +192,7 @@ function NotificationRedirectPage() {
               goNow
             }
           >
-            Go to notifications now
+            View notifications now
 
             <ArrowRight
               size={17}
@@ -177,11 +201,15 @@ function NotificationRedirectPage() {
 
 
           <small className="notification-redirect-note">
-            You can close this page at
-            any time.
+            Some notifications may contain
+            important account or community
+            updates.
           </small>
+
         </div>
+
       </section>
+
     </main>
   );
 }
