@@ -562,6 +562,35 @@ export function UnwindDatePicker({
       );
     };
 
+    const currentYear =
+  visibleMonth.getFullYear();
+
+const yearOptions =
+  Array.from(
+    { length: 120 },
+    (_, index) =>
+      new Date().getFullYear() -
+      index
+  );
+
+const changeYear = (
+  event
+) => {
+  const nextYear =
+    Number(
+      event.target.value
+    );
+
+  setVisibleMonth(
+    (current) =>
+      new Date(
+        nextYear,
+        current.getMonth(),
+        1
+      )
+  );
+};
+
   return (
     <Popover.Root>
       <div
@@ -627,16 +656,32 @@ export function UnwindDatePicker({
                 />
               </button>
 
-              <strong>
-                {
-                  MONTH_NAMES[
-                    visibleMonth.getMonth()
-                  ]
-                }{" "}
-                {
-                  visibleMonth.getFullYear()
-                }
-              </strong>
+              <div className="unwind-date__month-year">
+  <strong>
+    {
+      MONTH_NAMES[
+        visibleMonth.getMonth()
+      ]
+    }
+  </strong>
+
+  <select
+    value={currentYear}
+    onChange={changeYear}
+    aria-label="Select year"
+  >
+    {yearOptions.map(
+      (year) => (
+        <option
+          key={year}
+          value={year}
+        >
+          {year}
+        </option>
+      )
+    )}
+  </select>
+</div>
 
               <button
                 type="button"

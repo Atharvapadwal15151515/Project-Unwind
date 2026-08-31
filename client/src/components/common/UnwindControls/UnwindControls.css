@@ -962,52 +962,52 @@ button.unwind-select__trigger
    ========================================================= */
 
 button.unwind-checkbox {
-  appearance: none !important;
-
-  flex: 0 0 auto;
+  position: relative;
 
   width: 24px !important;
   min-width: 24px !important;
+
   height: 24px !important;
   min-height: 24px !important;
-
-  margin: 0 !important;
-  padding: 0 !important;
 
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
 
+  padding: 0 !important;
+
   border:
     1.5px solid
-    rgba(31, 92, 80, 0.28) !important;
+    color-mix(
+      in srgb,
+      var(--primary) 38%,
+      var(--text)
+    ) !important;
 
   border-radius: 7px !important;
 
-  background: var(--surface) !important;
-  background-image: none !important;
+  background:
+    var(--surface) !important;
 
   color: #ffffff !important;
 
-  box-shadow:
-    0 1px 3px
-    rgba(13, 55, 46, 0.05) !important;
-
-  outline: none !important;
-
   cursor: pointer !important;
 
-  transform: scale(1) !important;
+  box-shadow:
+    0 1px 3px
+    rgba(10, 40, 34, 0.06) !important;
+
+  transform: scale(1);
 
   transition:
-    background-color 140ms ease,
-    border-color 140ms ease,
-    box-shadow 140ms ease,
-    transform 120ms ease !important;
+    background-color 130ms ease,
+    border-color 130ms ease,
+    box-shadow 130ms ease,
+    transform 90ms ease !important;
 }
 
 
-/* Hover */
+/* Hover — clearly visible */
 
 button.unwind-checkbox:hover:not(:disabled) {
   border-color:
@@ -1016,40 +1016,117 @@ button.unwind-checkbox:hover:not(:disabled) {
   background:
     color-mix(
       in srgb,
-      var(--primary) 5%,
-      #ffffff
+      var(--primary-soft) 70%,
+      var(--surface)
     ) !important;
 
   box-shadow:
-    0 0 0 3px
+    0 0 0 4px
     color-mix(
       in srgb,
-      var(--primary) 8%,
+      var(--primary) 10%,
       transparent
     ) !important;
 }
 
 
-/* CHECKED */
+/* Mouse pressed */
+
+button.unwind-checkbox:active:not(:disabled) {
+  transform:
+    scale(0.86) !important;
+
+  background:
+    color-mix(
+      in srgb,
+      var(--primary) 18%,
+      var(--surface)
+    ) !important;
+
+  box-shadow:
+    0 0 0 2px
+    color-mix(
+      in srgb,
+      var(--primary) 12%,
+      transparent
+    ) !important;
+}
+
+
+/* Checked */
 
 button.unwind-checkbox[data-state="checked"] {
-  background:
-    var(--primary) !important;
-
   border-color:
     var(--primary) !important;
 
-  color: #ffffff !important;
+  background:
+    var(--primary) !important;
+
+  color:
+    #ffffff !important;
 
   box-shadow:
-    0 2px 7px
+    0 4px 10px
     color-mix(
       in srgb,
-      var(--primary) 28%,
+      var(--primary) 26%,
       transparent
     ) !important;
 }
 
+
+/* Checked hover */
+
+button.unwind-checkbox[data-state="checked"]:hover:not(:disabled) {
+  filter:
+    brightness(1.04);
+
+  box-shadow:
+    0 0 0 4px
+    color-mix(
+      in srgb,
+      var(--primary) 12%,
+      transparent
+    ),
+    0 4px 10px
+    color-mix(
+      in srgb,
+      var(--primary) 24%,
+      transparent
+    ) !important;
+}
+
+
+/* Check icon animation */
+
+button.unwind-checkbox[data-state="checked"]
+.unwind-checkbox__indicator {
+  animation:
+    unwind-checkbox-pop
+    160ms
+    cubic-bezier(
+      0.34,
+      1.56,
+      0.64,
+      1
+    );
+}
+
+@keyframes unwind-checkbox-pop {
+  from {
+    opacity: 0;
+
+    transform:
+      scale(0.4);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      scale(1);
+  }
+}
 
 /* Make check icon clearly visible */
 
@@ -1863,4 +1940,70 @@ button.unwind-date__today:disabled {
 
   color:
     #287667 !important;
+}
+
+
+.unwind-date__month-year {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
+.unwind-date__month-year strong {
+  font-size: 0.95rem;
+}
+
+.unwind-date__month-year select {
+  appearance: none;
+
+  min-width: 76px;
+  height: 32px;
+
+  padding:
+    0
+    24px
+    0
+    9px;
+
+  border:
+    1px solid
+    color-mix(
+      in srgb,
+      var(--primary) 20%,
+      transparent
+    );
+
+  border-radius: 9px;
+
+  background:
+    color-mix(
+      in srgb,
+      var(--surface) 92%,
+      var(--primary-soft)
+    );
+
+  color:
+    var(--text);
+
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  outline: none;
+}
+
+.unwind-date__month-year select:focus {
+  border-color:
+    var(--primary);
+
+  box-shadow:
+    0 0 0 3px
+    color-mix(
+      in srgb,
+      var(--primary) 10%,
+      transparent
+    );
 }
