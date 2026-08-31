@@ -93,6 +93,8 @@ import CommunityChatPage from "./pages/Messages/CommunityChatPage";
 import JournalPage from "./pages/Journal/JournalPage";
 
 import NotificationsPage from "./pages/Notifications/NotificationsPage";
+import NotificationRedirectPage
+  from "./pages/Notifications/NotificationRedirectPage";
 
 import WellnessToolkit
   from "./pages/WellnessToolkit/WellnessToolkit";
@@ -296,7 +298,12 @@ const shouldShowIntro =
         path="/"
         element={<LandingPage />}
       />
-
+<Route
+  path="/notifications"
+  element={
+    <NotificationRedirectPage />
+  }
+/>
       <Route
   path="/info/:pageKey"
   element={
