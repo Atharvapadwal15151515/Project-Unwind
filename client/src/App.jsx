@@ -146,6 +146,9 @@ import WellnessToolkit
 import AdminDashboardPage
   from "./pages/admin/adminDashboardPage";
 
+  import AdminAnalyticsPage
+  from "./pages/admin/AdminAnalyticsPage";
+
 import AdminUsersPage
   from "./pages/admin/adminUsersPage";
 
@@ -171,6 +174,8 @@ import AdminReportDetailsPage
   from "./pages/admin/AdminModerationDecisionPage";
   import AdminRoute
   from "./routes/AdminRoute";
+
+  
 /*
 |--------------------------------------------------------------------------
 | Global fallback page
@@ -726,6 +731,12 @@ const shouldShowIntro =
         }
       />
 
+<Route
+  path="analytics"
+  element={
+    <AdminAnalyticsPage />
+  }
+/>
       <Route
         path="users"
         element={

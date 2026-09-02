@@ -24,6 +24,8 @@ import dashboardRoutes
   from "./routes/dashboard/dashboard.routes.js";
   import adminDashboardRoutes
   from "./routes/admin/adminDashboard.routes.js";
+  import adminAnalyticsRoutes
+  from "./routes/admin/adminAnalytics.routes.js";
 import trackerRoutes from "./routes/trackers/index.js";
 import chatRoomRoutes from "./routes/chatRoom.routes.js";
 import chatMessageRoutes from "./routes/chatMessage.routes.js";
@@ -352,6 +354,11 @@ app.use(
 app.use(
   "/api/admin/moderation-decisions",
   adminModerationDecisionRoutes
+);
+
+app.use(
+  "/api/admin/analytics",
+  adminAnalyticsRoutes
 );
 /*
 |--------------------------------------------------------------------------
