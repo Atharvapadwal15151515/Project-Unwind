@@ -26,7 +26,7 @@ import {
   Feather,
   File,
   Heart,
-  Image as ImageIcon,
+  Image as Imagecon,
   LoaderCircle,
   LockKeyhole,
   Mic,

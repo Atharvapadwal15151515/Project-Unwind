@@ -70,7 +70,7 @@ export default function UnwindIntro({
           video.volume = 1;
 
           await video.play();
-        } catch (audioAutoplayError) {
+        } catch {
           console.warn(
             "Autoplay with sound blocked. Retrying muted."
           );
