@@ -13,6 +13,9 @@ import {
   Eye,
   FileBarChart,
   LoaderCircle,
+  ArrowDownRight,
+ArrowUpRight,
+Minus,
   RefreshCw,
   ShieldAlert,
   Users
@@ -71,6 +74,78 @@ function formatDuration(
   }
 
   return `${minutes}m ${remainingSeconds}s`;
+}
+
+function getComparison(
+  currentValue,
+  previousValue
+) {
+  const current =
+    Number(currentValue) || 0;
+
+  const previous =
+    Number(previousValue) || 0;
+
+  if (
+    previous === 0 &&
+    current > 0
+  ) {
+    return {
+      label:
+        "New this period",
+
+      tone:
+        "new"
+    };
+  }
+
+  if (
+    previous === 0 &&
+    current === 0
+  ) {
+    return {
+      label:
+        "No activity",
+
+      tone:
+        "neutral"
+    };
+  }
+
+  const percentage =
+    (
+      (
+        current -
+        previous
+      ) /
+      previous
+    ) * 100;
+
+  if (percentage === 0) {
+    return {
+      label:
+        "No change",
+
+      tone:
+        "neutral"
+    };
+  }
+
+  return {
+    label:
+      `${Math.abs(
+        percentage
+      ).toFixed(
+        Math.abs(percentage) < 10
+          ? 1
+          : 0
+      )}% vs previous`,
+
+    tone:
+      percentage > 0
+        ? "up"
+        : "down"
+  };
 }
 
 function formatDate(value) {
@@ -285,6 +360,17 @@ function AdminAnalyticsPage() {
     Number(
       totals.unique_visitors
     ) || 0;
+    const pageviewComparison =
+  getComparison(
+    pageviews,
+    totals.previous_pageviews
+  );
+
+const visitorComparison =
+  getComparison(
+    visitors,
+    totals.previous_unique_visitors
+  );
 
 
 const totalSessions =
@@ -369,23 +455,28 @@ const pagesPerSession =
 
       <section className="admin-analytics-summary">
   <AnalyticsCard
-    label="Page views"
-    value={
-      formatNumber(pageviews)
-    }
-    caption="Last 30 days"
-    icon={Eye}
-  />
+  label="Page views"
+  value={
+    formatNumber(pageviews)
+  }
+  caption="Last 30 days"
+  icon={Eye}
+  comparison={
+    pageviewComparison
+  }
+/>
 
-  <AnalyticsCard
-    label="Unique visitors"
-    value={
-      formatNumber(visitors)
-    }
-    caption="Last 30 days"
-    icon={Users}
-  />
-
+ <AnalyticsCard
+  label="Unique visitors"
+  value={
+    formatNumber(visitors)
+  }
+  caption="Last 30 days"
+  icon={Users}
+  comparison={
+    visitorComparison
+  }
+/>
   <AnalyticsCard
     label="Total sessions"
     value={
@@ -642,8 +733,28 @@ function AnalyticsCard({
   label,
   value,
   caption,
-  icon: Icon
+  icon: Icon,
+  comparison = null
 }) {
+  let ComparisonIcon =
+    Minus;
+
+  if (
+    comparison?.tone === "up" ||
+    comparison?.tone === "new"
+  ) {
+    ComparisonIcon =
+      ArrowUpRight;
+  }
+
+  if (
+    comparison?.tone === "down"
+  ) {
+    ComparisonIcon =
+      ArrowDownRight;
+  }
+
+
   return (
     <article className="admin-analytics-card">
       <div className="admin-analytics-card-top">
@@ -660,9 +771,25 @@ function AnalyticsCard({
         {value}
       </strong>
 
-      <p>
-        {caption}
-      </p>
+      <div className="admin-analytics-card-meta">
+        <p>
+          {caption}
+        </p>
+
+        {comparison && (
+          <span
+            className={
+              `admin-analytics-comparison admin-analytics-comparison-${comparison.tone}`
+            }
+          >
+            <ComparisonIcon
+              size={13}
+            />
+
+            {comparison.label}
+          </span>
+        )}
+      </div>
     </article>
   );
 }

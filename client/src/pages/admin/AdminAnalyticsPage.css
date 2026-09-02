@@ -328,6 +328,103 @@
   font-size: 0.72rem;
 }
 
+.admin-analytics-card-meta {
+  min-height: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 8px;
+
+  margin-top: 8px;
+}
+
+
+.admin-analytics-card-meta p {
+  margin: 0;
+
+  color:
+    var(--text-muted);
+
+  font-size: 0.72rem;
+}
+
+
+.admin-analytics-comparison {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 3px;
+
+  padding:
+    4px
+    7px;
+
+  border-radius: 999px;
+
+  font-size: 0.62rem;
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  animation:
+    admin-analytics-comparison-in
+    420ms
+    260ms
+    ease-out
+    both;
+}
+
+
+.admin-analytics-comparison-up,
+.admin-analytics-comparison-new {
+  color:
+    #4fb889;
+
+  background:
+    rgba(79, 184, 137, 0.1);
+}
+
+
+.admin-analytics-comparison-down {
+  color:
+    #e27c72;
+
+  background:
+    rgba(226, 124, 114, 0.1);
+}
+
+
+.admin-analytics-comparison-neutral {
+  color:
+    var(--text-muted);
+
+  background:
+    color-mix(
+      in srgb,
+      var(--text) 6%,
+      transparent
+    );
+}
+
+
+@keyframes admin-analytics-comparison-in {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
 
 .admin-analytics-panels {
   width: min(1400px, 100%);

@@ -124,24 +124,77 @@ export async function getPostHogOverview() {
   }
 
   const [
-  totalsResult,
-  sessionsResult,
-  dailyResult,
-  pagesResult
-] = await Promise.all([
+    totalsResult,
+    sessionsResult,
+    dailyResult,
+    pagesResult
+  ] = await Promise.all([
+
+    /*
+    |--------------------------------------------------------------------------
+    | Current and previous totals
+    |--------------------------------------------------------------------------
+    */
+
     runHogQLQuery({
       name:
         "Unwind admin analytics totals",
 
       query: `
         SELECT
-          count() AS pageviews,
-          uniq(distinct_id) AS unique_visitors
+          countIf(
+            timestamp >=
+              now() - INTERVAL 30 DAY
+          ) AS pageviews,
+
+          uniqIf(
+            distinct_id,
+            timestamp >=
+              now() - INTERVAL 30 DAY
+          ) AS unique_visitors,
+
+          countIf(
+            timestamp >=
+              now() - INTERVAL 60 DAY
+
+            AND timestamp <
+              now() - INTERVAL 30 DAY
+          ) AS previous_pageviews,
+
+          uniqIf(
+            distinct_id,
+
+            timestamp >=
+              now() - INTERVAL 60 DAY
+
+            AND timestamp <
+              now() - INTERVAL 30 DAY
+          ) AS previous_unique_visitors
+
         FROM events
+
         WHERE event = '$pageview'
-          AND timestamp >= now() - INTERVAL 30 DAY
+
+          AND timestamp >=
+            now() - INTERVAL 60 DAY
+
+          AND properties.$pathname
+            IS NOT NULL
+
+          AND NOT startsWith(
+            properties.$pathname,
+            '/admin'
+          )
       `
     }),
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Session analytics
+    |--------------------------------------------------------------------------
+    */
+
     runHogQLQuery({
       name:
         "Unwind admin session analytics",
@@ -176,9 +229,8 @@ export async function getPostHogOverview() {
 
           FROM events
 
-          WHERE
-            timestamp >=
-              now() - INTERVAL 30 DAY
+          WHERE timestamp >=
+            now() - INTERVAL 30 DAY
 
             AND properties.$session_id
               IS NOT NULL
@@ -195,6 +247,14 @@ export async function getPostHogOverview() {
         )
       `
     }),
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Daily traffic
+    |--------------------------------------------------------------------------
+    */
+
     runHogQLQuery({
       name:
         "Unwind admin analytics daily traffic",
@@ -204,13 +264,34 @@ export async function getPostHogOverview() {
           toDate(timestamp) AS date,
           count() AS pageviews,
           uniq(distinct_id) AS visitors
+
         FROM events
+
         WHERE event = '$pageview'
-          AND timestamp >= now() - INTERVAL 7 DAY
+
+          AND timestamp >=
+            now() - INTERVAL 7 DAY
+
+          AND properties.$pathname
+            IS NOT NULL
+
+          AND NOT startsWith(
+            properties.$pathname,
+            '/admin'
+          )
+
         GROUP BY date
+
         ORDER BY date ASC
       `
     }),
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Popular pages
+    |--------------------------------------------------------------------------
+    */
 
     runHogQLQuery({
       name:
@@ -221,16 +302,31 @@ export async function getPostHogOverview() {
           properties.$pathname AS path,
           count() AS pageviews,
           uniq(distinct_id) AS visitors
+
         FROM events
+
         WHERE event = '$pageview'
-          AND timestamp >= now() - INTERVAL 30 DAY
-          AND properties.$pathname IS NOT NULL
+
+          AND timestamp >=
+            now() - INTERVAL 30 DAY
+
+          AND properties.$pathname
+            IS NOT NULL
+
+          AND NOT startsWith(
+            properties.$pathname,
+            '/admin'
+          )
+
         GROUP BY path
+
         ORDER BY pageviews DESC
+
         LIMIT 10
       `
     })
   ]);
+
 
   const data = {
     periodDays: 30,
@@ -240,8 +336,11 @@ export async function getPostHogOverview() {
         totalsResult
       )[0] || {
         pageviews: 0,
-        unique_visitors: 0
+        unique_visitors: 0,
+        previous_pageviews: 0,
+        previous_unique_visitors: 0
       },
+
     sessions:
       rowsToObjects(
         sessionsResult
@@ -250,6 +349,7 @@ export async function getPostHogOverview() {
         average_duration_seconds: 0,
         pages_per_session: 0
       },
+
     daily:
       rowsToObjects(
         dailyResult
