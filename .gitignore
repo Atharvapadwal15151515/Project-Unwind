@@ -2,7 +2,7 @@
 node_modules/
 **/node_modules/
 
-# Environment variables / secrets
+# Environment variables and secrets
 .env
 .env.*
 **/.env
@@ -23,16 +23,16 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Editor / OS
-.vscode/
-.idea/
-.DS_Store
-Thumbs.db
+# Test coverage
+coverage/
+**/coverage/
 
 # Vite
 .vite/
 **/.vite/
 
-# Coverage
-coverage/
-**/coverage/
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
