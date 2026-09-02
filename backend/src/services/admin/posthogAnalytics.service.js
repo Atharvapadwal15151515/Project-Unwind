@@ -124,11 +124,13 @@ export async function getPostHogOverview() {
   }
 
   const [
-    totalsResult,
-    sessionsResult,
-    dailyResult,
-    pagesResult
-  ] = await Promise.all([
+  totalsResult,
+  sessionsResult,
+  dailyResult,
+  pagesResult,
+  devicesResult,
+  browsersResult
+] = await Promise.all([
 
     /*
     |--------------------------------------------------------------------------
@@ -324,8 +326,115 @@ export async function getPostHogOverview() {
 
         LIMIT 10
       `
+        }),
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Device distribution
+    |--------------------------------------------------------------------------
+    */
+
+    runHogQLQuery({
+      name:
+        "Unwind admin device distribution",
+
+      query: `
+        SELECT
+          coalesce(
+            nullIf(
+              properties.$device_type,
+              ''
+            ),
+            'Unknown'
+          ) AS device,
+
+          uniq(
+            properties.$session_id
+          ) AS sessions,
+
+          uniq(
+            distinct_id
+          ) AS visitors,
+
+          count() AS pageviews
+
+        FROM events
+
+        WHERE event = '$pageview'
+
+          AND timestamp >=
+            now() - INTERVAL 30 DAY
+
+          AND NOT startsWith(
+            coalesce(
+              properties.$pathname,
+              ''
+            ),
+            '/admin'
+          )
+
+        GROUP BY device
+
+        ORDER BY sessions DESC
+      `
+    }),
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Browser distribution
+    |--------------------------------------------------------------------------
+    */
+
+    runHogQLQuery({
+      name:
+        "Unwind admin browser distribution",
+
+      query: `
+        SELECT
+          coalesce(
+            nullIf(
+              properties.$browser,
+              ''
+            ),
+            'Unknown'
+          ) AS browser,
+
+          uniq(
+            properties.$session_id
+          ) AS sessions,
+
+          uniq(
+            distinct_id
+          ) AS visitors,
+
+          count() AS pageviews
+
+        FROM events
+
+        WHERE event = '$pageview'
+
+          AND timestamp >=
+            now() - INTERVAL 30 DAY
+
+          AND NOT startsWith(
+            coalesce(
+              properties.$pathname,
+              ''
+            ),
+            '/admin'
+          )
+
+        GROUP BY browser
+
+        ORDER BY sessions DESC
+
+        LIMIT 8
+      `
     })
   ]);
+  
 
 
   const data = {
@@ -359,6 +468,16 @@ export async function getPostHogOverview() {
       rowsToObjects(
         pagesResult
       ),
+
+      devices:
+  rowsToObjects(
+    devicesResult
+  ),
+
+browsers:
+  rowsToObjects(
+    browsersResult
+  ),
 
     generatedAt:
       new Date().toISOString(),

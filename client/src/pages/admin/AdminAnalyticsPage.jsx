@@ -9,6 +9,8 @@ import {
   Activity,
   BarChart3,
   CalendarDays,
+  Globe2,
+MonitorSmartphone,
   Clock3,
   Eye,
   FileBarChart,
@@ -353,6 +355,12 @@ function AdminAnalyticsPage() {
   const topPages =
     analytics?.topPages || [];
 
+    const devices =
+  analytics?.devices || [];
+
+const browsers =
+  analytics?.browsers || [];
+
   const pageviews =
     Number(totals.pageviews) || 0;
 
@@ -600,6 +608,58 @@ const pagesPerSession =
 
       </section>
 
+<section className="admin-analytics-breakdowns">
+
+  <article className="admin-analytics-panel admin-analytics-device-panel">
+    <div className="admin-analytics-panel-heading">
+      <div>
+        <span>
+          DEVICE MIX
+        </span>
+
+        <h2>
+          How people access Unwind
+        </h2>
+
+        <p>
+          Sessions grouped by device type.
+        </p>
+      </div>
+
+      <MonitorSmartphone size={22} />
+    </div>
+
+    <DeviceDonut
+      devices={devices}
+    />
+  </article>
+
+
+  <article className="admin-analytics-panel admin-analytics-browser-panel">
+    <div className="admin-analytics-panel-heading">
+      <div>
+        <span>
+          BROWSER USAGE
+        </span>
+
+        <h2>
+          Browsing environment
+        </h2>
+
+        <p>
+          Sessions and page views by browser.
+        </p>
+      </div>
+
+      <Globe2 size={22} />
+    </div>
+
+    <BrowserBars
+      browsers={browsers}
+    />
+  </article>
+
+</section>
 
       <section className="admin-analytics-panel admin-analytics-pages">
         <div className="admin-analytics-panel-heading">
@@ -791,6 +851,282 @@ function AnalyticsCard({
         )}
       </div>
     </article>
+  );
+}
+
+const DEVICE_COLORS = [
+  "#69c3ad",
+  "#e2a23a",
+  "#7799e8",
+  "#d77b91",
+  "#9a82d4"
+];
+
+
+function DeviceDonut({
+  devices
+}) {
+  const totalSessions =
+    devices.reduce(
+      (total, device) =>
+        total +
+        (
+          Number(
+            device.sessions
+          ) || 0
+        ),
+      0
+    );
+
+  let accumulatedPercentage =
+    0;
+
+
+  if (devices.length === 0) {
+    return (
+      <div className="admin-analytics-visual-empty">
+        <MonitorSmartphone size={24} />
+
+        <span>
+          No device data yet
+        </span>
+      </div>
+    );
+  }
+
+
+  return (
+    <div className="admin-analytics-donut-layout">
+
+      <div className="admin-analytics-donut">
+        <svg
+          viewBox="0 0 140 140"
+          role="img"
+          aria-label="Device session distribution"
+        >
+          <circle
+            cx="70"
+            cy="70"
+            r="50"
+            pathLength="100"
+            className="admin-analytics-donut-track"
+          />
+
+          {devices.map(
+            (device, index) => {
+              const sessions =
+                Number(
+                  device.sessions
+                ) || 0;
+
+              const percentage =
+                totalSessions > 0
+                  ? (
+                      sessions /
+                      totalSessions
+                    ) * 100
+                  : 0;
+
+              const offset =
+                accumulatedPercentage;
+
+              accumulatedPercentage +=
+                percentage;
+
+              return (
+                <circle
+                  key={
+                    device.device ||
+                    index
+                  }
+                  cx="70"
+                  cy="70"
+                  r="50"
+                  pathLength="100"
+                  className="admin-analytics-donut-segment"
+                  stroke={
+                    DEVICE_COLORS[
+                      index %
+                      DEVICE_COLORS.length
+                    ]
+                  }
+                  strokeDasharray={
+                    `${percentage} ${100 - percentage}`
+                  }
+                  strokeDashoffset={
+                    -offset
+                  }
+                >
+                  <title>
+                    {device.device}: {
+                      sessions
+                    } sessions ({
+                      percentage.toFixed(1)
+                    }%)
+                  </title>
+                </circle>
+              );
+            }
+          )}
+        </svg>
+
+        <div className="admin-analytics-donut-center">
+          <strong>
+            {formatNumber(
+              totalSessions
+            )}
+          </strong>
+
+          <span>
+            Sessions
+          </span>
+        </div>
+      </div>
+
+
+      <div className="admin-analytics-device-legend">
+        {devices.map(
+          (device, index) => {
+            const sessions =
+              Number(
+                device.sessions
+              ) || 0;
+
+            const percentage =
+              totalSessions > 0
+                ? (
+                    sessions /
+                    totalSessions
+                  ) * 100
+                : 0;
+
+            return (
+              <div
+                className="admin-analytics-device-row"
+                key={
+                  device.device ||
+                  index
+                }
+              >
+                <span
+                  className="admin-analytics-device-color"
+                  style={{
+                    background:
+                      DEVICE_COLORS[
+                        index %
+                        DEVICE_COLORS.length
+                      ]
+                  }}
+                />
+
+                <div>
+                  <strong>
+                    {device.device}
+                  </strong>
+
+                  <span>
+                    {formatNumber(
+                      sessions
+                    )} sessions
+                  </span>
+                </div>
+
+                <b>
+                  {percentage.toFixed(0)}%
+                </b>
+              </div>
+            );
+          }
+        )}
+      </div>
+
+    </div>
+  );
+}
+
+
+function BrowserBars({
+  browsers
+}) {
+  const maximumSessions =
+    Math.max(
+      1,
+      ...browsers.map(
+        (browser) =>
+          Number(
+            browser.sessions
+          ) || 0
+      )
+    );
+
+
+  if (browsers.length === 0) {
+    return (
+      <div className="admin-analytics-visual-empty">
+        <Globe2 size={24} />
+
+        <span>
+          No browser data yet
+        </span>
+      </div>
+    );
+  }
+
+
+  return (
+    <div className="admin-analytics-browser-list">
+      {browsers.map(
+        (browser, index) => {
+          const sessions =
+            Number(
+              browser.sessions
+            ) || 0;
+
+          const width =
+            (
+              sessions /
+              maximumSessions
+            ) * 100;
+
+          return (
+            <div
+              className="admin-analytics-browser-row"
+              key={
+                browser.browser ||
+                index
+              }
+            >
+              <div className="admin-analytics-browser-copy">
+                <strong>
+                  {browser.browser}
+                </strong>
+
+                <span>
+                  {formatNumber(
+                    browser.pageviews
+                  )} page views
+                </span>
+              </div>
+
+              <div className="admin-analytics-browser-bar">
+                <span
+                  style={{
+                    width:
+                      `${width}%`
+                  }}
+                />
+              </div>
+
+              <b>
+                {formatNumber(
+                  sessions
+                )}
+              </b>
+            </div>
+          );
+        }
+      )}
+    </div>
   );
 }
 
