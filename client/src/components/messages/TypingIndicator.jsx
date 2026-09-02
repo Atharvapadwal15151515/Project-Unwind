@@ -24,8 +24,7 @@ function TypingIndicator({
           user?.fullName ||
           "Someone"
       );
-
-  let label = "";
+let label;
 
   if (names.length === 1) {
     label =

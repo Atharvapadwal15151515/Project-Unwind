@@ -4,12 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "generate:chatbot-suggestions": "node scripts/generateChatbotSuggestions.mjs"
-  },
+  "dev": "vite",
+  "build": "vite build",
+  "lint": "eslint .",
+  "test": "node --test",
+  "preview": "vite preview",
+  "generate:chatbot-suggestions": "node scripts/generateChatbotSuggestions.mjs"
+},
   "dependencies": {
     "@gsap/react": "^2.1.2",
     "@posthog/react": "^1.10.5",

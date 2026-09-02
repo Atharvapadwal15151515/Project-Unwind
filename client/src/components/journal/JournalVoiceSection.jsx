@@ -575,8 +575,7 @@ function JournalVoiceSection({
     setError("");
 
 
-    let attachment =
-      null;
+    let attachment;
 
 
     try {

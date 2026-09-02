@@ -412,23 +412,7 @@ function JournalPromptLibrary({
     }
   }
 
-  function openCreateForm() {
-  setEditingPrompt(null);
 
-  const firstCategory =
-    categories.length > 0
-      ? getCategoryValue(
-          categories[0]
-        )
-      : "daily_reflection";
-
-  setForm({
-    promptText: "",
-    promptCategory: firstCategory
-  });
-
-  setFormOpen(true);
-}
 
   function openEditForm(prompt) {
   setEditingPrompt(prompt);

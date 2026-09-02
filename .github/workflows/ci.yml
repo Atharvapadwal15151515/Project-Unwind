@@ -43,8 +43,11 @@ jobs:
       - name: Check backend JavaScript syntax
         shell: bash
         run: |
-          find src -type f -name "*.js" -print0 |
+          find src test -type f -name "*.js" -print0 |
           xargs -0 -n1 node --check
+
+      - name: Run backend security tests
+        run: npm test
 
   client-checks:
     name: Client checks
@@ -69,9 +72,11 @@ jobs:
       - name: Install client dependencies
         run: npm ci
 
-      - name: Report existing lint issues
-        continue-on-error: true
+      - name: Lint client
         run: npm run lint
+
+      - name: Run client utility tests
+        run: npm test
 
       - name: Build client
         run: npm run build

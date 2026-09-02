@@ -178,7 +178,20 @@ const contentOf = (
 | Attachment helpers
 |--------------------------------------------------------------------------
 */
-
+function attachmentUrl(
+  attachment
+) {
+  return (
+    attachment?.previewUrl ||
+    attachment?.preview_url ||
+    attachment?.fileUrl ||
+    attachment?.file_url ||
+    attachment?.secure_url ||
+    attachment?.resource_url ||
+    attachment?.url ||
+    ""
+  );
+}
 function imageCover(
   entry
 ) {

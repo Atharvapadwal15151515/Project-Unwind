@@ -815,12 +815,10 @@ export function useDassAssessment() {
     sortedQuestions.length,
 
     assessment,
-    assessmentId,
-    answers,
-
-    answers,
-    currentAnswer,
-    currentQuestion,
+assessmentId,
+answers,
+currentAnswer,
+currentQuestion,
     currentQuestionIndex,
     currentQuestionNumber,
 

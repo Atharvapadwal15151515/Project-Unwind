@@ -82,8 +82,9 @@ function VoiceRecorder({
   onRecordingChange,
   onTranscribe,
   transcribing = false,
-  disabled = false
-}) {
+  disabled = false,
+  resetKey = 0
+})  {
   const mediaRecorderRef =
     useRef(null);
 

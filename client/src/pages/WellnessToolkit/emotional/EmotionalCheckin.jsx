@@ -38,6 +38,10 @@ import {
   getJournalError
 } from "../../../services/journalService";
 
+import {
+  UnwindSlider
+} from "../../../components/common/UnwindControls/UnwindControls";
+
 import "./EmotionalCheckin.css";
 
 /*
@@ -434,14 +438,16 @@ function EmotionalCheckin() {
               </strong>
             </div>
 
-            <UnwindSlider
+          <UnwindSlider
   min={1}
   max={10}
-  value={value}
+  value={intensity}
   showValue
   onChange={(event) =>
-    setValue(
-      Number(event.target.value)
+    setIntensity(
+      Number(
+        event.target.value
+      )
     )
   }
 />

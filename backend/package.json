@@ -5,9 +5,11 @@
   "type": "module",
   "main": "src/server.js",
   "scripts": {
-    "dev": "nodemon src/server.js",
-    "start": "node src/server.js"
-  },
+  "dev": "nodemon src/server.js",
+  "start": "node src/server.js",
+  "test": "node --test",
+  "test:coverage": "node --test --experimental-test-coverage"
+},
   "keywords": [
     "unwind",
     "mental-health",
