@@ -1364,20 +1364,25 @@ button.unwind-checkbox {
 
 .auth-page
 button.unwind-checkbox:hover:not(:disabled) {
-  background:
-    #f4faf8 !important;
+  transform: none !important;
 
-  border-color:
-    #1f6f61 !important;
+  background: #ffffff !important;
+  border-color: rgba(31, 111, 97, 0.5) !important;
+
+  box-shadow: none !important;
+}
+
+.auth-page
+button.unwind-checkbox[data-state="checked"]:hover:not(:disabled) {
+  color: #ffffff !important;
+  background: #2f8d7b !important;
+  border-color: #2f8d7b !important;
 
   box-shadow:
     0 0 0 3px
-    rgba(
-      31,
-      111,
-      97,
-      0.06
-    ) !important;
+    rgba(31, 111, 97, 0.08) !important;
+
+  transform: none !important;
 }
 
 
