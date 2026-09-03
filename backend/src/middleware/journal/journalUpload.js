@@ -3,9 +3,9 @@ import multer from "multer";
 const storage = multer.memoryStorage();
 
 const MAX_JOURNAL_FILE_SIZE =
-  25 * 1024 * 1024;
+  10 * 1024 * 1024;
 
-const MAX_JOURNAL_ATTACHMENTS = 10;
+const MAX_JOURNAL_ATTACHMENTS = 3;
 
 const allowedMimeTypes = [
   // Images
