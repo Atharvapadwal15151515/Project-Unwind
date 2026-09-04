@@ -476,7 +476,12 @@ const confirm =
     setActionId
   ] = useState(null);
 
-  const [
+ const [
+  error,
+  setError
+] = useState("");
+
+const [
   loadError,
   setLoadError
 ] = useState(null);
