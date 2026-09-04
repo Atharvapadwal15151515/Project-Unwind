@@ -210,51 +210,7 @@ currentMoodScore:
       active = false;
     };
   }, [reloadKey]);
-if (loading) {
-  return (
-    <section
-      className="dashboard-stats"
-      aria-label="Loading dashboard statistics"
-      aria-busy="true"
-    >
-      <AppSkeleton
-        variant="stat"
-        count={4}
-        className="dashboard-stats__loading"
-      />
-    </section>
-  );
-}
 
-
-if (requestError) {
-  return (
-    <section className="dashboard-stats">
-      <div className="dashboard-stats__state">
-        <AppErrorState
-          type={
-            getErrorType(
-              requestError
-            )
-          }
-          title="Statistics unavailable"
-          description={
-            requestError?.response?.data
-              ?.message ||
-            "We could not load your dashboard statistics."
-          }
-          onRetry={() =>
-            setReloadKey(
-              (current) =>
-                current + 1
-            )
-          }
-          compact
-        />
-      </div>
-    </section>
-  );
-}
   const statistics =
     useMemo(
       () => [
@@ -310,7 +266,51 @@ if (requestError) {
       ],
       [stats]
     );
+if (loading) {
+  return (
+    <section
+      className="dashboard-stats"
+      aria-label="Loading dashboard statistics"
+      aria-busy="true"
+    >
+      <AppSkeleton
+        variant="stat"
+        count={4}
+        className="dashboard-stats__loading"
+      />
+    </section>
+  );
+}
 
+
+if (requestError) {
+  return (
+    <section className="dashboard-stats">
+      <div className="dashboard-stats__state">
+        <AppErrorState
+          type={
+            getErrorType(
+              requestError
+            )
+          }
+          title="Statistics unavailable"
+          description={
+            requestError?.response?.data
+              ?.message ||
+            "We could not load your dashboard statistics."
+          }
+          onRetry={() =>
+            setReloadKey(
+              (current) =>
+                current + 1
+            )
+          }
+          compact
+        />
+      </div>
+    </section>
+  );
+}
   return (
     <section className="dashboard-stats">
       {statistics.map(
