@@ -53,6 +53,22 @@ import {
   useNotifications
 } from "../../context/NotificationContext";
 
+import AppSkeleton
+  from "../../components/common/AppStates/AppSkeleton";
+
+import AppEmptyState
+  from "../../components/common/AppStates/AppEmptyState";
+
+import AppErrorState
+  from "../../components/common/AppStates/AppErrorState";
+
+import ButtonLoader
+  from "../../components/common/AppStates/ButtonLoader";
+
+import {
+  getErrorType
+} from "../../utils/getErrorType";
+
 import "./NotificationsPage.css";
 
 const PAGE_SIZE =
@@ -461,9 +477,9 @@ const confirm =
   ] = useState(null);
 
   const [
-    error,
-    setError
-  ] = useState("");
+  loadError,
+  setLoadError
+] = useState(null);
 
   const hasFilters =
     Boolean(
@@ -487,9 +503,10 @@ const confirm =
           setLoading(true);
         }
 
-        setError("");
+      setError("");
+setLoadError(null);
 
-        try {
+try {
           const result =
             await getNotifications({
               page,
@@ -520,15 +537,12 @@ const confirm =
             result.pagination
           );
         } catch (
-          requestError
-        ) {
-          setError(
-            getApiErrorMessage(
-              requestError,
-              "Could not load your notifications."
-            )
-          );
-        } finally {
+  requestError
+) {
+  setLoadError(
+    requestError
+  );
+} finally {
           setLoading(false);
 
           setRefreshing(
@@ -1158,11 +1172,20 @@ const handleDeleteAll =
                   "read-all"
               }
             >
-              <CheckCheck
-                size={17}
-              />
+             {actionId ===
+"read-all" ? (
+  <ButtonLoader
+    label="Marking…"
+  />
+) : (
+  <>
+    <CheckCheck
+      size={17}
+    />
 
-              Mark all read
+    Mark all read
+  </>
+)}
             </button>
           )}
 <button
@@ -1174,12 +1197,18 @@ const handleDeleteAll =
     actionId === "delete-all"
   }
 >
-  <Trash2 size={17} />
-
   {actionId ===
-  "delete-all"
-    ? "Deleting..."
-    : "Delete all"}
+"delete-all" ? (
+  <ButtonLoader
+    label="Deleting…"
+  />
+) : (
+  <>
+    <Trash2 size={17} />
+
+    Delete all
+  </>
+)}
 </button>
           <button
             type="button"
@@ -1301,84 +1330,75 @@ const handleDeleteAll =
 
       <div className="notifications-page__content">
         {loading ? (
-          <div className="notifications-page__skeleton-list">
-            {Array.from({
-              length: 5
-            }).map(
-              (
-                _,
-                index
-              ) => (
-                <div
-                  className="notifications-page__skeleton"
-                  key={
-                    index
-                  }
-                >
-                  <span />
-
-                  <div>
-                    <span />
-                    <span />
-                    <span />
-                  </div>
-                </div>
-              )
-            )}
-          </div>
-        ) : notifications.length ===
-          0 ? (
-          <div className="notifications-page__empty">
-            <span>
-              {activeTab ===
-              "dismissed" ? (
-                <EyeOff
-                  size={30}
-                />
-              ) : activeTab ===
-                "unread" ? (
-                <CheckCheck
-                  size={30}
-                />
-              ) : (
-                <Bell
-                  size={30}
-                />
-              )}
-            </span>
-
-            <h3>
-              {activeTab ===
-              "dismissed"
-                ? "No dismissed notifications"
-                : activeTab ===
-                    "unread"
-                  ? "You are all caught up"
-                  : "No notifications yet"}
-            </h3>
-
-            <p>
-              {hasFilters
-                ? "Try changing or clearing your filters."
-                : activeTab ===
-                    "dismissed"
-                  ? "Notifications you dismiss will appear here until restored or deleted."
-                  : "When UNWIND has something relevant for you, it will appear here."}
-            </p>
-
-            {hasFilters && (
-              <button
-                type="button"
-                onClick={
-                  clearFilters
-                }
-              >
-                Clear filters
-              </button>
-            )}
-          </div>
-        ) : (
-          <div className="notifications-page__list">
+  <AppSkeleton
+    variant="list"
+    count={5}
+    className="notifications-page__shared-skeleton"
+  />
+) : loadError ? (
+  <AppErrorState
+    type={
+      getErrorType(
+        loadError
+      )
+    }
+    title="Notifications unavailable"
+    description={
+      loadError?.response?.data
+        ?.message ||
+      "We could not load your notifications."
+    }
+    onRetry={() =>
+      loadNotifications()
+    }
+  />
+) : notifications.length ===
+  0 ? (
+  <AppEmptyState
+    icon={
+      activeTab ===
+      "dismissed"
+        ? EyeOff
+        : activeTab ===
+            "unread"
+          ? CheckCheck
+          : Bell
+    }
+    title={
+      hasFilters
+        ? "No matching notifications"
+        : activeTab ===
+            "dismissed"
+          ? "No dismissed notifications"
+          : activeTab ===
+              "unread"
+            ? "You’re all caught up"
+            : "No notifications yet"
+    }
+    description={
+      hasFilters
+        ? "No notifications match your current search and filters."
+        : activeTab ===
+            "dismissed"
+          ? "Notifications you dismiss will remain available here until restored or deleted."
+          : activeTab ===
+              "unread"
+            ? "You have read every notification. New updates will appear here."
+            : "Relevant updates from Unwind will appear here."
+    }
+    actionLabel={
+      hasFilters
+        ? "Clear filters"
+        : undefined
+    }
+    onAction={
+      hasFilters
+        ? clearFilters
+        : undefined
+    }
+  />
+) : (
+  <div className="notifications-page__list">
             {notifications.map(
               (
                 notification

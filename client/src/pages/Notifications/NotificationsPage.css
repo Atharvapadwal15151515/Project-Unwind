@@ -1601,3 +1601,218 @@ button {
     font-size: 0;
   }
 }
+
+/* =========================================================
+   Shared notification states
+   ========================================================= */
+
+.notifications-page__shared-skeleton {
+  width: 100%;
+
+  display: grid;
+
+  gap: 12px;
+}
+
+
+.notifications-page__shared-skeleton
+.app-skeleton--list {
+  min-height: 112px;
+
+  align-items: flex-start;
+
+  padding: 20px;
+
+  border:
+    1px solid
+    var(
+      --dashboard-border,
+      rgba(38, 105, 89, 0.12)
+    );
+
+  border-radius: 17px;
+
+  background:
+    var(
+      --dashboard-surface,
+      #ffffff
+    );
+
+  box-shadow:
+    0 12px 30px
+    rgba(19, 65, 56, 0.04);
+}
+
+
+.notifications-page__shared-skeleton
+.app-skeleton__avatar {
+  width: 46px;
+  height: 46px;
+
+  border-radius: 15px;
+}
+
+
+.notifications-page__shared-skeleton
+.app-skeleton__title {
+  width: 32%;
+}
+
+
+.notifications-page__shared-skeleton
+.app-skeleton__line {
+  width: 88%;
+}
+
+
+.notifications-page__shared-skeleton
+.app-skeleton__line--short {
+  width: 58%;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Empty and error containers
+|--------------------------------------------------------------------------
+*/
+
+.notifications-page__content
+.app-empty-state,
+.notifications-page__content
+.app-error-state {
+  width: 100%;
+  min-height: 390px;
+
+  border:
+    1px solid
+    var(
+      --dashboard-border,
+      rgba(38, 105, 89, 0.12)
+    );
+
+  border-radius: 20px;
+
+  background:
+    radial-gradient(
+      circle at 50% 18%,
+      rgba(40, 124, 105, 0.07),
+      transparent 35%
+    ),
+    var(
+      --dashboard-surface,
+      #ffffff
+    );
+
+  box-shadow:
+    0 16px 38px
+    rgba(19, 65, 56, 0.05);
+}
+
+
+.notifications-page__content
+.app-error-state {
+  background:
+    radial-gradient(
+      circle at 50% 18%,
+      var(
+        --error-background,
+        rgba(184, 92, 88, 0.07)
+      ),
+      transparent 36%
+    ),
+    var(
+      --dashboard-surface,
+      #ffffff
+    );
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Toolbar operation loaders
+|--------------------------------------------------------------------------
+*/
+
+.notifications-page__text-button
+.button-loader {
+  min-width: 92px;
+}
+
+
+.notifications-page__text-button
+.button-loader__spinner {
+  width: 14px;
+  height: 14px;
+
+  border-color:
+    color-mix(
+      in srgb,
+      currentColor 24%,
+      transparent
+    );
+
+  border-top-color:
+    currentColor;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Responsive states
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 720px) {
+  .notifications-page__shared-skeleton
+  .app-skeleton--list {
+    min-height: 100px;
+
+    padding: 16px;
+  }
+
+
+  .notifications-page__shared-skeleton
+  .app-skeleton__title {
+    width: 52%;
+  }
+
+
+  .notifications-page__content
+  .app-empty-state,
+  .notifications-page__content
+  .app-error-state {
+    min-height: 320px;
+
+    padding:
+      28px
+      18px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .notifications-page__shared-skeleton
+  .app-skeleton--list {
+    gap: 11px;
+
+    padding:
+      14px
+      12px;
+  }
+
+
+  .notifications-page__shared-skeleton
+  .app-skeleton__avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+
+  .notifications-page__content
+  .app-empty-state,
+  .notifications-page__content
+  .app-error-state {
+    min-height: 280px;
+  }
+}
