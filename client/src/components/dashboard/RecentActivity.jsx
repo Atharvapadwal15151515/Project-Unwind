@@ -1,41 +1,10 @@
 import { motion } from "framer-motion";
 import {
-  BookOpenText,
-  HeartPulse,
-  MessageCircleHeart,
-  UsersRound
+  History
 } from "lucide-react";
+import AppEmptyState
+  from "../common/AppStates/AppEmptyState";
 
-const activities = [
-  {
-    id: 1,
-    title: "Mood check-in saved",
-    description: "You recorded that you were feeling good.",
-    time: "Today, 9:30 AM",
-    icon: HeartPulse
-  },
-  {
-    id: 2,
-    title: "Journal entry created",
-    description: "You wrote a private reflection.",
-    time: "Yesterday, 10:14 PM",
-    icon: BookOpenText
-  },
-  {
-    id: 3,
-    title: "Joined a community",
-    description: "You joined Student Wellbeing.",
-    time: "Yesterday, 4:45 PM",
-    icon: UsersRound
-  },
-  {
-    id: 4,
-    title: "Companion conversation",
-    description: "You completed a supportive chat.",
-    time: "Monday, 8:20 PM",
-    icon: MessageCircleHeart
-  }
-];
 
 function RecentActivity() {
   return (
@@ -64,34 +33,14 @@ function RecentActivity() {
         </div>
       </div>
 
-      <div className="recent-activity__timeline">
-        {activities.map((activity, index) => {
-          const Icon = activity.icon;
-
-          return (
-            <div
-              className="recent-activity__item"
-              key={activity.id}
-            >
-              <div className="recent-activity__marker">
-                <span>
-                  <Icon size={16} />
-                </span>
-
-                {index < activities.length - 1 && (
-                  <i />
-                )}
-              </div>
-
-              <div className="recent-activity__content">
-                <strong>{activity.title}</strong>
-                <p>{activity.description}</p>
-                <small>{activity.time}</small>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+     <div className="recent-activity__timeline">
+  <AppEmptyState
+    icon={History}
+    title="No recent activity yet"
+    description="Your check-ins, reflections and completed activities will appear here as you use Unwind."
+    compact
+  />
+</div>
     </motion.article>
   );
 }
