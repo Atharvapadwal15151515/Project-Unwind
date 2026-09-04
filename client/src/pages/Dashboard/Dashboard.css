@@ -3281,3 +3281,202 @@
       rgba(183, 255, 105, 0.16)
     );
 }
+
+/* =========================================================
+   Dashboard statistics states
+   ========================================================= */
+
+.dashboard-stats__loading {
+  grid-column:
+    1 /
+    -1;
+
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      4,
+      minmax(0, 1fr)
+    );
+
+  gap: 14px;
+}
+
+
+.dashboard-stats__loading
+.app-skeleton--stat {
+  min-height: 145px;
+
+  border-color:
+    var(
+      --dashboard-border
+    );
+
+  background:
+    var(
+      --dashboard-surface
+    );
+
+  box-shadow:
+    0 14px 35px
+    rgba(19, 65, 56, 0.05);
+}
+
+
+.dashboard-stats__state {
+  grid-column:
+    1 /
+    -1;
+
+  width: 100%;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    var(
+      --dashboard-border
+    );
+
+  border-radius: 18px;
+
+  background:
+    var(
+      --dashboard-surface
+    );
+
+  box-shadow:
+    0 14px 35px
+    rgba(19, 65, 56, 0.05);
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Responsive statistics states
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 1050px) {
+  .dashboard-stats__loading {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+  }
+}
+
+
+@media (max-width: 580px) {
+  .dashboard-stats__loading {
+    grid-template-columns:
+      1fr;
+  }
+
+  .dashboard-stats__loading
+  .app-skeleton--stat {
+    min-height: 125px;
+  }
+
+  .dashboard-stats__state
+  .app-error-state {
+    min-height: 190px;
+
+    padding:
+      24px
+      18px;
+  }
+}
+
+/* =========================================================
+   Community preview states
+   ========================================================= */
+
+.community-preview__skeleton {
+  width: 100%;
+
+  display: grid;
+
+  gap: 0;
+}
+
+
+.community-preview__skeleton
+.app-skeleton--list {
+  min-height: 84px;
+
+  padding:
+    16px
+    4px;
+
+  border: 0;
+  border-bottom:
+    1px solid
+    var(
+      --dashboard-border
+    );
+
+  border-radius: 0;
+
+  background: transparent;
+
+  box-shadow: none;
+}
+
+
+.community-preview__skeleton
+.app-skeleton--list:first-child {
+  padding-top: 6px;
+}
+
+
+.community-preview__skeleton
+.app-skeleton--list:last-child {
+  border-bottom: 0;
+}
+
+
+.community-preview__posts
+.app-empty-state,
+.community-preview__posts
+.app-error-state {
+  min-height: 230px;
+
+  border: 0;
+  border-radius: 0;
+
+  background: transparent;
+}
+
+
+.community-preview__posts
+.app-error-state button {
+  margin-top: 8px;
+}
+
+
+@media (max-width: 580px) {
+  .community-preview__skeleton
+  .app-skeleton--list {
+    min-height: 76px;
+
+    padding:
+      13px
+      2px;
+  }
+
+
+  .community-preview__posts
+  .app-empty-state,
+  .community-preview__posts
+  .app-error-state {
+    min-height: 200px;
+
+    padding:
+      22px
+      14px;
+  }
+}

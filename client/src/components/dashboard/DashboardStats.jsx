@@ -14,6 +14,15 @@ import {
 } from "lucide-react";
 
 import api from "../../services/api";
+import AppSkeleton
+  from "../common/AppStates/AppSkeleton";
+
+import AppErrorState
+  from "../common/AppStates/AppErrorState";
+
+import {
+  getErrorType
+} from "../../utils/getErrorType";
 
 function AnimatedStatistic({
   value,
@@ -124,10 +133,15 @@ const [stats, setStats] = useState({
     setLoading
   ] = useState(true);
 
-  const [
-    error,
-    setError
-  ] = useState("");
+ const [
+  requestError,
+  setRequestError
+] = useState(null);
+
+const [
+  reloadKey,
+  setReloadKey
+] = useState(0);
 
   useEffect(() => {
     let active = true;
@@ -136,7 +150,7 @@ const [stats, setStats] = useState({
       async () => {
         try {
           setLoading(true);
-          setError("");
+setRequestError(null);
 
           const response =
   await api.get(
@@ -180,11 +194,9 @@ currentMoodScore:
             err
           );
 
-          if (active) {
-            setError(
-              "Unable to load dashboard statistics."
-            );
-          }
+         if (active) {
+  setRequestError(err);
+}
         } finally {
           if (active) {
             setLoading(false);
@@ -197,8 +209,52 @@ currentMoodScore:
     return () => {
       active = false;
     };
-  }, []);
+  }, [reloadKey]);
+if (loading) {
+  return (
+    <section
+      className="dashboard-stats"
+      aria-label="Loading dashboard statistics"
+      aria-busy="true"
+    >
+      <AppSkeleton
+        variant="stat"
+        count={4}
+        className="dashboard-stats__loading"
+      />
+    </section>
+  );
+}
 
+
+if (requestError) {
+  return (
+    <section className="dashboard-stats">
+      <div className="dashboard-stats__state">
+        <AppErrorState
+          type={
+            getErrorType(
+              requestError
+            )
+          }
+          title="Statistics unavailable"
+          description={
+            requestError?.response?.data
+              ?.message ||
+            "We could not load your dashboard statistics."
+          }
+          onRetry={() =>
+            setReloadKey(
+              (current) =>
+                current + 1
+            )
+          }
+          compact
+        />
+      </div>
+    </section>
+  );
+}
   const statistics =
     useMemo(
       () => [
@@ -303,32 +359,21 @@ currentMoodScore:
                 </small>
               </div>
 
-              {loading ? (
-                <strong>
-                  —
-                </strong>
-              ) : error ? (
-                <strong>
-                  —
-                </strong>
-              ) : (
-                <AnimatedStatistic
-                  value={
-                    statistic.value
-                  }
-                  suffix={
-                    statistic.suffix
-                  }
-                  decimal={
-                    statistic.decimal
-                  }
-                  delay={
-                    0.08 *
-                    index
-                  }
-                />
-              )}
-
+             <AnimatedStatistic
+  value={
+    statistic.value
+  }
+  suffix={
+    statistic.suffix
+  }
+  decimal={
+    statistic.decimal
+  }
+  delay={
+    0.08 *
+    index
+  }
+/>
               <p>
                 {
                   statistic.description
