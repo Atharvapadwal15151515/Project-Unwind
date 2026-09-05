@@ -477,6 +477,7 @@ disabled={loading}
   onChange={updateField}
   placeholder="Select gender"
   icon={UserRound}
+  disabled={loading}
   required
 >
   <option value="">
