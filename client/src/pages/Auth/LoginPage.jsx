@@ -230,10 +230,11 @@ function LoginPage() {
 
       {/* Existing Email / Password Login */}
 
-      <form
-        className="auth-form"
-        onSubmit={handleSubmit}
-      >
+     <form
+  className="auth-form"
+  onSubmit={handleSubmit}
+  aria-busy={loading}
+>
 
         <AuthInput
           label="Email or username"
