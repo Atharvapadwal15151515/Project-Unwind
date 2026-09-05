@@ -435,7 +435,7 @@ function GoogleCompleteProfilePage() {
             icon={
               AtSign
             }
-
+disabled={loading}
             required
           />
 
@@ -455,6 +455,7 @@ function GoogleCompleteProfilePage() {
       .toISOString()
       .slice(0, 10)
   }
+  disabled={loading}
   required
 />
 </label>
