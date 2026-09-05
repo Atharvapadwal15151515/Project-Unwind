@@ -138,34 +138,26 @@ function HabitTrackerCard({
       }
     };
 
-  if (habitList.length === 0) {
-    return (
-      <section className="habit-empty-state">
-        <span className="habit-empty-state__icon">
-          <Sparkles size={25} />
-        </span>
+ if (habitList.length === 0) {
+  return (
+    <section className="habit-empty-state">
+      <AppEmptyState
+        icon={Sparkles}
+        title="No habits scheduled today"
+        message="Begin with one small habit that feels realistic and meaningful for you."
+      />
 
-        <h3>
-          No habits scheduled today
-        </h3>
-
-        <p>
-          Begin with one small habit that
-          feels realistic and meaningful
-          for you.
-        </p>
-
-        <button
-          type="button"
-          className="habit-create-button"
-          onClick={onCreate}
-        >
-          <Plus size={17} />
-          Create your first habit
-        </button>
-      </section>
-    );
-  }
+      <button
+        type="button"
+        className="habit-create-button"
+        onClick={onCreate}
+      >
+        <Plus size={17} />
+        Create your first habit
+      </button>
+    </section>
+  );
+}
 
   return (
     <>
@@ -373,20 +365,24 @@ function HabitTrackerCard({
                         isSkipped
                       }
                     >
-                      {saving ? (
-                        <LoaderCircle
-                          size={15}
-                          className="trackers-icon-spin"
-                        />
-                      ) : (
-                        <Check
-                          size={15}
-                        />
-                      )}
+                     {saving ? (
+  <ButtonLoader
+    label="Saving…"
+    size="small"
+  />
+) : (
+  <>
+    {isCompleted ? (
+      <CheckCircle2 size={15} />
+    ) : (
+      <Check size={15} />
+    )}
 
-                      {isCompleted
-                        ? "Completed"
-                        : "Complete"}
+    {isCompleted
+      ? "Completed"
+      : "Complete"}
+  </>
+)}
                     </button>
 
                     <button
