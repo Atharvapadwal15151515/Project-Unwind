@@ -25,6 +25,9 @@ function ResetPasswordLinkPage() {
   const userId = searchParams.get("userId");
   const token = searchParams.get("token");
 
+  const invalidResetLink =
+  !userId || !token;
+
   const [newPassword, setNewPassword] =
     useState("");
 
