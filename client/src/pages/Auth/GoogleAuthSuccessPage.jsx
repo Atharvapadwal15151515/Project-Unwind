@@ -183,44 +183,34 @@ function GoogleAuthSuccessPage() {
   |--------------------------------------------------------------------------
   */
 
-  if (error) {
-    return (
-      <main className="google-auth-result-page">
+ if (error) {
+  return (
+    <main className="google-auth-result-page">
+      <section className="google-auth-result-card">
+        <AppErrorState
+          type="server"
+          title="Google sign in failed"
+          message={error}
+        />
 
-        <section className="google-auth-result-card">
-
-          <div className="google-auth-result-icon google-auth-result-icon--error">
-            !
-          </div>
-
-          <h1>
-            Google sign in failed
-          </h1>
-
-          <p>
-            {error}
-          </p>
-
-          <button
-            type="button"
-
-            onClick={() =>
-              navigate(
-                "/login",
-                {
-                  replace: true
-                }
-              )
-            }
-          >
-            Back to login
-          </button>
-
-        </section>
-
-      </main>
-    );
-  }
+        <button
+          type="button"
+          className="google-auth-result-button"
+          onClick={() =>
+            navigate(
+              "/login",
+              {
+                replace: true
+              }
+            )
+          }
+        >
+          Back to login
+        </button>
+      </section>
+    </main>
+  );
+}
 
 
   /*
