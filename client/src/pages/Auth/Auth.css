@@ -1622,3 +1622,23 @@ button.unwind-checkbox:focus-visible {
     transition: none;
   }
 }
+
+.auth-secondary-button .button-loader {
+  width: 100%;
+  justify-content: center;
+  color: inherit;
+}
+
+.auth-secondary-button:disabled {
+  cursor: not-allowed;
+}
+
+.auth-form[aria-busy="true"] .auth-otp-section {
+  opacity: 0.82;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-form[aria-busy="true"] .auth-otp-section {
+    transition: none;
+  }
+}
