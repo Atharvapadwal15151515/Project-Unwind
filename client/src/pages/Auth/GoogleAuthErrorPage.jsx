@@ -8,6 +8,13 @@ import {
 import {
   startGoogleAuth
 } from "../../services/googleAuthService.js";
+import AppErrorState
+  from "../../components/common/AppStates/AppErrorState";
+
+import ButtonLoader
+  from "../../components/common/AppStates/ButtonLoader";
+
+import "./GoogleAuthSuccessPage.css";
 
 
 /*
