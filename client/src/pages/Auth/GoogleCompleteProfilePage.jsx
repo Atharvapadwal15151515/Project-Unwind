@@ -557,6 +557,7 @@ disabled={loading}
 
           <UnwindCheckbox
   checked={acceptedTerms}
+  disabled={loading}
   onChange={(event) =>
     setAcceptedTerms(
       event.target.checked
@@ -619,7 +620,21 @@ disabled={loading}
             </>
           ) : (
             "Continue to UNWIND"
-          )}
+          )}{loading ? (
+  <ButtonLoader
+    label="Creating your account…"
+    size="small"
+  />
+) : (
+  "Continue to UNWIND"
+)}{loading ? (
+  <ButtonLoader
+    label="Creating your account…"
+    size="small"
+  />
+) : (
+  "Continue to UNWIND"
+)}
         </button>
 
       </form>
