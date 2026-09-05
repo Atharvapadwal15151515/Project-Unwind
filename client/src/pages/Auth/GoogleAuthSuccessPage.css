@@ -117,3 +117,37 @@
       rotate(360deg);
   }
 }
+/* Shared Google authentication states */
+
+.google-auth-result-card .app-loader,
+.google-auth-result-card .app-error-state {
+  min-height: 250px;
+}
+
+.google-auth-result-button {
+  width: 100%;
+  min-height: 46px;
+  margin-top: 16px;
+  border: 0;
+  border-radius: 14px;
+  background: #6352b8;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.google-auth-result-button:hover {
+  background: #51419f;
+}
+
+.google-auth-result-button:focus-visible {
+  outline: 3px solid rgba(99, 82, 184, 0.25);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .google-auth-result-button {
+    transition: none;
+  }
+}
