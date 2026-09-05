@@ -1,7 +1,7 @@
 import {
+  CheckCircle2,
   CupSoda,
   Droplets,
-  LoaderCircle,
   Minus,
   Plus,
   Undo2
@@ -10,6 +10,8 @@ import {
 import {
   useState
 } from "react";
+import ButtonLoader
+  from "../common/AppStates/ButtonLoader";
 
 const defaultAmounts = [
   250,
@@ -82,43 +84,54 @@ function WaterTrackerCard({
     setLocalMessage
   ] = useState("");
 
+  const [
+  activeAmount,
+  setActiveAmount
+] = useState(null);
+
   const handleAdd =
-    async (
-      amountMl,
-      waterContainerId = null,
-      containerType = null
-    ) => {
-      setLocalMessage("");
+  async (
+    amountMl,
+    waterContainerId = null,
+    containerType = null
+  ) => {
+    const numericAmount =
+      Number(amountMl);
 
-      try {
-        await onAddWater({
-          amountMl:
-            Number(amountMl),
+    setLocalMessage("");
+    setActiveAmount(
+      numericAmount
+    );
 
-          waterContainerId,
-          containerType
-        });
+    try {
+      await onAddWater({
+        amountMl:
+          numericAmount,
 
-        setCustomAmount("");
+        waterContainerId,
+        containerType
+      });
 
-        setLocalMessage(
-          `${Number(
-            amountMl
-          )} ml added`
-        );
+      setCustomAmount("");
 
-        window.setTimeout(
-          () =>
-            setLocalMessage(
-              ""
-            ),
-          1800
-        );
-      } catch {
-        // Global tracker error is
-        // displayed by TrackersPage.
-      }
-    };
+      setLocalMessage(
+        `${numericAmount} ml added`
+      );
+
+      window.setTimeout(
+        () =>
+          setLocalMessage(
+            ""
+          ),
+        1800
+      );
+    } catch {
+      // Global tracker error is
+      // displayed by TrackersPage.
+    } finally {
+      setActiveAmount(null);
+    }
+  };
 
   const handleRemove =
     async () => {
@@ -215,14 +228,16 @@ function WaterTrackerCard({
         </div>
       </div>
 
-      {localMessage && (
-        <div
-          className="water-feedback"
-          role="status"
-        >
-          {localMessage}
-        </div>
-      )}
+     {localMessage && (
+  <div
+    className="water-feedback water-feedback--success"
+    role="status"
+    aria-live="polite"
+  >
+    <CheckCircle2 size={16} />
+    {localMessage}
+  </div>
+)}
 
       <div className="water-correction-row">
         <span>
@@ -246,14 +261,17 @@ function WaterTrackerCard({
               : "No water entry to remove"
           }
         >
-          {removing ? (
-            <LoaderCircle
-              size={15}
-              className="trackers-icon-spin"
-            />
-          ) : (
-            <Undo2 size={15} />
-          )}
+         {removing ? (
+  <ButtonLoader
+    label="Removing…"
+    size="small"
+  />
+) : (
+  <>
+    <Undo2 size={15} />
+    Undo last
+  </>
+)}
 
           Undo last
         </button>
@@ -277,11 +295,18 @@ function WaterTrackerCard({
                 removing
               }
             >
-              <Plus
-                size={14}
-              />
-
-              {amount} ml
+             {saving &&
+activeAmount === amount ? (
+  <ButtonLoader
+    label={`${amount} ml`}
+    size="small"
+  />
+) : (
+  <>
+    <Plus size={14} />
+    {amount} ml
+  </>
+)}
             </button>
           )
         )}
@@ -325,21 +350,30 @@ function WaterTrackerCard({
                       )
                     }
                   >
-                    <CupSoda
-                      size={17}
-                    />
+                   {saving &&
+activeAmount === amount ? (
+  <ButtonLoader
+    label={`Adding ${amount} ml…`}
+    size="small"
+  />
+) : (
+  <>
+    <CupSoda size={17} />
 
-                    <span>
-                      <strong>
-                        {getContainerName(
-                          container
-                        )}
-                      </strong>
+    <span>
+      <strong>
+        {getContainerName(
+          container
+        )}
+      </strong>
 
-                      <small>
-                        {amount} ml
-                      </small>
-                    </span>
+      <small>
+        {amount} ml
+      </small>
+    </span>
+  </>
+)}
+                    
                   </button>
                 );
               }
@@ -350,6 +384,10 @@ function WaterTrackerCard({
 
       <form
         className="water-custom-add"
+        aria-busy={saving}
+        disabled={
+  saving || removing
+}
         onSubmit={(
           event
         ) => {
@@ -402,16 +440,19 @@ function WaterTrackerCard({
             ) < 1
           }
         >
-          {saving ? (
-            <LoaderCircle
-              size={16}
-              className="trackers-icon-spin"
-            />
-          ) : (
-            <Plus size={16} />
-          )}
-
-          Add water
+         {saving &&
+activeAmount ===
+  Number(customAmount) ? (
+  <ButtonLoader
+    label="Adding water…"
+    size="small"
+  />
+) : (
+  <>
+    <Plus size={16} />
+    Add water
+  </>
+)}
         </button>
       </form>
 

@@ -1,9 +1,7 @@
 import {
   Bell,
-  CalendarDays,
   Check,
   Clock3,
-  LoaderCircle,
   Plus,
   Repeat2,
   Target,
@@ -18,6 +16,8 @@ import {
   useMemo,
   useState
 } from "react";
+import ButtonLoader
+  from "../common/AppStates/ButtonLoader";
 
 const categories = [
   {
@@ -493,6 +493,7 @@ function CreateHabitModal({
     >
       <button
         type="button"
+        disabled={saving}
         className="habit-modal__backdrop"
         onClick={
           saving
@@ -503,11 +504,12 @@ function CreateHabitModal({
       />
 
       <section
-        className="habit-modal__dialog"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="create-habit-title"
-      >
+  className="habit-modal__dialog"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="create-habit-title"
+  aria-busy={saving}
+>
         <header className="habit-modal__header">
           <div className="habit-modal__heading">
             <span>
@@ -542,9 +544,10 @@ function CreateHabitModal({
         </header>
 
         <form
-          className="habit-modal__form"
-          onSubmit={handleSubmit}
-        >
+  className="habit-modal__form"
+  onSubmit={handleSubmit}
+  aria-busy={saving}
+>
           {formError && (
             <div
               className="habit-modal__error"
@@ -564,6 +567,7 @@ function CreateHabitModal({
               type="text"
               maxLength={120}
               value={form.habitName}
+              disabled={saving}
               placeholder="For example, meditate for ten minutes"
               autoFocus
               onChange={(event) =>
@@ -585,6 +589,7 @@ function CreateHabitModal({
               rows={3}
               maxLength={5000}
               value={form.description}
+              disabled={saving}
               placeholder="Add a gentle reminder about why this habit matters."
               onChange={(event) =>
                 updateField(
@@ -601,6 +606,7 @@ function CreateHabitModal({
 
               <UnwindSelect
   value={form.category}
+  disabled={saving}
   onChange={(event) =>
     updateField(
       "category",
@@ -627,6 +633,7 @@ function CreateHabitModal({
 <UnwindDatePicker
   name="startDate"
   value={form.startDate}
+  disabled={saving}
   onChange={(event) =>
     updateField(
       "startDate",
@@ -656,6 +663,7 @@ function CreateHabitModal({
                         trackingType.value
                       }
                       type="button"
+                      disabled={saving}
                       className={
                         active
                           ? "habit-tracking-option habit-tracking-option--active"
@@ -713,6 +721,7 @@ function CreateHabitModal({
                   max="100000"
                   step="1"
                   value={form.targetValue}
+                  disabled={saving}
                   onChange={(event) =>
                     updateField(
                       "targetValue",
@@ -727,6 +736,7 @@ function CreateHabitModal({
 
                <UnwindSelect
   value={form.targetUnit}
+
   onChange={(event) =>
     updateField(
       "targetUnit",
@@ -776,6 +786,7 @@ function CreateHabitModal({
                       frequency.value
                     }
                     type="button"
+                    disabled={saving}
                     className={
                       form.frequencyType ===
                       frequency.value
@@ -808,6 +819,7 @@ function CreateHabitModal({
                       <button
                         key={day.value}
                         type="button"
+                        disabled={saving}
                         className={
                           active
                             ? "habit-weekday habit-weekday--active"
@@ -840,6 +852,7 @@ function CreateHabitModal({
   name="endDate"
   value={form.endDate}
   min={form.startDate}
+  disabled={saving}
   placeholder="No end date"
   onChange={(event) =>
     updateField(
@@ -873,6 +886,7 @@ function CreateHabitModal({
                 aria-checked={
                   form.reminderEnabled
                 }
+                disabled={saving}
                 className={
                   form.reminderEnabled
                     ? "habit-switch habit-switch--active"
@@ -904,6 +918,7 @@ function CreateHabitModal({
                   value={
                     form.reminderTime
                   }
+                  disabled={saving}
                   onChange={(event) =>
                     updateField(
                       "reminderTime",
@@ -931,17 +946,16 @@ function CreateHabitModal({
               disabled={saving}
             >
               {saving ? (
-                <LoaderCircle
-                  size={17}
-                  className="trackers-icon-spin"
-                />
-              ) : (
-                <Plus size={17} />
-              )}
-
-              {saving
-                ? "Creating habit…"
-                : "Create habit"}
+  <ButtonLoader
+    label="Creating habit…"
+    size="small"
+  />
+) : (
+  <>
+    <Plus size={17} />
+    Create habit
+  </>
+)}
             </button>
           </footer>
         </form>

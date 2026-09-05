@@ -1,11 +1,13 @@
 import {
-  LoaderCircle,
+  CheckCircle2,
   Save,
   Smile
 } from "lucide-react";
 import {
   UnwindSlider
 } from "../common/UnwindControls/UnwindControls";
+import ButtonLoader
+  from "../common/AppStates/ButtonLoader";
 import {
   useEffect,
   useState
@@ -191,12 +193,16 @@ function MoodTrackerCard({
         )}
       </header>
 
-      <form onSubmit={handleSubmit}>
+      <form
+  onSubmit={handleSubmit}
+  aria-busy={saving}
+>
         <div className="mood-selector">
           {moodOptions.map((option) => (
             <button
               key={option.label}
               type="button"
+              disabled={saving}
               className={
                 form.moodLabel ===
                 option.label
@@ -232,6 +238,7 @@ function MoodTrackerCard({
   step={1}
   value={form.intensity}
   showValue
+  disabled={saving}
   onChange={(event) =>
     setForm((current) => ({
       ...current,
@@ -257,6 +264,7 @@ function MoodTrackerCard({
   step={1}
   value={form.stressScore}
   showValue
+  disabled={saving}
   onChange={(event) =>
     setForm((current) => ({
       ...current,
@@ -284,6 +292,7 @@ function MoodTrackerCard({
                     <button
                       key={emotionId}
                       type="button"
+                      disabled={saving}
                       className={
                         form.emotionIds.includes(
                           emotionId
@@ -317,6 +326,7 @@ function MoodTrackerCard({
             value={form.note}
             maxLength={5000}
             rows={3}
+            disabled={saving}
             placeholder="What is influencing your mood today?"
             onChange={(event) =>
               setForm((current) => ({
@@ -328,27 +338,39 @@ function MoodTrackerCard({
         </label>
 
         <button
-          type="submit"
-          className="tracker-save-button"
-          disabled={saving}
-        >
-          {saving ? (
-            <LoaderCircle
-              size={16}
-              className="trackers-icon-spin"
-            />
-          ) : (
-            <Save size={16} />
-          )}
+  type="submit"
+  className={
+    saved
+      ? "tracker-save-button tracker-save-button--success"
+      : "tracker-save-button"
+  }
+  disabled={saving}
+  aria-live="polite"
+>
+  {saving ? (
+    <ButtonLoader
+      label={
+        entry
+          ? "Updating mood…"
+          : "Saving mood…"
+      }
+      size="small"
+    />
+  ) : saved ? (
+    <>
+      <CheckCircle2 size={16} />
+      Mood saved
+    </>
+  ) : (
+    <>
+      <Save size={16} />
 
-          {saving
-            ? "Saving…"
-            : saved
-              ? "Mood saved"
-              : entry
-                ? "Update mood"
-                : "Save mood"}
-        </button>
+      {entry
+        ? "Update mood"
+        : "Save mood"}
+    </>
+  )}
+</button>
       </form>
     </article>
   );

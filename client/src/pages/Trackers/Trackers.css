@@ -4008,3 +4008,120 @@ button[type="submit"]:disabled {
     transition: none;
   }
 }
+/* Mood tracker states */
+
+.tracker-save-button .button-loader {
+  width: 100%;
+  justify-content: center;
+  color: inherit;
+}
+
+.tracker-save-button--success {
+  border-color: rgba(43, 145, 101, 0.28);
+  background: #eaf8f1;
+  color: #247a58;
+}
+
+.tracker-card form[aria-busy="true"] {
+  cursor: progress;
+}
+
+.tracker-card form[aria-busy="true"]
+  input,
+.tracker-card form[aria-busy="true"]
+  textarea,
+.tracker-card form[aria-busy="true"]
+  button {
+  cursor: wait;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tracker-save-button--success {
+    transition: none;
+  }
+}
+
+/* Water tracker states */
+
+.water-feedback--success {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #247a58;
+  background: #eaf8f1;
+  border: 1px solid rgba(43, 145, 101, 0.2);
+}
+
+.water-remove-button .button-loader,
+.water-quick-actions .button-loader,
+.water-containers .button-loader,
+.water-custom-add .button-loader {
+  justify-content: center;
+  color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .water-feedback--success {
+    transition: none;
+  }
+}
+
+/* Habit tracker states */
+
+.habit-empty-state .app-empty-state {
+  min-height: 210px;
+  padding-bottom: 12px;
+}
+
+.habit-empty-state
+  .habit-create-button {
+  margin: 0 auto 24px;
+}
+
+.habit-card__complete .button-loader,
+.habit-card__skip .button-loader,
+.habit-delete-modal__confirm
+  .button-loader {
+  justify-content: center;
+  color: inherit;
+}
+
+.habit-delete-modal[aria-busy="true"] {
+  cursor: progress;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .habit-card--completed,
+  .habit-card--skipped {
+    transition: none;
+  }
+}
+
+/* Create-habit modal states */
+
+.habit-modal__submit .button-loader {
+  width: 100%;
+  justify-content: center;
+  color: inherit;
+}
+
+.habit-modal__dialog[aria-busy="true"] {
+  cursor: progress;
+}
+
+.habit-modal__form[aria-busy="true"]
+  input,
+.habit-modal__form[aria-busy="true"]
+  textarea,
+.habit-modal__form[aria-busy="true"]
+  select,
+.habit-modal__form[aria-busy="true"]
+  button {
+  cursor: wait;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .habit-modal__dialog {
+    transition: none;
+  }
+}

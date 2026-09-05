@@ -1,6 +1,6 @@
 import {
   BedDouble,
-  LoaderCircle,
+  CheckCircle2,
   MoonStar,
   Save,
   Star
@@ -12,6 +12,8 @@ import {
   useMemo,
   useState
 } from "react";
+import ButtonLoader
+  from "../common/AppStates/ButtonLoader";
 
 const wakeMoodOptions = [
   {
@@ -538,10 +540,9 @@ function SleepTrackerCard({
       </header>
 
       <form
-        onSubmit={
-          handleSubmit
-        }
-      >
+  onSubmit={handleSubmit}
+  aria-busy={saving}
+>
         {formError && (
           <div
             className="tracker-form-error"
@@ -561,6 +562,7 @@ function SleepTrackerCard({
   name="bedtime"
   label="Bedtime"
   value={form.bedtime}
+  disabled={saving}
   onChange={(event) =>
     updateField(
       "bedtime",
@@ -582,6 +584,7 @@ function SleepTrackerCard({
   value={
     form.sleepStartTime
   }
+  disabled={saving}
   onChange={(event) =>
     updateField(
       "sleepStartTime",
@@ -601,6 +604,7 @@ function SleepTrackerCard({
   name="wakeTime"
   label="Woke up"
   value={form.wakeTime}
+  disabled={saving}
   onChange={(event) =>
     updateField(
       "wakeTime",
@@ -622,6 +626,7 @@ function SleepTrackerCard({
   value={
     form.gotOutOfBedTime
   }
+  disabled={saving}
   onChange={(event) =>
     updateField(
       "gotOutOfBedTime",
@@ -645,6 +650,7 @@ function SleepTrackerCard({
                     quality
                   }
                   type="button"
+                  disabled={saving}
                   aria-label={`Sleep quality ${quality}`}
                   onClick={() =>
                     updateField(
@@ -682,6 +688,7 @@ function SleepTrackerCard({
                     option.value
                   }
                   type="button"
+                  disabled={saving}
                   className={
                     form.wakeMood ===
                     option.value
@@ -725,6 +732,7 @@ function SleepTrackerCard({
               value={
                 form.interruptionsCount
               }
+              disabled={saving}
               onChange={(
                 event
               ) =>
@@ -751,6 +759,7 @@ function SleepTrackerCard({
               value={
                 form.interruptionMinutes
               }
+              disabled={saving}
               onChange={(
                 event
               ) =>
@@ -777,6 +786,7 @@ function SleepTrackerCard({
               value={
                 form.napMinutes
               }
+              disabled={saving}
               onChange={(
                 event
               ) =>
@@ -806,6 +816,7 @@ function SleepTrackerCard({
             value={
               form.note
             }
+            disabled={saving}
             placeholder="Anything that affected your sleep?"
             onChange={(
               event
@@ -819,33 +830,45 @@ function SleepTrackerCard({
           />
         </label>
 
-        <button
-          type="submit"
-          className="tracker-save-button"
-          disabled={
-            saving ||
-            !form.bedtime ||
-            !form.sleepStartTime ||
-            !form.wakeTime
-          }
-        >
-          {saving ? (
-            <LoaderCircle
-              size={16}
-              className="trackers-icon-spin"
-            />
-          ) : (
-            <Save size={16} />
-          )}
+       <button
+  type="submit"
+  className={
+    saved
+      ? "tracker-save-button tracker-save-button--success"
+      : "tracker-save-button"
+  }
+  disabled={
+    saving ||
+    !form.bedtime ||
+    !form.sleepStartTime ||
+    !form.wakeTime
+  }
+  aria-live="polite"
+>
+  {saving ? (
+    <ButtonLoader
+      label={
+        entry
+          ? "Updating sleep…"
+          : "Saving sleep…"
+      }
+      size="small"
+    />
+  ) : saved ? (
+    <>
+      <CheckCircle2 size={16} />
+      Sleep saved
+    </>
+  ) : (
+    <>
+      <Save size={16} />
 
-          {saving
-            ? "Saving…"
-            : saved
-              ? "Sleep saved"
-              : entry
-                ? "Update sleep"
-                : "Save sleep"}
-        </button>
+      {entry
+        ? "Update sleep"
+        : "Save sleep"}
+    </>
+  )}
+</button>
       </form>
     </article>
   );

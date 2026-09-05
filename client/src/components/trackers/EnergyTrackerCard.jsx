@@ -1,6 +1,6 @@
 import {
   BatteryCharging,
-  LoaderCircle,
+  CheckCircle2,
   Save,
   Zap
 } from "lucide-react";
@@ -9,6 +9,8 @@ import {
   useEffect,
   useState
 } from "react";
+import ButtonLoader
+  from "../common/AppStates/ButtonLoader";
 
 const energyOptions = [
   {
@@ -48,7 +50,10 @@ function EnergyTrackerCard({
     contextCategory: "daily_check_in",
     note: ""
   });
-
+const [
+  saved,
+  setSaved
+] = useState(false);
   useEffect(() => {
     if (!entry) {
       return;
@@ -94,14 +99,28 @@ function EnergyTrackerCard({
     });
   }, [entry]);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+ const handleSubmit = async (event) => {
+  event.preventDefault();
+
+  try {
+    setSaved(false);
 
     await onSave({
       ...form,
-      note: form.note.trim() || null
+      note:
+        form.note.trim() ||
+        null
     });
-  };
+
+    setSaved(true);
+
+    window.setTimeout(() => {
+      setSaved(false);
+    }, 2000);
+  } catch {
+    // The parent tracker hook displays the error.
+  }
+};
 
   const selectedOption =
     energyOptions.find(
@@ -133,12 +152,16 @@ function EnergyTrackerCard({
         </span>
       </header>
 
-      <form onSubmit={handleSubmit}>
+      <form
+  onSubmit={handleSubmit}
+  aria-busy={saving}
+>
         <div className="energy-selector">
           {energyOptions.map((option) => (
             <button
               type="button"
               key={option.value}
+              disabled={saving}
               className={
                 option.value ===
                 form.energyScore
@@ -211,6 +234,7 @@ function EnergyTrackerCard({
                 min="1"
                 max="5"
                 value={form[item.key]}
+                disabled={saving}
                 onChange={(event) =>
                   setForm((current) => ({
                     ...current,
@@ -234,6 +258,7 @@ function EnergyTrackerCard({
             value={form.note}
             maxLength={5000}
             rows={3}
+            disabled={saving}
             placeholder="What is affecting your energy today?"
             onChange={(event) =>
               setForm((current) => ({
@@ -245,25 +270,39 @@ function EnergyTrackerCard({
         </label>
 
         <button
-          type="submit"
-          className="tracker-save-button"
-          disabled={saving}
-        >
-          {saving ? (
-            <LoaderCircle
-              size={16}
-              className="trackers-icon-spin"
-            />
-          ) : (
-            <Save size={16} />
-          )}
+  type="submit"
+  className={
+    saved
+      ? "tracker-save-button tracker-save-button--success"
+      : "tracker-save-button"
+  }
+  disabled={saving}
+  aria-live="polite"
+>
+  {saving ? (
+    <ButtonLoader
+      label={
+        entry
+          ? "Updating energy…"
+          : "Saving energy…"
+      }
+      size="small"
+    />
+  ) : saved ? (
+    <>
+      <CheckCircle2 size={16} />
+      Energy saved
+    </>
+  ) : (
+    <>
+      <Save size={16} />
 
-          {saving
-            ? "Saving…"
-            : entry
-              ? "Update energy"
-              : "Save energy"}
-        </button>
+      {entry
+        ? "Update energy"
+        : "Save energy"}
+    </>
+  )}
+</button>
       </form>
     </article>
   );

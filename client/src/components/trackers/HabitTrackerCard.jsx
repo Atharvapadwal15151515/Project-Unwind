@@ -13,6 +13,11 @@ import {
 import {
   useState
 } from "react";
+import AppEmptyState
+  from "../common/AppStates/AppEmptyState";
+
+import ButtonLoader
+  from "../common/AppStates/ButtonLoader";
 
 function getHabitId(habit) {
   return (
@@ -133,34 +138,26 @@ function HabitTrackerCard({
       }
     };
 
-  if (habitList.length === 0) {
-    return (
-      <section className="habit-empty-state">
-        <span className="habit-empty-state__icon">
-          <Sparkles size={25} />
-        </span>
+ if (habitList.length === 0) {
+  return (
+    <section className="habit-empty-state">
+      <AppEmptyState
+        icon={Sparkles}
+        title="No habits scheduled today"
+        message="Begin with one small habit that feels realistic and meaningful for you."
+      />
 
-        <h3>
-          No habits scheduled today
-        </h3>
-
-        <p>
-          Begin with one small habit that
-          feels realistic and meaningful
-          for you.
-        </p>
-
-        <button
-          type="button"
-          className="habit-create-button"
-          onClick={onCreate}
-        >
-          <Plus size={17} />
-          Create your first habit
-        </button>
-      </section>
-    );
-  }
+      <button
+        type="button"
+        className="habit-create-button"
+        onClick={onCreate}
+      >
+        <Plus size={17} />
+        Create your first habit
+      </button>
+    </section>
+  );
+}
 
   return (
     <>
@@ -368,20 +365,24 @@ function HabitTrackerCard({
                         isSkipped
                       }
                     >
-                      {saving ? (
-                        <LoaderCircle
-                          size={15}
-                          className="trackers-icon-spin"
-                        />
-                      ) : (
-                        <Check
-                          size={15}
-                        />
-                      )}
+                     {saving ? (
+  <ButtonLoader
+    label="Saving…"
+    size="small"
+  />
+) : (
+  <>
+    {isCompleted ? (
+      <CheckCircle2 size={15} />
+    ) : (
+      <Check size={15} />
+    )}
 
-                      {isCompleted
-                        ? "Completed"
-                        : "Complete"}
+    {isCompleted
+      ? "Completed"
+      : "Complete"}
+  </>
+)}
                     </button>
 
                     <button
@@ -406,20 +407,20 @@ function HabitTrackerCard({
                         isSkipped
                       }
                     >
-                      {saving ? (
-                        <LoaderCircle
-                          size={15}
-                          className="trackers-icon-spin"
-                        />
-                      ) : (
-                        <SkipForward
-                          size={15}
-                        />
-                      )}
+                     {saving ? (
+  <ButtonLoader
+    label="Saving…"
+    size="small"
+  />
+) : (
+  <>
+    <SkipForward size={15} />
 
-                      {isSkipped
-                        ? "Skipped"
-                        : "Skip"}
+    {isSkipped
+      ? "Skipped"
+      : "Skip"}
+  </>
+)}
                     </button>
                   </footer>
                 </article>
@@ -444,12 +445,18 @@ function HabitTrackerCard({
             }
           }}
         >
-          <div
-            className="habit-delete-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="habit-delete-title"
-          >
+         <div
+  className="habit-delete-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="habit-delete-title"
+  aria-busy={
+    savingTracker ===
+    `habit-delete-${getHabitId(
+      deleteCandidate
+    )}`
+  }
+>
             <span className="habit-delete-modal__icon">
               <Trash2
                 size={23}
@@ -511,18 +518,15 @@ function HabitTrackerCard({
                   )}`
                 }
               >
-                {savingTracker ===
-                `habit-delete-${getHabitId(
-                  deleteCandidate
-                )}` ? (
-                  <>
-                    <LoaderCircle
-                      size={16}
-                      className="trackers-icon-spin"
-                    />
-                    Deleting...
-                  </>
-                ) : (
+               {savingTracker ===
+`habit-delete-${getHabitId(
+  deleteCandidate
+)}` ? (
+  <ButtonLoader
+    label="Deleting…"
+    size="small"
+  />
+) : (
                   <>
                     <Trash2
                       size={16}
