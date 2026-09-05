@@ -1,9 +1,7 @@
 import {
   Bell,
-  CalendarDays,
   Check,
   Clock3,
-  LoaderCircle,
   Plus,
   Repeat2,
   Target,
@@ -18,6 +16,8 @@ import {
   useMemo,
   useState
 } from "react";
+import ButtonLoader
+  from "../common/AppStates/ButtonLoader";
 
 const categories = [
   {
@@ -503,11 +503,12 @@ function CreateHabitModal({
       />
 
       <section
-        className="habit-modal__dialog"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="create-habit-title"
-      >
+  className="habit-modal__dialog"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="create-habit-title"
+  aria-busy={saving}
+>
         <header className="habit-modal__header">
           <div className="habit-modal__heading">
             <span>
