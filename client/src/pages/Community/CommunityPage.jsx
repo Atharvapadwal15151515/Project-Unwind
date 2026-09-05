@@ -489,35 +489,20 @@ useEffect(() => {
   );
 }
 
-  if (profileError) {
-    return (
-      <section className="community-error-state">
-        <span>
-          <MessageCircleHeart
-            size={28}
-          />
-        </span>
-
-        <h2>
-          The community could not be
-          loaded
-        </h2>
-
-        <p>{profileError}</p>
-
-        <button
-          type="button"
-          className="community-primary-button"
-          onClick={() =>
-            window.location.reload()
-          }
-        >
-          <RefreshCw size={16} />
-          Try again
-        </button>
-      </section>
-    );
-  }
+ if (profileError) {
+  return (
+    <main className="community-error-state">
+      <AppErrorState
+        type="server"
+        title="The community could not be loaded"
+        message={profileError}
+        onRetry={() =>
+          window.location.reload()
+        }
+      />
+    </main>
+  );
+}
 
   if (!communityProfile) {
     return (
