@@ -338,27 +338,39 @@ function MoodTrackerCard({
         </label>
 
         <button
-          type="submit"
-          className="tracker-save-button"
-          disabled={saving}
-        >
-          {saving ? (
-            <LoaderCircle
-              size={16}
-              className="trackers-icon-spin"
-            />
-          ) : (
-            <Save size={16} />
-          )}
+  type="submit"
+  className={
+    saved
+      ? "tracker-save-button tracker-save-button--success"
+      : "tracker-save-button"
+  }
+  disabled={saving}
+  aria-live="polite"
+>
+  {saving ? (
+    <ButtonLoader
+      label={
+        entry
+          ? "Updating mood…"
+          : "Saving mood…"
+      }
+      size="small"
+    />
+  ) : saved ? (
+    <>
+      <CheckCircle2 size={16} />
+      Mood saved
+    </>
+  ) : (
+    <>
+      <Save size={16} />
 
-          {saving
-            ? "Saving…"
-            : saved
-              ? "Mood saved"
-              : entry
-                ? "Update mood"
-                : "Save mood"}
-        </button>
+      {entry
+        ? "Update mood"
+        : "Save mood"}
+    </>
+  )}
+</button>
       </form>
     </article>
   );
