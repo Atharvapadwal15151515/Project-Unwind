@@ -989,18 +989,14 @@ function DassHistory({
       )}
 
 
-      {detailsLoading && (
-        <div className="dass-history-details-loader">
-          <LoaderCircle
-            size={24}
-            className="dass-icon-spin"
-          />
-
-          <span>
-            Loading assessment…
-          </span>
-        </div>
-      )}
+     {detailsLoading && (
+  <div className="dass-history-details-loader">
+    <AppLoader
+      message="Loading assessment…"
+      size="medium"
+    />
+  </div>
+)}
     </section>
   );
 }
