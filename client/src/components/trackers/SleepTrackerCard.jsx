@@ -1,6 +1,6 @@
 import {
   BedDouble,
-  LoaderCircle,
+  CheckCircle2,
   MoonStar,
   Save,
   Star
