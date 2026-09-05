@@ -25,6 +25,7 @@ import {
   Download,
   Feather,
   File,
+   SearchX,
   Heart,
   Image as Imagecon,
   LoaderCircle,
@@ -39,6 +40,11 @@ import {
 
 import JournalToolbar
   from "./JournalToolbar";
+  import AppSkeleton
+  from "../common/AppStates/AppSkeleton";
+
+import AppEmptyState
+  from "../common/AppStates/AppEmptyState";
 
 import "./JournalBook.css";
 
@@ -1043,6 +1049,18 @@ function JournalBook({
         )
       : "";
 
+      const hasActiveFilters =
+  Boolean(
+    query ||
+    filter !== "all"
+  );
+
+
+const hasNoFilteredResults =
+  !loading &&
+  entries.length === 0 &&
+  hasActiveFilters;
+
 
   const shownEnd =
     Math.min(
@@ -1925,92 +1943,108 @@ function JournalBook({
 
                 {/* Loading */}
 
-                {loading ? (
-                  <div className="journal-open-book__loading">
-                    <LoaderCircle
-                      className="journal-spin"
-                      size={25}
-                    />
+               {/* Loading, filtered empty state, or journal pages */}
 
-                    <p>
-                      Opening your
-                      pages…
-                    </p>
-                  </div>
-                ) : (
+{loading ? (
+  <div
+    className="journal-open-book__loading"
+    aria-label="Loading journal pages"
+    aria-busy="true"
+  >
+    <AppSkeleton
+      variant="card"
+      count={
+        singlePage
+          ? 1
+          : 2
+      }
+      className="journal-book__skeleton"
+    />
+  </div>
+) : hasNoFilteredResults ? (
+  <div className="journal-open-book__empty">
+    <AppEmptyState
+      icon={SearchX}
+      title="No matching pages"
+      description="No journal pages match your current search or filter. Your entries are still safely stored."
+      actionLabel="Clear search and filters"
+      onAction={() => {
+        onQueryChange("");
+        onFilterChange("all");
+      }}
+      compact
+    />
+  </div>
+) : (
+  <div className="journal-open-book__pages">
+    <JournalPageLeaf
+      entry={
+        leftEntry
+      }
+      side="left"
+      pageNumber={
+        pageIndex +
+        1
+      }
+      busy={
+        Boolean(
+          actionEntryId
+        )
+      }
+      turning={
+        turning
+      }
+      onOpenEntry={
+        onOpenEntry
+      }
+      onToggleFavourite={
+        onToggleFavourite
+      }
+      onCreateEntry={
+        onCreateEntry
+      }
+    />
 
-                  /* Actual pages */
 
-                  <div className="journal-open-book__pages">
-                    <JournalPageLeaf
-                      entry={
-                        leftEntry
-                      }
-                      side="left"
-                      pageNumber={
-                        pageIndex +
-                        1
-                      }
-                      busy={
-                        Boolean(
-                          actionEntryId
-                        )
-                      }
-                      turning={
-                        turning
-                      }
-                      onOpenEntry={
-                        onOpenEntry
-                      }
-                      onToggleFavourite={
-                        onToggleFavourite
-                      }
-                      onCreateEntry={
-                        onCreateEntry
-                      }
-                    />
+    {!singlePage ? (
+      <JournalPageLeaf
+        entry={
+          rightEntry
+        }
+        side="right"
+        pageNumber={
+          entries.length ===
+          0
+            ? 2
+            : Math.min(
+                entries.length +
+                  1,
 
-
-                    {!singlePage ? (
-                      <JournalPageLeaf
-                        entry={
-                          rightEntry
-                        }
-                        side="right"
-                        pageNumber={
-                          entries.length ===
-                          0
-                            ? 2
-                            : Math.min(
-                                entries.length +
-                                  1,
-
-                                pageIndex +
-                                  2
-                              )
-                        }
-                        busy={
-                          Boolean(
-                            actionEntryId
-                          )
-                        }
-                        turning={
-                          turning
-                        }
-                        onOpenEntry={
-                          onOpenEntry
-                        }
-                        onToggleFavourite={
-                          onToggleFavourite
-                        }
-                        onCreateEntry={
-                          onCreateEntry
-                        }
-                      />
-                    ) : null}
-                  </div>
-                )}
-
+                pageIndex +
+                  2
+              )
+        }
+        busy={
+          Boolean(
+            actionEntryId
+          )
+        }
+        turning={
+          turning
+        }
+        onOpenEntry={
+          onOpenEntry
+        }
+        onToggleFavourite={
+          onToggleFavourite
+        }
+        onCreateEntry={
+          onCreateEntry
+        }
+      />
+    ) : null}
+  </div>
+)}
 
                 {/* Animated flipping sheet */}
 
