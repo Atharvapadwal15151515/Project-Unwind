@@ -151,9 +151,14 @@ function ResetPasswordLinkPage() {
           className="auth-submit-button"
           disabled={loading}
         >
-          {loading
-            ? "Updating password…"
-            : "Update password"}
+         {loading ? (
+  <ButtonLoader
+    label="Updating password…"
+    size="small"
+  />
+) : (
+  "Update password"
+)}
         </button>
         </form>
 )}
