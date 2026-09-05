@@ -22,6 +22,9 @@ import AuthAlert
 import OtpInput
   from "../../components/auth/OtpInput";
 
+  import ButtonLoader
+  from "../../components/common/AppStates/ButtonLoader";
+
 import {
   resendVerification,
   verifyEmailOtp
