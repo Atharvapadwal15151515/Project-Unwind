@@ -10,6 +10,8 @@ import AuthLayout from "../../components/auth/AuthLayout";
 import AuthInput from "../../components/auth/AuthInput";
 import AuthAlert from "../../components/auth/AuthAlert";
 import PasswordStrength from "../../components/auth/PasswordStrength";
+import ButtonLoader
+  from "../../components/common/AppStates/ButtonLoader";
 
 import { resetPasswordWithLink } from "../../services/authService";
 import { getApiErrorMessage } from "../../services/api";
