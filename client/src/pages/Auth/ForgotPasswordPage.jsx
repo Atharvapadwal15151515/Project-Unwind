@@ -64,10 +64,11 @@ function ForgotPasswordPage() {
         message={success}
       />
 
-      <form
-        className="auth-form"
-        onSubmit={handleSubmit}
-      >
+     <form
+  className="auth-form"
+  onSubmit={handleSubmit}
+  aria-busy={loading}
+>
         <AuthInput
           label="Email address"
           type="email"
