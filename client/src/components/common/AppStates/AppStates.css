@@ -1,3 +1,69 @@
+/* =========================================================
+   APP STATE THEME TOKENS
+========================================================= */
+
+:root {
+  --app-state-surface:
+    rgba(255, 255, 255, 0.88);
+
+  --app-state-surface-solid:
+    #ffffff;
+
+  --app-state-border:
+    rgba(91, 77, 157, 0.14);
+
+  --app-state-text:
+    #29243b;
+
+  --app-state-muted:
+    #706b7d;
+
+  --app-state-accent:
+    #6352b8;
+
+  --app-state-accent-soft:
+    rgba(99, 82, 184, 0.13);
+
+  --app-state-track:
+    rgba(99, 82, 184, 0.13);
+
+  --app-state-shadow:
+    0 22px 60px
+      rgba(46, 37, 86, 0.1);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --app-state-surface:
+    rgba(25, 31, 30, 0.92);
+
+  --app-state-surface-solid:
+    #191f1e;
+
+  --app-state-border:
+    rgba(177, 211, 197, 0.15);
+
+  --app-state-text:
+    #f1f7f4;
+
+  --app-state-muted:
+    #aebdb7;
+
+  --app-state-accent:
+    #9fd8be;
+
+  --app-state-accent-soft:
+    rgba(159, 216, 190, 0.13);
+
+  --app-state-track:
+    rgba(159, 216, 190, 0.15);
+
+  --app-state-shadow:
+    0 24px 65px
+      rgba(0, 0, 0, 0.34);
+}
+
 .app-loader {
   min-height: 180px;
 
