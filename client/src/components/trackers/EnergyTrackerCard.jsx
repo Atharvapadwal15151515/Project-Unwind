@@ -270,25 +270,39 @@ const [
         </label>
 
         <button
-          type="submit"
-          className="tracker-save-button"
-          disabled={saving}
-        >
-          {saving ? (
-            <LoaderCircle
-              size={16}
-              className="trackers-icon-spin"
-            />
-          ) : (
-            <Save size={16} />
-          )}
+  type="submit"
+  className={
+    saved
+      ? "tracker-save-button tracker-save-button--success"
+      : "tracker-save-button"
+  }
+  disabled={saving}
+  aria-live="polite"
+>
+  {saving ? (
+    <ButtonLoader
+      label={
+        entry
+          ? "Updating energy…"
+          : "Saving energy…"
+      }
+      size="small"
+    />
+  ) : saved ? (
+    <>
+      <CheckCircle2 size={16} />
+      Energy saved
+    </>
+  ) : (
+    <>
+      <Save size={16} />
 
-          {saving
-            ? "Saving…"
-            : entry
-              ? "Update energy"
-              : "Save energy"}
-        </button>
+      {entry
+        ? "Update energy"
+        : "Save energy"}
+    </>
+  )}
+</button>
       </form>
     </article>
   );
