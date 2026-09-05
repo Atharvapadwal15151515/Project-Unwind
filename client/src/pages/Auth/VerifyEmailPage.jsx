@@ -313,10 +313,12 @@ function VerifyEmailPage() {
       />
 
       <form
-        className="auth-form"
-        onSubmit={
-          handleVerify
-        }
+  className="auth-form"
+  onSubmit={handleVerify}
+  aria-busy={
+    loading || resending
+  }
+
       >
         <label className="auth-field">
           <span className="auth-field__label">
