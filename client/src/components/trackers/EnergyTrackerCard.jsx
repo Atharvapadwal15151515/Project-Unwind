@@ -152,7 +152,10 @@ const [
         </span>
       </header>
 
-      <form onSubmit={handleSubmit}>
+      <form
+  onSubmit={handleSubmit}
+  aria-busy={saving}
+>
         <div className="energy-selector">
           {energyOptions.map((option) => (
             <button
