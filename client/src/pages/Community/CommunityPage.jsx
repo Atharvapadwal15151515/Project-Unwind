@@ -5,9 +5,6 @@ import {
 } from "react";
 
 import {
-  LoaderCircle,
-  MessageCircleHeart,
-  RefreshCw,
   Sparkles
 } from "lucide-react";
 
