@@ -4065,3 +4065,34 @@ button[type="submit"]:disabled {
     transition: none;
   }
 }
+
+/* Habit tracker states */
+
+.habit-empty-state .app-empty-state {
+  min-height: 210px;
+  padding-bottom: 12px;
+}
+
+.habit-empty-state
+  .habit-create-button {
+  margin: 0 auto 24px;
+}
+
+.habit-card__complete .button-loader,
+.habit-card__skip .button-loader,
+.habit-delete-modal__confirm
+  .button-loader {
+  justify-content: center;
+  color: inherit;
+}
+
+.habit-delete-modal[aria-busy="true"] {
+  cursor: progress;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .habit-card--completed,
+  .habit-card--skipped {
+    transition: none;
+  }
+}
