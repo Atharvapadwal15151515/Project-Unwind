@@ -50,7 +50,10 @@ function EnergyTrackerCard({
     contextCategory: "daily_check_in",
     note: ""
   });
-
+const [
+  saved,
+  setSaved
+] = useState(false);
   useEffect(() => {
     if (!entry) {
       return;
@@ -96,14 +99,28 @@ function EnergyTrackerCard({
     });
   }, [entry]);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+ const handleSubmit = async (event) => {
+  event.preventDefault();
+
+  try {
+    setSaved(false);
 
     await onSave({
       ...form,
-      note: form.note.trim() || null
+      note:
+        form.note.trim() ||
+        null
     });
-  };
+
+    setSaved(true);
+
+    window.setTimeout(() => {
+      setSaved(false);
+    }, 2000);
+  } catch {
+    // The parent tracker hook displays the error.
+  }
+};
 
   const selectedOption =
     energyOptions.find(
