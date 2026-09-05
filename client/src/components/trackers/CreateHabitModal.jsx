@@ -604,6 +604,7 @@ function CreateHabitModal({
 
               <UnwindSelect
   value={form.category}
+  disabled={saving}
   onChange={(event) =>
     updateField(
       "category",
@@ -630,6 +631,7 @@ function CreateHabitModal({
 <UnwindDatePicker
   name="startDate"
   value={form.startDate}
+  disabled={saving}
   onChange={(event) =>
     updateField(
       "startDate",
@@ -731,6 +733,7 @@ function CreateHabitModal({
 
                <UnwindSelect
   value={form.targetUnit}
+
   onChange={(event) =>
     updateField(
       "targetUnit",
@@ -844,6 +847,7 @@ function CreateHabitModal({
   name="endDate"
   value={form.endDate}
   min={form.startDate}
+  disabled={saving}
   placeholder="No end date"
   onChange={(event) =>
     updateField(
