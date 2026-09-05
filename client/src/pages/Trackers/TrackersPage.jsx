@@ -3,7 +3,6 @@ import {
 } from "react";
 
 import {
-  AlertCircle,
   RefreshCw,
   Sparkles
 } from "lucide-react";
