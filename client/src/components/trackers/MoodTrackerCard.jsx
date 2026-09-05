@@ -326,6 +326,7 @@ function MoodTrackerCard({
             value={form.note}
             maxLength={5000}
             rows={3}
+            disabled={saving}
             placeholder="What is influencing your mood today?"
             onChange={(event) =>
               setForm((current) => ({
