@@ -478,17 +478,16 @@ useEffect(() => {
     );
   };
 
-  if (profileLoading) {
-    return (
-      <section className="community-profile-loading">
-        <LoaderCircle size={33} />
-
-        <p>
-          Preparing your community…
-        </p>
-      </section>
-    );
-  }
+ if (profileLoading) {
+  return (
+    <main className="community-profile-loading">
+      <AppLoader
+        message="Preparing your community…"
+        size="large"
+      />
+    </main>
+  );
+}
 
   if (profileError) {
     return (
