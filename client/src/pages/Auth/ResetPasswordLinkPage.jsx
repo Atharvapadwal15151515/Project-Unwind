@@ -142,6 +142,7 @@ function ResetPasswordLinkPage() {
           }
           icon={LockKeyhole}
           autoComplete="new-password"
+          disabled={loading}
           required
         />
 
