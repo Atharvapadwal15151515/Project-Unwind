@@ -258,6 +258,7 @@ const [
             value={form.note}
             maxLength={5000}
             rows={3}
+            disabled={saving}
             placeholder="What is affecting your energy today?"
             onChange={(event) =>
               setForm((current) => ({
