@@ -87,20 +87,28 @@ function ForgotPasswordPage() {
           className="auth-submit-button"
           disabled={loading}
         >
-          {loading
-            ? "Sending reset instructions…"
-            : "Send reset instructions"}
+         {loading ? (
+  <ButtonLoader
+    label="Sending reset instructions…"
+    size="small"
+  />
+) : success ? (
+  "Send instructions again"
+) : (
+  "Send reset instructions"
+)}
         </button>
       </form>
 
       {success && (
-        <Link
-          to="/reset-password-otp"
-          state={{
-            email: email.trim().toLowerCase()
-          }}
-          className="auth-secondary-button"
-        >
+       <Link
+  to="/reset-password-otp"
+  state={{
+    email: email.trim().toLowerCase()
+  }}
+  className="auth-secondary-button"
+  aria-label="Continue to password reset OTP verification"
+>
           I have the OTP
         </Link>
       )}
