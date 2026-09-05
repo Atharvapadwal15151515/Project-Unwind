@@ -567,33 +567,15 @@ useEffect(() => {
                 key={`post-skeleton-${index}`}
               />
             ))
-          ) : error ? (
-            <section className="community-feed-state">
-              <span>
-                <MessageCircleHeart
-                  size={27}
-                />
-              </span>
-
-              <h3>
-                Unable to load posts
-              </h3>
-
-              <p>{error}</p>
-
-              <button
-                type="button"
-                className="community-primary-button"
-                onClick={
-                  handleRefreshFeed
-                }
-              >
-                <RefreshCw
-                  size={16}
-                />
-                Try again
-              </button>
-            </section>
+        ) : error ? (
+  <section className="community-feed-state">
+    <AppErrorState
+      type="server"
+      title="Unable to load posts"
+      message={error}
+      onRetry={handleRefreshFeed}
+    />
+  </section>
           ) : posts.length === 0 ? (
             <section className="community-feed-state">
               <span>
