@@ -366,10 +366,12 @@ function GoogleCompleteProfilePage() {
       );
 
 
-      setError(
-        requestError?.message ||
-        "Unable to complete Google signup."
-      );
+     setError(
+  getApiErrorMessage(
+    requestError,
+    "Unable to complete Google signup."
+  )
+);
 
     } finally {
       setLoading(false);
