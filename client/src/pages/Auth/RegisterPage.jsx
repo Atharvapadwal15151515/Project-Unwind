@@ -19,6 +19,8 @@ import AuthAlert from "../../components/auth/AuthAlert";
 import PasswordStrength from "../../components/auth/PasswordStrength";
 import ProfilePhotoPicker from "../../components/auth/ProfilePhotoPicker";
 import GoogleAuthButton from "../../components/auth/GoogleAuthButton";
+import ButtonLoader
+  from "../../components/common/AppStates/ButtonLoader";
 import {
   UnwindCheckbox,
   UnwindDatePicker,
