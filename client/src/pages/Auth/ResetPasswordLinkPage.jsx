@@ -100,7 +100,13 @@ function ResetPasswordLinkPage() {
       title="Choose a new password"
       description="Secure your UNWIND account with a new password."
     >
-      <AuthAlert message={error} />
+      <AuthAlert
+  message={
+    invalidResetLink
+      ? "This password reset link is incomplete, invalid or expired."
+      : error
+  }
+/>
 
       <form
         className="auth-form"
