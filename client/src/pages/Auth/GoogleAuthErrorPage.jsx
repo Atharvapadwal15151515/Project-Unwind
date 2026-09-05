@@ -35,6 +35,11 @@ export default function GoogleAuthErrorPage() {
   const navigate =
     useNavigate();
 
+    const [
+  retrying,
+  setRetrying
+] = useState(false);
+
 
   /*
   |--------------------------------------------------------------------------
