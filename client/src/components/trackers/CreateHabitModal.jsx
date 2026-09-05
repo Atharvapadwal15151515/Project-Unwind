@@ -566,6 +566,7 @@ function CreateHabitModal({
               type="text"
               maxLength={120}
               value={form.habitName}
+              disabled={saving}
               placeholder="For example, meditate for ten minutes"
               autoFocus
               onChange={(event) =>
@@ -715,6 +716,7 @@ function CreateHabitModal({
                   max="100000"
                   step="1"
                   value={form.targetValue}
+                  disabled={saving}
                   onChange={(event) =>
                     updateField(
                       "targetValue",
@@ -906,6 +908,7 @@ function CreateHabitModal({
                   value={
                     form.reminderTime
                   }
+                  disabled={saving}
                   onChange={(event) =>
                     updateField(
                       "reminderTime",
