@@ -4040,3 +4040,28 @@ button[type="submit"]:disabled {
     transition: none;
   }
 }
+
+/* Water tracker states */
+
+.water-feedback--success {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #247a58;
+  background: #eaf8f1;
+  border: 1px solid rgba(43, 145, 101, 0.2);
+}
+
+.water-remove-button .button-loader,
+.water-quick-actions .button-loader,
+.water-containers .button-loader,
+.water-custom-add .button-loader {
+  justify-content: center;
+  color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .water-feedback--success {
+    transition: none;
+  }
+}
