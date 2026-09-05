@@ -668,17 +668,14 @@ useEffect(() => {
                   onClick={loadMore}
                   disabled={loadingMore}
                 >
-                  {loadingMore ? (
-                    <>
-                      <LoaderCircle
-                        size={17}
-                        className="community-icon-spin"
-                      />
-                      Loading more…
-                    </>
-                  ) : (
-                    "Load more posts"
-                  )}
+                {loadingMore ? (
+  <ButtonLoader
+    label="Loading more posts…"
+    size="small"
+  />
+) : (
+  "Load more posts"
+)}
                 </button>
               )}
             </>
