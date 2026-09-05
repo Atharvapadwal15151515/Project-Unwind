@@ -264,6 +264,7 @@ function MoodTrackerCard({
   step={1}
   value={form.stressScore}
   showValue
+  disabled={saving}
   onChange={(event) =>
     setForm((current) => ({
       ...current,
