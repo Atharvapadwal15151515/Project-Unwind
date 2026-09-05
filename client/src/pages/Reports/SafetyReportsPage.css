@@ -1000,3 +1000,362 @@
     padding-right: 18px;
   }
 }
+
+
+/*
+|--------------------------------------------------------------------------
+| Dark mode
+| Supports the common class and data-attribute theme hooks used by apps.
+|--------------------------------------------------------------------------
+*/
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-reports {
+  color: #d9eee7;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-reports__hero {
+  border-color: rgba(111, 211, 181, 0.16);
+  background:
+    radial-gradient(
+      circle at 86% 10%,
+      rgba(61, 158, 130, 0.22),
+      transparent 34%
+    ),
+    linear-gradient(
+      135deg,
+      #132d28 0%,
+      #0d2420 100%
+    );
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.24);
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  :is(
+    .safety-reports__hero h1,
+    .safety-reports__workspace-header h2,
+    .safety-reports__principles-heading h2
+  ) {
+  color: #effbf7;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  :is(
+    .safety-reports__hero-copy > p,
+    .safety-reports__workspace-header p,
+    .safety-reports__principles-heading p
+  ) {
+  color: #a8c2ba;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  :is(
+    .safety-reports__eyebrow,
+    .safety-reports__workspace-header > div:first-child > span,
+    .safety-reports__principles-heading > span
+  ) {
+  color: #72d1b5;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-reports__secondary-button {
+  border-color: rgba(114, 209, 181, 0.25);
+  background: rgba(26, 60, 52, 0.86);
+  color: #a7e6d3;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-reports__secondary-button:hover {
+  background: #214b41;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  :is(
+    .safety-reports__hero-orbit,
+    .safety-report-progress > span
+  ) {
+  border-color: rgba(114, 209, 181, 0.18);
+  background: #173a32;
+  color: #80ddc1;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  :is(
+    .safety-reports__quick-tools > button,
+    .safety-reports__workspace
+  ) {
+  border-color: rgba(111, 211, 181, 0.14);
+  background: #102923;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-reports__quick-tools > button:hover {
+  border-color: rgba(114, 209, 181, 0.34);
+  background: #14332c;
+  box-shadow: 0 15px 32px rgba(0, 0, 0, 0.22);
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  :is(
+    .safety-reports__quick-tools > button > span,
+    .safety-report-card__icon,
+    .safety-reports__empty-icon
+  ) {
+  background: #1b4037;
+  color: #76d7ba;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-reports__quick-tools strong {
+  color: #e1f3ed;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  :is(
+    .safety-reports__quick-tools p,
+    .safety-reports__count span
+  ) {
+  color: #94ada5;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-reports__count {
+  background: #193a32;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-reports__count strong {
+  color: #78d9bc;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-reports__filters button {
+  border-color: rgba(111, 211, 181, 0.16);
+  background: #17332d;
+  color: #a7beb7;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-reports__filters button:hover {
+  border-color: rgba(114, 209, 181, 0.32);
+  color: #dff5ee;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-reports__filters button.is-active {
+  border-color: #48a98d;
+  background: #338d74;
+  color: #ffffff;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-card {
+  border-color: rgba(111, 211, 181, 0.12);
+  background: #15312b;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-card:hover {
+  border-color: rgba(114, 209, 181, 0.3);
+  background: #193a32;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.2);
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-card__top span:not(.safety-report-status) {
+  color: #91aaa2;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  :is(
+    .safety-report-card__top h3,
+    .safety-reports__state h3,
+    .safety-reports__principle-grid h3
+  ) {
+  color: #e2f4ee;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  :is(
+    .safety-report-card__description,
+    .safety-report-card__footer > span,
+    .safety-reports__state p,
+    .safety-reports__principle-grid p
+  ) {
+  color: #9ab2aa;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-card__footer {
+  border-top-color: rgba(138, 218, 194, 0.1);
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-card__footer button {
+  color: #73d4b7;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-reports__principles {
+  border-color: rgba(111, 211, 181, 0.13);
+  background: linear-gradient(145deg, #102923, #132f29);
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-reports__principle-grid article {
+  border-color: rgba(111, 211, 181, 0.13);
+  background: rgba(24, 58, 50, 0.82);
+  color: #73d4b7;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-modal-backdrop {
+  background: rgba(2, 12, 10, 0.74);
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-modal {
+  border-color: rgba(111, 211, 181, 0.18);
+  background: #102923;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.48);
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-modal__header {
+  border-bottom-color: rgba(111, 211, 181, 0.12);
+  background: rgba(16, 41, 35, 0.96);
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-modal__header span {
+  color: #72d1b5;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-modal__header h2 {
+  color: #e8f7f2;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-modal__close {
+  border-color: rgba(111, 211, 181, 0.17);
+  background: #17372f;
+  color: #aac5bd;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-progress {
+  background: #17342d;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-progress strong {
+  color: #dff2ec;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-progress p {
+  color: #9cb3ac;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-progress--pending {
+  color: #f0c56e;
+  background: #3b321c;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-progress--reviewing {
+  color: #8ec3ec;
+  background: #1c3448;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-progress--resolved {
+  color: #83d7ab;
+  background: #193b2c;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-progress--rejected {
+  color: #b6c0bd;
+  background: #2b3331;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-detail-grid > div {
+  border-color: rgba(111, 211, 181, 0.12);
+  background: #15342c;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  :is(
+    .safety-report-detail-grid span,
+    .safety-report-modal__section > span,
+    .safety-report-modal__outcome span
+  ) {
+  color: #8fa9a1;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-detail-grid strong {
+  color: #d5eae4;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-modal__section {
+  border-color: rgba(111, 211, 181, 0.13);
+  background: rgba(19, 48, 41, 0.42);
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-modal__section p {
+  color: #acc1ba;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-modal__outcome {
+  background: #183b2c;
+  color: #80d6a9;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-modal__outcome strong {
+  color: #b8e8ce;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  :is(
+    .safety-report-modal__privacy,
+    .safety-report-modal__state,
+    .safety-reports__state
+  ) {
+  color: #93b7ac;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-status--pending {
+  background: #42351b;
+  color: #f0c56e;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-status--reviewing {
+  background: #1c374d;
+  color: #91c8f0;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-status--resolved {
+  background: #183c2b;
+  color: #83d8aa;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+  .safety-report-status--rejected {
+  background: #303836;
+  color: #bdc8c4;
+}
