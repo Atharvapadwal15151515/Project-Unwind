@@ -562,6 +562,7 @@ function SleepTrackerCard({
   name="bedtime"
   label="Bedtime"
   value={form.bedtime}
+  disabled={saving}
   onChange={(event) =>
     updateField(
       "bedtime",
@@ -583,6 +584,7 @@ function SleepTrackerCard({
   value={
     form.sleepStartTime
   }
+  disabled={saving}
   onChange={(event) =>
     updateField(
       "sleepStartTime",
@@ -602,6 +604,7 @@ function SleepTrackerCard({
   name="wakeTime"
   label="Woke up"
   value={form.wakeTime}
+  disabled={saving}
   onChange={(event) =>
     updateField(
       "wakeTime",
@@ -623,6 +626,7 @@ function SleepTrackerCard({
   value={
     form.gotOutOfBedTime
   }
+  disabled={saving}
   onChange={(event) =>
     updateField(
       "gotOutOfBedTime",
@@ -646,6 +650,7 @@ function SleepTrackerCard({
                     quality
                   }
                   type="button"
+                  disabled={saving}
                   aria-label={`Sleep quality ${quality}`}
                   onClick={() =>
                     updateField(
@@ -683,6 +688,7 @@ function SleepTrackerCard({
                     option.value
                   }
                   type="button"
+                  disabled={saving}
                   className={
                     form.wakeMood ===
                     option.value
@@ -726,6 +732,7 @@ function SleepTrackerCard({
               value={
                 form.interruptionsCount
               }
+              disabled={saving}
               onChange={(
                 event
               ) =>
