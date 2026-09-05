@@ -508,13 +508,7 @@ disabled={loading}
         </label>
 
 
-        {/* Occupation */}
-
-        <label className="auth-field">
-
-          <span className="auth-field__label">
-            Occupation
-          </span>
+       {/* Occupation */}
 
 <label className="auth-field">
   <span className="auth-field__label">
@@ -527,6 +521,7 @@ disabled={loading}
     onChange={updateField}
     placeholder="Select occupation"
     icon={BriefcaseBusiness}
+    disabled={loading}
     required
   >
     <option value="">
@@ -554,8 +549,6 @@ disabled={loading}
     </option>
   </UnwindSelect>
 </label>
-
-        </label>
 
 
         {/* Terms & Privacy */}
