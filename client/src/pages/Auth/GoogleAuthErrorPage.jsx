@@ -140,6 +140,7 @@ export default function GoogleAuthErrorPage() {
           <button
             type="button"
             className="google-auth-back-button"
+            disabled={retrying}
             onClick={() =>
               navigate(
                 "/login",
