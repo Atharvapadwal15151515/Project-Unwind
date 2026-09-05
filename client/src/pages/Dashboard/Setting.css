@@ -1084,6 +1084,251 @@ p {
   }
 }
 
+/*
+|--------------------------------------------------------------------------
+| Dark Mode
+|--------------------------------------------------------------------------
+*/
+
+:is(.dark, .dark-mode, [data-theme="dark"]) .account-settings {
+  color: #dceee8;
+}
+
+/* Hero */
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__hero {
+  border-color: rgba(112, 211, 181, 0.16);
+
+  background:
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(62, 157, 130, 0.2),
+      transparent 34%
+    ),
+    linear-gradient(
+      135deg,
+      #14312a 0%,
+      #0d2420 100%
+    );
+
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.22);
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__hero h1 {
+  color: #effbf7;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__hero p {
+  color: #9fb8b0;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__eyebrow {
+  color: #73d4b7;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__hero-badge strong {
+  color: #bad0c9;
+}
+
+/* Navigation */
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__quick-nav {
+  border-color: rgba(112, 211, 181, 0.14);
+  background: rgba(15, 39, 33, 0.94);
+  box-shadow: 0 9px 30px rgba(0, 0, 0, 0.2);
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__quick-nav a {
+  color: #a0b9b1;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__quick-nav a:hover,
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__quick-nav a.is-active {
+  color: #8ce0c5;
+  background: #1a4238;
+}
+
+/* Main cards */
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__card,
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__aside-card {
+  border-color: rgba(112, 211, 181, 0.13);
+  background: #102923;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__section-heading h2,
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__aside-card h3 {
+  color: #e7f6f1;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__section-heading p,
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__danger-row p,
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__session-panel p,
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__verification-row p,
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__profile-link-row p {
+  color: #96aea6;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__icon-box {
+  color: #79d9bc;
+  background: #1b4037;
+}
+
+/* Account information */
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__details > div,
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__session-panel {
+  background: #16352e;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__details span,
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__aside-card > div span {
+  color: #8fa8a0;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__details strong,
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__aside-card > div strong {
+  color: #d6ebe4;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__profile-link-row,
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__aside-card > div {
+  border-color: rgba(112, 211, 181, 0.1);
+}
+
+/* Form fields */
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__field {
+  color: #b7cec7;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__field input,
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__password-control {
+  border-color: rgba(112, 211, 181, 0.18);
+  background: #16352e;
+  color: #ecf8f4;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__field input::placeholder,
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__password-control input::placeholder {
+  color: #718e85;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__field input:focus,
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__password-control:focus-within {
+  border-color: #58ad94;
+  background: #193c33;
+  box-shadow: 0 0 0 4px rgba(88, 173, 148, 0.12);
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__password-control button {
+  color: #9cb9b0;
+}
+
+/* Buttons */
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__button--soft {
+  color: #91dfc8;
+  background: #1a4238;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__button--outline {
+  border-color: rgba(112, 211, 181, 0.2);
+  color: #c1d8d1;
+  background: #16352e;
+}
+
+/* Sidebar and modal */
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__aside-card--muted p {
+  color: #91aaa2;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__aside-card--muted > strong {
+  color: #d1e7e0;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__modal {
+  background: #102923;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__modal h2 {
+  color: #f5e8e8;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__modal > p {
+  color: #c3aaaa;
+}
+
+/* Entrance options */
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__entrance-option {
+  border-color: rgba(112, 211, 181, 0.15);
+  background: #15342c;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__entrance-option.is-selected {
+  border-color: #55b398;
+  background: #1b4439;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__entrance-copy strong {
+  color: #e5f5f0;
+}
+
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__entrance-copy > span,
+:is(.dark, .dark-mode, [data-theme="dark"])
+.account-settings__entrance-note {
+  color: #99b1a9;
+}
 
 /*
 |--------------------------------------------------------------------------
