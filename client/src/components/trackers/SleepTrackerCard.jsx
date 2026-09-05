@@ -830,33 +830,45 @@ function SleepTrackerCard({
           />
         </label>
 
-        <button
-          type="submit"
-          className="tracker-save-button"
-          disabled={
-            saving ||
-            !form.bedtime ||
-            !form.sleepStartTime ||
-            !form.wakeTime
-          }
-        >
-          {saving ? (
-            <LoaderCircle
-              size={16}
-              className="trackers-icon-spin"
-            />
-          ) : (
-            <Save size={16} />
-          )}
+       <button
+  type="submit"
+  className={
+    saved
+      ? "tracker-save-button tracker-save-button--success"
+      : "tracker-save-button"
+  }
+  disabled={
+    saving ||
+    !form.bedtime ||
+    !form.sleepStartTime ||
+    !form.wakeTime
+  }
+  aria-live="polite"
+>
+  {saving ? (
+    <ButtonLoader
+      label={
+        entry
+          ? "Updating sleep…"
+          : "Saving sleep…"
+      }
+      size="small"
+    />
+  ) : saved ? (
+    <>
+      <CheckCircle2 size={16} />
+      Sleep saved
+    </>
+  ) : (
+    <>
+      <Save size={16} />
 
-          {saving
-            ? "Saving…"
-            : saved
-              ? "Sleep saved"
-              : entry
-                ? "Update sleep"
-                : "Save sleep"}
-        </button>
+      {entry
+        ? "Update sleep"
+        : "Save sleep"}
+    </>
+  )}
+</button>
       </form>
     </article>
   );
