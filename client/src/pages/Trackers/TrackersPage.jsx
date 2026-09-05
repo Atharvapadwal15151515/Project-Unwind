@@ -219,18 +219,17 @@ function TrackersPage() {
               refreshing
             }
           >
-            <RefreshCw
-              size={16}
-              className={
-                refreshing
-                  ? "trackers-icon-spin"
-                  : ""
-              }
-            />
-
-            {refreshing
-              ? "Refreshing…"
-              : "Refresh"}
+           {refreshing ? (
+  <ButtonLoader
+    label="Refreshing…"
+    size="small"
+  />
+) : (
+  <>
+    <RefreshCw size={16} />
+    Refresh
+  </>
+)}
           </button>
         </header>
 
