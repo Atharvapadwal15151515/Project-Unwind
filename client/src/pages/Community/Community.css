@@ -3113,3 +3113,76 @@
       calc(100% - 25px);
   }
 }
+
+/* =========================================================
+   COMMUNITY SHARED STATES
+========================================================= */
+
+.community-profile-loading,
+.community-error-state {
+  min-height: calc(100vh - 90px);
+  display: grid;
+  place-items: center;
+  padding: 28px;
+}
+
+.community-profile-loading
+  .app-loader,
+.community-error-state
+  .app-error-state {
+  width: min(100%, 520px);
+  min-height: 300px;
+  border: 1px solid rgba(91, 77, 157, 0.13);
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 22px 60px rgba(46, 37, 86, 0.1);
+}
+
+.community-feed-state
+  .app-empty-state,
+.community-feed-state
+  .app-error-state {
+  min-height: 280px;
+}
+
+.community-feed-state__action {
+  display: flex;
+  width: fit-content;
+  margin: 0 auto 28px;
+}
+
+.community-load-more
+  .button-loader {
+  justify-content: center;
+  color: inherit;
+}
+
+@media (max-width: 640px) {
+  .community-profile-loading,
+  .community-error-state {
+    min-height: calc(100vh - 70px);
+    padding: 16px;
+  }
+
+  .community-profile-loading
+    .app-loader,
+  .community-error-state
+    .app-error-state {
+    min-height: 260px;
+    border-radius: 21px;
+  }
+
+  .community-feed-state
+    .app-empty-state,
+  .community-feed-state
+    .app-error-state {
+    min-height: 240px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .community-profile-loading,
+  .community-error-state {
+    scroll-behavior: auto;
+  }
+}

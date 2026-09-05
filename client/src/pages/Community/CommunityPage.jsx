@@ -5,9 +5,6 @@ import {
 } from "react";
 
 import {
-  LoaderCircle,
-  MessageCircleHeart,
-  RefreshCw,
   Sparkles
 } from "lucide-react";
 
@@ -40,7 +37,17 @@ import CommentsDrawer from "../../components/community/CommentsDrawer";
 import ReportPostModal from "../../components/community/ReportPostModal";
 import ReportModal
   from "../../components/reports/ReportModal";
+import AppLoader
+  from "../../components/common/AppStates/AppLoader";
 
+import AppErrorState
+  from "../../components/common/AppStates/AppErrorState";
+
+import AppEmptyState
+  from "../../components/common/AppStates/AppEmptyState";
+
+import ButtonLoader
+  from "../../components/common/AppStates/ButtonLoader";
 import "./Community.css";
 
 function getPostId(post) {
@@ -471,47 +478,31 @@ useEffect(() => {
     );
   };
 
-  if (profileLoading) {
-    return (
-      <section className="community-profile-loading">
-        <LoaderCircle size={33} />
+ if (profileLoading) {
+  return (
+    <main className="community-profile-loading">
+      <AppLoader
+        message="Preparing your community…"
+        size="large"
+      />
+    </main>
+  );
+}
 
-        <p>
-          Preparing your community…
-        </p>
-      </section>
-    );
-  }
-
-  if (profileError) {
-    return (
-      <section className="community-error-state">
-        <span>
-          <MessageCircleHeart
-            size={28}
-          />
-        </span>
-
-        <h2>
-          The community could not be
-          loaded
-        </h2>
-
-        <p>{profileError}</p>
-
-        <button
-          type="button"
-          className="community-primary-button"
-          onClick={() =>
-            window.location.reload()
-          }
-        >
-          <RefreshCw size={16} />
-          Try again
-        </button>
-      </section>
-    );
-  }
+ if (profileError) {
+  return (
+    <main className="community-error-state">
+      <AppErrorState
+        type="server"
+        title="The community could not be loaded"
+        message={profileError}
+        onRetry={() =>
+          window.location.reload()
+        }
+      />
+    </main>
+  );
+}
 
   if (!communityProfile) {
     return (
@@ -576,58 +567,35 @@ useEffect(() => {
                 key={`post-skeleton-${index}`}
               />
             ))
-          ) : error ? (
-            <section className="community-feed-state">
-              <span>
-                <MessageCircleHeart
-                  size={27}
-                />
-              </span>
-
-              <h3>
-                Unable to load posts
-              </h3>
-
-              <p>{error}</p>
-
-              <button
-                type="button"
-                className="community-primary-button"
-                onClick={
-                  handleRefreshFeed
-                }
-              >
-                <RefreshCw
-                  size={16}
-                />
-                Try again
-              </button>
-            </section>
+        ) : error ? (
+  <section className="community-feed-state">
+    <AppErrorState
+      type="server"
+      title="Unable to load posts"
+      message={error}
+      onRetry={handleRefreshFeed}
+    />
+  </section>
           ) : posts.length === 0 ? (
-            <section className="community-feed-state">
-              <span>
-                <Sparkles size={28} />
-              </span>
+           <section className="community-feed-state">
+  <AppEmptyState
+    icon={Sparkles}
+    title="Be the first to share"
+    message={
+      activeFilter === "all"
+        ? "There are no community posts yet. Start a kind and supportive conversation."
+        : "There are no posts in this category yet."
+    }
+  />
 
-              <h3>
-                Be the first to share
-              </h3>
-
-              <p>
-                There are no posts in
-                this category yet.
-              </p>
-
-              <button
-                type="button"
-                className="community-primary-button"
-                onClick={
-                  handleOpenCreatePost
-                }
-              >
-                Create a post
-              </button>
-            </section>
+  <button
+    type="button"
+    className="community-primary-button community-feed-state__action"
+    onClick={handleOpenCreatePost}
+  >
+    Create a post
+  </button>
+</section>
           ) : (
             <>
               {posts.map((post) => {
@@ -700,17 +668,14 @@ useEffect(() => {
                   onClick={loadMore}
                   disabled={loadingMore}
                 >
-                  {loadingMore ? (
-                    <>
-                      <LoaderCircle
-                        size={17}
-                        className="community-icon-spin"
-                      />
-                      Loading more…
-                    </>
-                  ) : (
-                    "Load more posts"
-                  )}
+                {loadingMore ? (
+  <ButtonLoader
+    label="Loading more posts…"
+    size="small"
+  />
+) : (
+  "Load more posts"
+)}
                 </button>
               )}
             </>
