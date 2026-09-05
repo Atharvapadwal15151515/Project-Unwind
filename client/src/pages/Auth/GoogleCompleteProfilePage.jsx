@@ -396,10 +396,11 @@ function GoogleCompleteProfilePage() {
       />
 
 
-      <form
-        className="auth-form"
-        onSubmit={handleSubmit}
-      >
+    <form
+  className="auth-form"
+  onSubmit={handleSubmit}
+  aria-busy={loading}
+>
 
         {/* Profile Photo */}
 
