@@ -1464,16 +1464,11 @@ const handleDownloadPdf =
       handleDownloadPdf
     }
   >
-    {downloadingPdf ? (
-      <>
-        <LoaderCircle
-          size={17}
-          className="dass-icon-spin"
-        />
-
-        Preparing PDF...
-      </>
-    ) : (
+  {downloadingPdf ? (
+  <ButtonLoader
+    label="Preparing PDF…"
+  />
+) : (
       <>
         <Download size={17} />
 
@@ -1554,17 +1549,13 @@ const handleDownloadPdf =
                   handleAbandon
                 }
               >
-                {abandoning ? (
-                  <>
-                    <LoaderCircle
-                      size={16}
-                      className="dass-icon-spin"
-                    />
-                    Leaving…
-                  </>
-                ) : (
-                  "Abandon assessment"
-                )}
+               {abandoning ? (
+  <ButtonLoader
+    label="Leaving…"
+  />
+) : (
+  "Abandon assessment"
+)}
               </button>
             </div>
           </section>
