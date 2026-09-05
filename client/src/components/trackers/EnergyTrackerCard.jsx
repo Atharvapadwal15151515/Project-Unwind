@@ -161,6 +161,7 @@ const [
             <button
               type="button"
               key={option.value}
+              disabled={saving}
               className={
                 option.value ===
                 form.energyScore
@@ -233,6 +234,7 @@ const [
                 min="1"
                 max="5"
                 value={form[item.key]}
+                disabled={saving}
                 onChange={(event) =>
                   setForm((current) => ({
                     ...current,
