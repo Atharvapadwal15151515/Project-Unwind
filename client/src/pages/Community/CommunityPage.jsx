@@ -37,7 +37,17 @@ import CommentsDrawer from "../../components/community/CommentsDrawer";
 import ReportPostModal from "../../components/community/ReportPostModal";
 import ReportModal
   from "../../components/reports/ReportModal";
+import AppLoader
+  from "../../components/common/AppStates/AppLoader";
 
+import AppErrorState
+  from "../../components/common/AppStates/AppErrorState";
+
+import AppEmptyState
+  from "../../components/common/AppStates/AppEmptyState";
+
+import ButtonLoader
+  from "../../components/common/AppStates/ButtonLoader";
 import "./Community.css";
 
 function getPostId(post) {
