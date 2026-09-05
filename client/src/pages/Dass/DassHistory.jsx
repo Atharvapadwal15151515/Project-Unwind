@@ -5,7 +5,6 @@ import {
   ClipboardList,
   Download,
   History,
-  LoaderCircle,
   RefreshCcw,
   X
 } from "lucide-react";
@@ -623,7 +622,10 @@ function DassHistory({
     loading,
     setLoading
   ] = useState(true);
-
+const [
+  error,
+  setError
+] = useState("");
  const [
   loadError,
   setLoadError
