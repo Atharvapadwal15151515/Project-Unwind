@@ -319,25 +319,20 @@ function LoginPage() {
         </div>
 
 
-        <button
-          type="submit"
-
-          className="auth-submit-button"
-
-          disabled={
-            loading
-          }
-        >
-          {loading ? (
-            <>
-              <span className="auth-button-spinner" />
-
-              Signing in…
-            </>
-          ) : (
-            "Sign in to UNWIND"
-          )}
-        </button>
+       <button
+  type="submit"
+  className="auth-submit-button"
+  disabled={loading}
+>
+  {loading ? (
+    <ButtonLoader
+      label="Signing in securely…"
+      size="small"
+    />
+  ) : (
+    "Sign in to UNWIND"
+  )}
+</button>
 
       </form>
 
