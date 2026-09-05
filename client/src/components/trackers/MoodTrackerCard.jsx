@@ -202,6 +202,7 @@ function MoodTrackerCard({
             <button
               key={option.label}
               type="button"
+              disabled={saving}
               className={
                 form.moodLabel ===
                 option.label
