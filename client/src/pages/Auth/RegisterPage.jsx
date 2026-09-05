@@ -646,24 +646,20 @@ function RegisterPage() {
 
         {/* Submit */}
 
-        <button
-          type="submit"
-          className="auth-submit-button"
-
-          disabled={
-            loading
-          }
-        >
-          {loading ? (
-            <>
-              <span className="auth-button-spinner" />
-
-              Setting up your space…
-            </>
-          ) : (
-            "Create my UNWIND account"
-          )}
-        </button>
+       <button
+  type="submit"
+  className="auth-submit-button"
+  disabled={loading}
+>
+  {loading ? (
+    <ButtonLoader
+      label="Setting up your space…"
+      size="small"
+    />
+  ) : (
+    "Create my UNWIND account"
+  )}
+</button>
 
       </form>
 
