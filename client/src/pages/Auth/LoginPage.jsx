@@ -83,11 +83,24 @@ function LoginPage() {
     event
   ) => {
     const {
-      name,
-      value
-    } = event.target;
+  name,
+  value
+} = event.target;
 
-    setFormData(
+if (location.state?.message) {
+  navigate(
+    location.pathname,
+    {
+      replace: true,
+      state: {
+        ...location.state,
+        message: ""
+      }
+    }
+  );
+}
+
+setFormData(
       (currentData) => ({
         ...currentData,
         [name]: value
