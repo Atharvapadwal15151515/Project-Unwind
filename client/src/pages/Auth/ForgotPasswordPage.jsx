@@ -78,6 +78,7 @@ function ForgotPasswordPage() {
           }
           placeholder="you@example.com"
           icon={Mail}
+          disabled={loading}
           required
         />
 
