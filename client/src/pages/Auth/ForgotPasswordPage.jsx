@@ -36,7 +36,10 @@ function ForgotPasswordPage() {
           email.trim().toLowerCase()
         );
 
-      setSuccess(response.message);
+     setSuccess(
+  response?.message ||
+    "Password reset instructions have been sent to your email."
+);
     } catch (requestError) {
       setError(
         getApiErrorMessage(
