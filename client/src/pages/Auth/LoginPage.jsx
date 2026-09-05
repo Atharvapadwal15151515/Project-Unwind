@@ -16,6 +16,11 @@ import AuthLayout from "../../components/auth/AuthLayout";
 import AuthInput from "../../components/auth/AuthInput";
 import AuthAlert from "../../components/auth/AuthAlert";
 import GoogleAuthButton from "../../components/auth/GoogleAuthButton";
+import AppLoader
+  from "../../components/common/AppStates/AppLoader";
+
+import ButtonLoader
+  from "../../components/common/AppStates/ButtonLoader";
 
 import { useAuth } from "../../context/AuthContext";
 import { getApiErrorMessage } from "../../services/api";
