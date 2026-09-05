@@ -445,12 +445,18 @@ function HabitTrackerCard({
             }
           }}
         >
-          <div
-            className="habit-delete-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="habit-delete-title"
-          >
+         <div
+  className="habit-delete-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="habit-delete-title"
+  aria-busy={
+    savingTracker ===
+    `habit-delete-${getHabitId(
+      deleteCandidate
+    )}`
+  }
+>
             <span className="habit-delete-modal__icon">
               <Trash2
                 size={23}
