@@ -759,6 +759,7 @@ function SleepTrackerCard({
               value={
                 form.interruptionMinutes
               }
+              disabled={saving}
               onChange={(
                 event
               ) =>
@@ -785,6 +786,7 @@ function SleepTrackerCard({
               value={
                 form.napMinutes
               }
+              disabled={saving}
               onChange={(
                 event
               ) =>
@@ -814,6 +816,7 @@ function SleepTrackerCard({
             value={
               form.note
             }
+            disabled={saving}
             placeholder="Anything that affected your sleep?"
             onChange={(
               event
