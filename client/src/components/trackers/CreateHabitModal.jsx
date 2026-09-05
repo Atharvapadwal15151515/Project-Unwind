@@ -493,6 +493,7 @@ function CreateHabitModal({
     >
       <button
         type="button"
+        disabled={saving}
         className="habit-modal__backdrop"
         onClick={
           saving
@@ -588,6 +589,7 @@ function CreateHabitModal({
               rows={3}
               maxLength={5000}
               value={form.description}
+              disabled={saving}
               placeholder="Add a gentle reminder about why this habit matters."
               onChange={(event) =>
                 updateField(
@@ -661,6 +663,7 @@ function CreateHabitModal({
                         trackingType.value
                       }
                       type="button"
+                      disabled={saving}
                       className={
                         active
                           ? "habit-tracking-option habit-tracking-option--active"
@@ -783,6 +786,7 @@ function CreateHabitModal({
                       frequency.value
                     }
                     type="button"
+                    disabled={saving}
                     className={
                       form.frequencyType ===
                       frequency.value
@@ -815,6 +819,7 @@ function CreateHabitModal({
                       <button
                         key={day.value}
                         type="button"
+                        disabled={saving}
                         className={
                           active
                             ? "habit-weekday habit-weekday--active"
@@ -881,6 +886,7 @@ function CreateHabitModal({
                 aria-checked={
                   form.reminderEnabled
                 }
+                disabled={saving}
                 className={
                   form.reminderEnabled
                     ? "habit-switch habit-switch--active"
