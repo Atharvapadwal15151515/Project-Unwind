@@ -15,7 +15,11 @@ import {
 import {
   setAccessToken
 } from "../../services/api";
+import AppLoader
+  from "../../components/common/AppStates/AppLoader";
 
+import AppErrorState
+  from "../../components/common/AppStates/AppErrorState";
 import "./GoogleAuthSuccessPage.css";
 
 
