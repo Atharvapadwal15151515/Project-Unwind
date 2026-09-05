@@ -332,10 +332,11 @@ function RegisterPage() {
 
       {/* Normal Registration */}
 
-      <form
-        className="auth-form"
-        onSubmit={handleSubmit}
-      >
+     <form
+  className="auth-form"
+  onSubmit={handleSubmit}
+  aria-busy={loading}
+>
 
         <ProfilePhotoPicker
           file={profileImage}
