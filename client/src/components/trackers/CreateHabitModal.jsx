@@ -543,9 +543,10 @@ function CreateHabitModal({
         </header>
 
         <form
-          className="habit-modal__form"
-          onSubmit={handleSubmit}
-        >
+  className="habit-modal__form"
+  onSubmit={handleSubmit}
+  aria-busy={saving}
+>
           {formError && (
             <div
               className="habit-modal__error"
