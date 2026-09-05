@@ -1596,3 +1596,29 @@ button.unwind-checkbox:focus-visible {
   color:
     #258675 !important;
 }
+
+/* =========================================================
+   AUTH SUBMISSION STATES
+========================================================= */
+
+.auth-form[aria-busy="true"] {
+  cursor: progress;
+}
+
+.auth-submit-button .button-loader {
+  width: 100%;
+  justify-content: center;
+  color: inherit;
+}
+
+.auth-submit-button:disabled {
+  cursor: wait;
+  opacity: 0.78;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-submit-button,
+  .auth-submit-button .button-loader {
+    transition: none;
+  }
+}
