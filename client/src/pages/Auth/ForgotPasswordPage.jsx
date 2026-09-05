@@ -5,6 +5,8 @@ import { Mail } from "lucide-react";
 import AuthLayout from "../../components/auth/AuthLayout";
 import AuthInput from "../../components/auth/AuthInput";
 import AuthAlert from "../../components/auth/AuthAlert";
+import ButtonLoader
+  from "../../components/common/AppStates/ButtonLoader";
 
 import { requestPasswordReset } from "../../services/authService";
 import { getApiErrorMessage } from "../../services/api";
