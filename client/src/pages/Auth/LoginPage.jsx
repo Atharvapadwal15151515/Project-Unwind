@@ -206,10 +206,18 @@ function LoginPage() {
       description="Return to your calm and supportive UNWIND space."
     >
 
-      <AuthAlert
-        message={error}
-      />
+     <AuthAlert
+  message={error}
+/>
 
+<AuthAlert
+  type="success"
+  message={
+    error
+      ? ""
+      : location.state?.message || ""
+  }
+/>
 
       {/* Google Login */}
 
