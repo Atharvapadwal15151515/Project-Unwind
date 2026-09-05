@@ -16,6 +16,11 @@ import AuthLayout from "../../components/auth/AuthLayout";
 import AuthInput from "../../components/auth/AuthInput";
 import AuthAlert from "../../components/auth/AuthAlert";
 import GoogleAuthButton from "../../components/auth/GoogleAuthButton";
+import AppLoader
+  from "../../components/common/AppStates/AppLoader";
+
+import ButtonLoader
+  from "../../components/common/AppStates/ButtonLoader";
 
 import { useAuth } from "../../context/AuthContext";
 import { getApiErrorMessage } from "../../services/api";
@@ -78,11 +83,24 @@ function LoginPage() {
     event
   ) => {
     const {
-      name,
-      value
-    } = event.target;
+  name,
+  value
+} = event.target;
 
-    setFormData(
+if (location.state?.message) {
+  navigate(
+    location.pathname,
+    {
+      replace: true,
+      state: {
+        ...location.state,
+        message: ""
+      }
+    }
+  );
+}
+
+setFormData(
       (currentData) => ({
         ...currentData,
         [name]: value
@@ -161,18 +179,16 @@ function LoginPage() {
   |--------------------------------------------------------------------------
   */
 
-  if (initializing) {
-    return (
-      <main className="auth-loading-screen">
-        <span className="auth-button-spinner" />
-
-        <p>
-          Restoring your UNWIND
-          session…
-        </p>
-      </main>
-    );
-  }
+ if (initializing) {
+  return (
+    <main className="auth-loading-screen">
+      <AppLoader
+        message="Restoring your UNWIND session…"
+        size="large"
+      />
+    </main>
+  );
+}
 
 
   /*
@@ -203,10 +219,18 @@ function LoginPage() {
       description="Return to your calm and supportive UNWIND space."
     >
 
-      <AuthAlert
-        message={error}
-      />
+     <AuthAlert
+  message={error}
+/>
 
+<AuthAlert
+  type="success"
+  message={
+    error
+      ? ""
+      : location.state?.message || ""
+  }
+/>
 
       {/* Google Login */}
 
@@ -227,10 +251,11 @@ function LoginPage() {
 
       {/* Existing Email / Password Login */}
 
-      <form
-        className="auth-form"
-        onSubmit={handleSubmit}
-      >
+     <form
+  className="auth-form"
+  onSubmit={handleSubmit}
+  aria-busy={loading}
+>
 
         <AuthInput
           label="Email or username"
@@ -315,25 +340,20 @@ function LoginPage() {
         </div>
 
 
-        <button
-          type="submit"
-
-          className="auth-submit-button"
-
-          disabled={
-            loading
-          }
-        >
-          {loading ? (
-            <>
-              <span className="auth-button-spinner" />
-
-              Signing in…
-            </>
-          ) : (
-            "Sign in to UNWIND"
-          )}
-        </button>
+       <button
+  type="submit"
+  className="auth-submit-button"
+  disabled={loading}
+>
+  {loading ? (
+    <ButtonLoader
+      label="Signing in securely…"
+      size="small"
+    />
+  ) : (
+    "Sign in to UNWIND"
+  )}
+</button>
 
       </form>
 

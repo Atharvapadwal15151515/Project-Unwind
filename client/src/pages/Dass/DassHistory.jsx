@@ -5,7 +5,6 @@ import {
   ClipboardList,
   Download,
   History,
-  LoaderCircle,
   RefreshCcw,
   X
 } from "lucide-react";
@@ -26,6 +25,25 @@ import {
 import {
   getApiErrorMessage
 } from "../../services/api";
+
+import AppLoader
+  from "../../components/common/AppStates/AppLoader";
+
+import AppSkeleton
+  from "../../components/common/AppStates/AppSkeleton";
+
+import AppEmptyState
+  from "../../components/common/AppStates/AppEmptyState";
+
+import AppErrorState
+  from "../../components/common/AppStates/AppErrorState";
+
+import ButtonLoader
+  from "../../components/common/AppStates/ButtonLoader";
+
+import {
+  getErrorType
+} from "../../utils/getErrorType";
 
 
 /* =========================================================
@@ -354,20 +372,16 @@ function HistoryCard({
             downloading
           }
         >
-          {downloading ? (
-            <LoaderCircle
-              size={16}
-              className="dass-icon-spin"
-            />
-          ) : (
-            <Download
-              size={16}
-            />
-          )}
-
-          {downloading
-            ? "Downloading…"
-            : "PDF"}
+        {downloading ? (
+  <ButtonLoader
+    label="Downloading…"
+  />
+) : (
+  <>
+    <Download size={16} />
+    PDF
+  </>
+)}
         </button>
       </div>
     </article>
@@ -575,18 +589,16 @@ function DassHistoryDetails({
           }
         >
           {downloadingId ===
-          assessmentId ? (
-            <LoaderCircle
-              size={17}
-              className="dass-icon-spin"
-            />
-          ) : (
-            <Download
-              size={17}
-            />
-          )}
-
-          Download report
+assessmentId ? (
+  <ButtonLoader
+    label="Downloading…"
+  />
+) : (
+  <>
+    <Download size={17} />
+    Download report
+  </>
+)}
         </button>
       </div>
     </div>
@@ -610,12 +622,14 @@ function DassHistory({
     loading,
     setLoading
   ] = useState(true);
-
-  const [
-    error,
-    setError
-  ] = useState("");
-
+const [
+  error,
+  setError
+] = useState("");
+ const [
+  loadError,
+  setLoadError
+] = useState(null);
   const [
     selectedDetails,
     setSelectedDetails
@@ -642,6 +656,7 @@ function DassHistory({
         try {
           setLoading(true);
           setError("");
+          setLoadError(null);
 
           const items =
             await getDassHistory();
@@ -659,12 +674,10 @@ function DassHistory({
             requestError
           );
 
-          setError(
-            getApiErrorMessage(
-              requestError,
-              "Unable to load your assessment history."
-            )
-          );
+        setLoadError(
+  requestError
+);
+
         } finally {
           setLoading(false);
         }
@@ -893,36 +906,36 @@ function DassHistory({
 
 
       {loading ? (
-        <div className="dass-history__loading">
-          <LoaderCircle
-            size={26}
-            className="dass-icon-spin"
-          />
-
-          <span>
-            Loading your history…
-          </span>
-        </div>
-      ) : sortedHistory.length ===
-        0 ? (
-        <div className="dass-history__empty">
-          <span>
-            <ClipboardList
-              size={27}
-            />
-          </span>
-
-          <h2>
-            No assessments yet
-          </h2>
-
-          <p>
-            Completed DASS-21
-            self-assessments will
-            appear here.
-          </p>
-        </div>
-      ) : (
+  <AppSkeleton
+    variant="card"
+    count={3}
+    className="dass-history__skeleton"
+  />
+) : loadError ? (
+  <AppErrorState
+    type={
+      getErrorType(
+        loadError
+      )
+    }
+    title="Assessment history unavailable"
+    description={
+      loadError?.response?.data
+        ?.message ||
+      "We could not load your previous assessments."
+    }
+    onRetry={
+      loadHistory
+    }
+  />
+) : sortedHistory.length ===
+  0 ? (
+  <AppEmptyState
+    icon={ClipboardList}
+    title="No assessments yet"
+    description="Completed DASS-21 self-assessments will appear here after your first check-in."
+  />
+) : (
         <>
           <div className="dass-history__summary">
             <div>
@@ -978,18 +991,14 @@ function DassHistory({
       )}
 
 
-      {detailsLoading && (
-        <div className="dass-history-details-loader">
-          <LoaderCircle
-            size={24}
-            className="dass-icon-spin"
-          />
-
-          <span>
-            Loading assessment…
-          </span>
-        </div>
-      )}
+     {detailsLoading && (
+  <div className="dass-history-details-loader">
+    <AppLoader
+      message="Loading assessment…"
+      size="medium"
+    />
+  </div>
+)}
     </section>
   );
 }

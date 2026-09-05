@@ -1,5 +1,6 @@
-import React from "react";
-
+import {
+  useState
+} from "react";
 import {
   useNavigate
 } from "react-router-dom";
@@ -7,6 +8,13 @@ import {
 import {
   startGoogleAuth
 } from "../../services/googleAuthService.js";
+import AppErrorState
+  from "../../components/common/AppStates/AppErrorState";
+
+import ButtonLoader
+  from "../../components/common/AppStates/ButtonLoader";
+
+import "./GoogleAuthSuccessPage.css";
 
 
 /*
@@ -26,6 +34,11 @@ import {
 export default function GoogleAuthErrorPage() {
   const navigate =
     useNavigate();
+
+    const [
+  retrying,
+  setRetrying
+] = useState(false);
 
 
   /*
@@ -68,9 +81,23 @@ export default function GoogleAuthErrorPage() {
   |--------------------------------------------------------------------------
   */
 
-  function handleRetry() {
-    startGoogleAuth();
+ function handleRetry() {
+  if (retrying) {
+    return;
   }
+
+  try {
+    setRetrying(true);
+    startGoogleAuth();
+  } catch (retryError) {
+    console.error(
+      "Unable to restart Google authentication:",
+      retryError
+    );
+
+    setRetrying(false);
+  }
+}
 
 
   /*
@@ -84,41 +111,36 @@ export default function GoogleAuthErrorPage() {
 
       <section className="google-auth-error-card">
 
-        <div
-          className="google-auth-error-icon"
-          aria-hidden="true"
-        >
-          !
-        </div>
-
-
-        <div className="google-auth-error-content">
-
-          <h1>
-            Google sign in failed
-          </h1>
-
-          <p>
-            {errorMessage}
-          </p>
-
-        </div>
+<AppErrorState
+  type="server"
+  title="Google sign in failed"
+  message={errorMessage}
+/>
 
 
         <div className="google-auth-error-actions">
 
-          <button
-            type="button"
-            className="google-auth-retry-button"
-            onClick={handleRetry}
-          >
-            Try Google again
-          </button>
+        <button
+  type="button"
+  className="google-auth-retry-button"
+  onClick={handleRetry}
+  disabled={retrying}
+>
+  {retrying ? (
+    <ButtonLoader
+      label="Opening Google…"
+      size="small"
+    />
+  ) : (
+    "Try Google again"
+  )}
+</button>
 
 
           <button
             type="button"
             className="google-auth-back-button"
+            disabled={retrying}
             onClick={() =>
               navigate(
                 "/login",

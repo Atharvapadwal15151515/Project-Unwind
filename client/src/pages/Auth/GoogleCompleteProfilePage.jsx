@@ -18,6 +18,8 @@ import AuthLayout from "../../components/auth/AuthLayout";
 import AuthInput from "../../components/auth/AuthInput";
 import AuthAlert from "../../components/auth/AuthAlert";
 import ProfilePhotoPicker from "../../components/auth/ProfilePhotoPicker";
+import ButtonLoader
+  from "../../components/common/AppStates/ButtonLoader";
 import {
   UnwindCheckbox,
   UnwindDatePicker,
@@ -28,6 +30,9 @@ import {
   getGoogleSignupToken,
   cleanGoogleAuthUrl
 } from "../../services/googleAuthService";
+import {
+  getApiErrorMessage
+} from "../../services/api";
 
 import {
   useAuth
@@ -361,10 +366,12 @@ function GoogleCompleteProfilePage() {
       );
 
 
-      setError(
-        requestError?.message ||
-        "Unable to complete Google signup."
-      );
+     setError(
+  getApiErrorMessage(
+    requestError,
+    "Unable to complete Google signup."
+  )
+);
 
     } finally {
       setLoading(false);
@@ -389,10 +396,11 @@ function GoogleCompleteProfilePage() {
       />
 
 
-      <form
-        className="auth-form"
-        onSubmit={handleSubmit}
-      >
+    <form
+  className="auth-form"
+  onSubmit={handleSubmit}
+  aria-busy={loading}
+>
 
         {/* Profile Photo */}
 
@@ -427,7 +435,7 @@ function GoogleCompleteProfilePage() {
             icon={
               AtSign
             }
-
+disabled={loading}
             required
           />
 
@@ -447,6 +455,7 @@ function GoogleCompleteProfilePage() {
       .toISOString()
       .slice(0, 10)
   }
+  disabled={loading}
   required
 />
 </label>
@@ -468,6 +477,7 @@ function GoogleCompleteProfilePage() {
   onChange={updateField}
   placeholder="Select gender"
   icon={UserRound}
+  disabled={loading}
   required
 >
   <option value="">
@@ -498,13 +508,7 @@ function GoogleCompleteProfilePage() {
         </label>
 
 
-        {/* Occupation */}
-
-        <label className="auth-field">
-
-          <span className="auth-field__label">
-            Occupation
-          </span>
+       {/* Occupation */}
 
 <label className="auth-field">
   <span className="auth-field__label">
@@ -517,6 +521,7 @@ function GoogleCompleteProfilePage() {
     onChange={updateField}
     placeholder="Select occupation"
     icon={BriefcaseBusiness}
+    disabled={loading}
     required
   >
     <option value="">
@@ -545,8 +550,6 @@ function GoogleCompleteProfilePage() {
   </UnwindSelect>
 </label>
 
-        </label>
-
 
         {/* Terms & Privacy */}
 
@@ -554,6 +557,7 @@ function GoogleCompleteProfilePage() {
 
           <UnwindCheckbox
   checked={acceptedTerms}
+  disabled={loading}
   onChange={(event) =>
     setAcceptedTerms(
       event.target.checked
@@ -616,7 +620,21 @@ function GoogleCompleteProfilePage() {
             </>
           ) : (
             "Continue to UNWIND"
-          )}
+          )}{loading ? (
+  <ButtonLoader
+    label="Creating your account…"
+    size="small"
+  />
+) : (
+  "Continue to UNWIND"
+)}{loading ? (
+  <ButtonLoader
+    label="Creating your account…"
+    size="small"
+  />
+) : (
+  "Continue to UNWIND"
+)}
         </button>
 
       </form>

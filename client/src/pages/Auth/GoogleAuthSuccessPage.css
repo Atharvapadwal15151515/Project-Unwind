@@ -117,3 +117,118 @@
       rotate(360deg);
   }
 }
+/* Shared Google authentication states */
+
+.google-auth-result-card .app-loader,
+.google-auth-result-card .app-error-state {
+  min-height: 250px;
+}
+
+.google-auth-result-button {
+  width: 100%;
+  min-height: 46px;
+  margin-top: 16px;
+  border: 0;
+  border-radius: 14px;
+  background: #6352b8;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.google-auth-result-button:hover {
+  background: #51419f;
+}
+
+.google-auth-result-button:focus-visible {
+  outline: 3px solid rgba(99, 82, 184, 0.25);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .google-auth-result-button {
+    transition: none;
+  }
+}
+
+/* Google authentication error page */
+
+.google-auth-error-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(111, 91, 194, 0.14),
+      transparent 44%
+    ),
+    #f8f7fc;
+}
+
+.google-auth-error-card {
+  width: min(100%, 520px);
+  padding: 28px;
+  border: 1px solid rgba(104, 86, 180, 0.13);
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 24px 65px rgba(45, 35, 87, 0.12);
+}
+
+.google-auth-error-card .app-error-state {
+  min-height: 230px;
+}
+
+.google-auth-error-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.google-auth-retry-button,
+.google-auth-back-button {
+  min-height: 46px;
+  padding: 10px 16px;
+  border-radius: 14px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.google-auth-retry-button {
+  border: 0;
+  background: #6352b8;
+  color: #ffffff;
+}
+
+.google-auth-back-button {
+  border: 1px solid rgba(99, 82, 184, 0.2);
+  background: #ffffff;
+  color: #51447e;
+}
+
+.google-auth-retry-button .button-loader {
+  justify-content: center;
+}
+
+.google-auth-retry-button:disabled,
+.google-auth-back-button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+@media (max-width: 520px) {
+  .google-auth-error-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .google-auth-retry-button,
+  .google-auth-back-button {
+    transition: none;
+  }
+}

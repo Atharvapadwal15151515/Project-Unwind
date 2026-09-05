@@ -1596,3 +1596,85 @@ button.unwind-checkbox:focus-visible {
   color:
     #258675 !important;
 }
+
+/* =========================================================
+   AUTH SUBMISSION STATES
+========================================================= */
+
+.auth-form[aria-busy="true"] {
+  cursor: progress;
+}
+
+.auth-submit-button .button-loader {
+  width: 100%;
+  justify-content: center;
+  color: inherit;
+}
+
+.auth-submit-button:disabled {
+  cursor: wait;
+  opacity: 0.78;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-submit-button,
+  .auth-submit-button .button-loader {
+    transition: none;
+  }
+}
+
+.auth-secondary-button .button-loader {
+  width: 100%;
+  justify-content: center;
+  color: inherit;
+}
+
+.auth-secondary-button:disabled {
+  cursor: not-allowed;
+}
+
+.auth-form[aria-busy="true"] .auth-otp-section {
+  opacity: 0.82;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-form[aria-busy="true"] .auth-otp-section {
+    transition: none;
+  }
+}
+
+/* Login session restoration */
+
+.auth-loading-screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(128, 108, 214, 0.12),
+      transparent 42%
+    ),
+    #f8f7fc;
+}
+
+.auth-loading-screen .app-loader {
+  width: min(100%, 380px);
+  min-height: 240px;
+  border: 1px solid rgba(104, 86, 180, 0.12);
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: 0 22px 60px rgba(48, 38, 94, 0.1);
+}
+
+@media (max-width: 520px) {
+  .auth-loading-screen {
+    padding: 16px;
+  }
+
+  .auth-loading-screen .app-loader {
+    min-height: 210px;
+    border-radius: 21px;
+  }
+}

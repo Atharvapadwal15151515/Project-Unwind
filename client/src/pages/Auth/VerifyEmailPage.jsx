@@ -22,6 +22,9 @@ import AuthAlert
 import OtpInput
   from "../../components/auth/OtpInput";
 
+  import ButtonLoader
+  from "../../components/common/AppStates/ButtonLoader";
+
 import {
   resendVerification,
   verifyEmailOtp
@@ -310,10 +313,12 @@ function VerifyEmailPage() {
       />
 
       <form
-        className="auth-form"
-        onSubmit={
-          handleVerify
-        }
+  className="auth-form"
+  onSubmit={handleVerify}
+  aria-busy={
+    loading || resending
+  }
+
       >
         <label className="auth-field">
           <span className="auth-field__label">
@@ -352,34 +357,47 @@ function VerifyEmailPage() {
         </div>
 
         <button
-          type="submit"
-          className="auth-submit-button"
-          disabled={
-            loading
-          }
-        >
-          {loading
-            ? "Verifying…"
-            : "Verify email"}
-        </button>
+  type="submit"
+  className="auth-submit-button"
+  disabled={
+    loading || resending
+  }
+>
+  {loading ? (
+    <ButtonLoader
+      label={
+        newRegistration
+          ? "Verifying and signing you in…"
+          : "Verifying email…"
+      }
+      size="small"
+    />
+  ) : (
+    "Verify email"
+  )}
+</button>
 
-        <button
-          type="button"
-          className="auth-secondary-button"
-          disabled={
-            resending ||
-            countdown > 0
-          }
-          onClick={
-            handleResend
-          }
-        >
-          {resending
-            ? "Sending…"
-            : countdown > 0
-              ? `Resend in ${countdown}s`
-              : "Resend verification code"}
-        </button>
+       <button
+  type="button"
+  className="auth-secondary-button"
+  disabled={
+    loading ||
+    resending ||
+    countdown > 0
+  }
+  onClick={handleResend}
+>
+  {resending ? (
+    <ButtonLoader
+      label="Sending new code…"
+      size="small"
+    />
+  ) : countdown > 0 ? (
+    `Resend in ${countdown}s`
+  ) : (
+    "Resend verification code"
+  )}
+</button>
       </form>
 
       <p className="auth-switch-page">

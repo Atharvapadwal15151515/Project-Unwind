@@ -10,6 +10,8 @@ import AuthLayout from "../../components/auth/AuthLayout";
 import AuthInput from "../../components/auth/AuthInput";
 import AuthAlert from "../../components/auth/AuthAlert";
 import PasswordStrength from "../../components/auth/PasswordStrength";
+import ButtonLoader
+  from "../../components/common/AppStates/ButtonLoader";
 
 import { resetPasswordWithLink } from "../../services/authService";
 import { getApiErrorMessage } from "../../services/api";
@@ -22,6 +24,9 @@ function ResetPasswordLinkPage() {
 
   const userId = searchParams.get("userId");
   const token = searchParams.get("token");
+
+  const invalidResetLink =
+  !userId || !token;
 
   const [newPassword, setNewPassword] =
     useState("");
@@ -95,12 +100,20 @@ function ResetPasswordLinkPage() {
       title="Choose a new password"
       description="Secure your UNWIND account with a new password."
     >
-      <AuthAlert message={error} />
+      <AuthAlert
+  message={
+    invalidResetLink
+      ? "This password reset link is incomplete, invalid or expired."
+      : error
+  }
+/>
 
-      <form
-        className="auth-form"
-        onSubmit={handleSubmit}
-      >
+      {!invalidResetLink && (
+  <form
+    className="auth-form"
+    onSubmit={handleSubmit}
+    aria-busy={loading}
+  >
         <AuthInput
           label="New password"
           type="password"
@@ -110,6 +123,7 @@ function ResetPasswordLinkPage() {
           }
           icon={LockKeyhole}
           autoComplete="new-password"
+          disabled={loading}
           required
         />
 
@@ -128,6 +142,7 @@ function ResetPasswordLinkPage() {
           }
           icon={LockKeyhole}
           autoComplete="new-password"
+          disabled={loading}
           required
         />
 
@@ -136,18 +151,27 @@ function ResetPasswordLinkPage() {
           className="auth-submit-button"
           disabled={loading}
         >
-          {loading
-            ? "Updating password…"
-            : "Update password"}
+         {loading ? (
+  <ButtonLoader
+    label="Updating password…"
+    size="small"
+  />
+) : (
+  "Update password"
+)}
         </button>
-      </form>
+        </form>
+)}
 
       <p className="auth-switch-page">
-        Link not working?
-        <Link to="/forgot-password">
-          Request another one
-        </Link>
-      </p>
+  {invalidResetLink
+    ? "You need a new reset link."
+    : "Link not working?"}
+
+  <Link to="/forgot-password">
+    Request another one
+  </Link>
+</p>
     </AuthLayout>
   );
 }

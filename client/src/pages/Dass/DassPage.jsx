@@ -40,6 +40,9 @@ import {
 import DassHistory
   from "./DassHistory";
 
+  import ButtonLoader
+  from "../../components/common/AppStates/ButtonLoader";
+
 import "./Dass.css";
 
 const answerOptions = [
@@ -947,15 +950,11 @@ const handleDownloadPdf =
                 handleStartAssessment
               }
             >
-              {starting ? (
-                <>
-                  <LoaderCircle
-                    size={17}
-                    className="dass-icon-spin"
-                  />
-                  Starting assessment…
-                </>
-              ) : (
+             {starting ? (
+  <ButtonLoader
+    label="Starting assessment…"
+  />
+) : (
                 <>
                   Begin assessment
                   <ArrowRight
@@ -1251,15 +1250,11 @@ const handleDownloadPdf =
                 handleContinue
               }
             >
-              {submitting ? (
-                <>
-                  <LoaderCircle
-                    size={17}
-                    className="dass-icon-spin"
-                  />
-                  Calculating…
-                </>
-              ) : isLastQuestion ? (
+            {submitting ? (
+  <ButtonLoader
+    label="Calculating…"
+  />
+) : isLastQuestion ? (
                 <>
                   View results
                   <Sparkles
@@ -1469,16 +1464,11 @@ const handleDownloadPdf =
       handleDownloadPdf
     }
   >
-    {downloadingPdf ? (
-      <>
-        <LoaderCircle
-          size={17}
-          className="dass-icon-spin"
-        />
-
-        Preparing PDF...
-      </>
-    ) : (
+  {downloadingPdf ? (
+  <ButtonLoader
+    label="Preparing PDF…"
+  />
+) : (
       <>
         <Download size={17} />
 
@@ -1559,17 +1549,13 @@ const handleDownloadPdf =
                   handleAbandon
                 }
               >
-                {abandoning ? (
-                  <>
-                    <LoaderCircle
-                      size={16}
-                      className="dass-icon-spin"
-                    />
-                    Leaving…
-                  </>
-                ) : (
-                  "Abandon assessment"
-                )}
+               {abandoning ? (
+  <ButtonLoader
+    label="Leaving…"
+  />
+) : (
+  "Abandon assessment"
+)}
               </button>
             </div>
           </section>

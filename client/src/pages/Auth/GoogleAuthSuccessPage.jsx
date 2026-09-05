@@ -15,7 +15,11 @@ import {
 import {
   setAccessToken
 } from "../../services/api";
+import AppLoader
+  from "../../components/common/AppStates/AppLoader";
 
+import AppErrorState
+  from "../../components/common/AppStates/AppErrorState";
 import "./GoogleAuthSuccessPage.css";
 
 
@@ -179,44 +183,34 @@ function GoogleAuthSuccessPage() {
   |--------------------------------------------------------------------------
   */
 
-  if (error) {
-    return (
-      <main className="google-auth-result-page">
+ if (error) {
+  return (
+    <main className="google-auth-result-page">
+      <section className="google-auth-result-card">
+        <AppErrorState
+          type="server"
+          title="Google sign in failed"
+          message={error}
+        />
 
-        <section className="google-auth-result-card">
-
-          <div className="google-auth-result-icon google-auth-result-icon--error">
-            !
-          </div>
-
-          <h1>
-            Google sign in failed
-          </h1>
-
-          <p>
-            {error}
-          </p>
-
-          <button
-            type="button"
-
-            onClick={() =>
-              navigate(
-                "/login",
-                {
-                  replace: true
-                }
-              )
-            }
-          >
-            Back to login
-          </button>
-
-        </section>
-
-      </main>
-    );
-  }
+        <button
+          type="button"
+          className="google-auth-result-button"
+          onClick={() =>
+            navigate(
+              "/login",
+              {
+                replace: true
+              }
+            )
+          }
+        >
+          Back to login
+        </button>
+      </section>
+    </main>
+  );
+}
 
 
   /*
@@ -226,28 +220,19 @@ function GoogleAuthSuccessPage() {
   */
 
   return (
-    <main className="google-auth-result-page">
-
-      <section className="google-auth-result-card">
-
-        <div
-          className="google-auth-loader"
-          aria-hidden="true"
-        />
-
-        <h1>
-          Signing you in
-        </h1>
-
-        <p>
-          Connecting your Google account
-          to UNWIND…
-        </p>
-
-      </section>
-
-    </main>
-  );
+  <main className="google-auth-result-page">
+    <section
+      className="google-auth-result-card"
+      aria-live="polite"
+      aria-busy="true"
+    >
+      <AppLoader
+        message="Connecting your Google account to UNWIND…"
+        size="large"
+      />
+    </section>
+  </main>
+);
 }
 
 

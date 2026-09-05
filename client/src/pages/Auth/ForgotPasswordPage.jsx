@@ -5,6 +5,8 @@ import { Mail } from "lucide-react";
 import AuthLayout from "../../components/auth/AuthLayout";
 import AuthInput from "../../components/auth/AuthInput";
 import AuthAlert from "../../components/auth/AuthAlert";
+import ButtonLoader
+  from "../../components/common/AppStates/ButtonLoader";
 
 import { requestPasswordReset } from "../../services/authService";
 import { getApiErrorMessage } from "../../services/api";
@@ -34,7 +36,10 @@ function ForgotPasswordPage() {
           email.trim().toLowerCase()
         );
 
-      setSuccess(response.message);
+     setSuccess(
+  response?.message ||
+    "Password reset instructions have been sent to your email."
+);
     } catch (requestError) {
       setError(
         getApiErrorMessage(
@@ -59,10 +64,11 @@ function ForgotPasswordPage() {
         message={success}
       />
 
-      <form
-        className="auth-form"
-        onSubmit={handleSubmit}
-      >
+     <form
+  className="auth-form"
+  onSubmit={handleSubmit}
+  aria-busy={loading}
+>
         <AuthInput
           label="Email address"
           type="email"
@@ -72,6 +78,7 @@ function ForgotPasswordPage() {
           }
           placeholder="you@example.com"
           icon={Mail}
+          disabled={loading}
           required
         />
 
@@ -80,20 +87,28 @@ function ForgotPasswordPage() {
           className="auth-submit-button"
           disabled={loading}
         >
-          {loading
-            ? "Sending reset instructions…"
-            : "Send reset instructions"}
+         {loading ? (
+  <ButtonLoader
+    label="Sending reset instructions…"
+    size="small"
+  />
+) : success ? (
+  "Send instructions again"
+) : (
+  "Send reset instructions"
+)}
         </button>
       </form>
 
       {success && (
-        <Link
-          to="/reset-password-otp"
-          state={{
-            email: email.trim().toLowerCase()
-          }}
-          className="auth-secondary-button"
-        >
+       <Link
+  to="/reset-password-otp"
+  state={{
+    email: email.trim().toLowerCase()
+  }}
+  className="auth-secondary-button"
+  aria-label="Continue to password reset OTP verification"
+>
           I have the OTP
         </Link>
       )}

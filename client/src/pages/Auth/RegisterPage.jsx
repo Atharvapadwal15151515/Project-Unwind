@@ -8,7 +8,6 @@ import {
 import {
   AtSign,
   BriefcaseBusiness,
-  CalendarDays,
   LockKeyhole,
   Mail,
   UserRound
@@ -20,6 +19,8 @@ import AuthAlert from "../../components/auth/AuthAlert";
 import PasswordStrength from "../../components/auth/PasswordStrength";
 import ProfilePhotoPicker from "../../components/auth/ProfilePhotoPicker";
 import GoogleAuthButton from "../../components/auth/GoogleAuthButton";
+import ButtonLoader
+  from "../../components/common/AppStates/ButtonLoader";
 import {
   UnwindCheckbox,
   UnwindDatePicker,
@@ -331,10 +332,11 @@ function RegisterPage() {
 
       {/* Normal Registration */}
 
-      <form
-        className="auth-form"
-        onSubmit={handleSubmit}
-      >
+     <form
+  className="auth-form"
+  onSubmit={handleSubmit}
+  aria-busy={loading}
+>
 
         <ProfilePhotoPicker
           file={profileImage}
@@ -644,24 +646,20 @@ function RegisterPage() {
 
         {/* Submit */}
 
-        <button
-          type="submit"
-          className="auth-submit-button"
-
-          disabled={
-            loading
-          }
-        >
-          {loading ? (
-            <>
-              <span className="auth-button-spinner" />
-
-              Setting up your space…
-            </>
-          ) : (
-            "Create my UNWIND account"
-          )}
-        </button>
+       <button
+  type="submit"
+  className="auth-submit-button"
+  disabled={loading}
+>
+  {loading ? (
+    <ButtonLoader
+      label="Setting up your space…"
+      size="small"
+    />
+  ) : (
+    "Create my UNWIND account"
+  )}
+</button>
 
       </form>
 

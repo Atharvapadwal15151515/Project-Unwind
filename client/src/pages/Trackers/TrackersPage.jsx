@@ -3,7 +3,6 @@ import {
 } from "react";
 
 import {
-  AlertCircle,
   RefreshCw,
   Sparkles
 } from "lucide-react";
@@ -25,6 +24,11 @@ import WaterTrackerCard from "../../components/trackers/WaterTrackerCard";
 import HabitTrackerCard from "../../components/trackers/HabitTrackerCard";
 import CreateHabitModal from "../../components/trackers/CreateHabitModal";
 import TrackerSkeleton from "../../components/trackers/TrackerSkeleton";
+import AppErrorState
+  from "../../components/common/AppStates/AppErrorState";
+
+import ButtonLoader
+  from "../../components/common/AppStates/ButtonLoader";
 
 import "./Trackers.css";
 
@@ -120,35 +124,24 @@ function TrackersPage() {
         }
       />
 
-      {error && (
-        <div
-          className="trackers-alert"
-          role="alert"
-        >
-          <span className="trackers-alert__icon">
-            <AlertCircle
-              size={18}
-            />
-          </span>
+   {error && (
+  <div className="trackers-page__error">
+    <AppErrorState
+      type="server"
+      title="Unable to update your trackers"
+      message={error}
+      onRetry={refresh}
+    />
 
-          <div>
-            <strong>
-              Something needs your
-              attention
-            </strong>
-
-            <p>{error}</p>
-          </div>
-
-          <button
-            type="button"
-            onClick={clearError}
-            aria-label="Dismiss error"
-          >
-            ×
-          </button>
-        </div>
-      )}
+    <button
+      type="button"
+      className="trackers-page__dismiss-error"
+      onClick={clearError}
+    >
+      Dismiss
+    </button>
+  </div>
+)}
 
       <section className="trackers-overview-grid">
         <WellnessScoreCard
@@ -226,18 +219,17 @@ function TrackersPage() {
               refreshing
             }
           >
-            <RefreshCw
-              size={16}
-              className={
-                refreshing
-                  ? "trackers-icon-spin"
-                  : ""
-              }
-            />
-
-            {refreshing
-              ? "Refreshing…"
-              : "Refresh"}
+           {refreshing ? (
+  <ButtonLoader
+    label="Refreshing…"
+    size="small"
+  />
+) : (
+  <>
+    <RefreshCw size={16} />
+    Refresh
+  </>
+)}
           </button>
         </header>
 

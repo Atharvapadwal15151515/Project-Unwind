@@ -3950,3 +3950,61 @@ button[type="submit"]:disabled {
 
   cursor: not-allowed;
 }
+
+/* =========================================================
+   TRACKER PAGE STATES
+========================================================= */
+
+.trackers-page__error {
+  position: relative;
+  margin-bottom: 22px;
+}
+
+.trackers-page__error .app-error-state {
+  min-height: 230px;
+  border: 1px solid rgba(190, 78, 78, 0.16);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 16px 42px rgba(60, 43, 91, 0.08);
+}
+
+.trackers-page__dismiss-error {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  padding: 7px 12px;
+  border: 1px solid rgba(89, 72, 153, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #62547f;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.trackers-page__dismiss-error:hover {
+  background: #ffffff;
+  color: #40345f;
+}
+
+.trackers-refresh-button .button-loader {
+  justify-content: center;
+}
+
+@media (max-width: 620px) {
+  .trackers-page__error .app-error-state {
+    min-height: 250px;
+  }
+
+  .trackers-page__dismiss-error {
+    top: 12px;
+    right: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trackers-page__dismiss-error {
+    transition: none;
+  }
+}
