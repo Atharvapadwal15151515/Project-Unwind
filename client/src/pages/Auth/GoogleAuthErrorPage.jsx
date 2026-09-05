@@ -81,9 +81,23 @@ export default function GoogleAuthErrorPage() {
   |--------------------------------------------------------------------------
   */
 
-  function handleRetry() {
-    startGoogleAuth();
+ function handleRetry() {
+  if (retrying) {
+    return;
   }
+
+  try {
+    setRetrying(true);
+    startGoogleAuth();
+  } catch (retryError) {
+    console.error(
+      "Unable to restart Google authentication:",
+      retryError
+    );
+
+    setRetrying(false);
+  }
+}
 
 
   /*
