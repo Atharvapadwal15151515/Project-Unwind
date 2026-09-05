@@ -8627,3 +8627,109 @@ textarea:disabled {
       );
   }
 }
+
+/* =========================================================
+   Journal save operation states
+   ========================================================= */
+
+.journal-diary-savebar__status {
+  min-width: 0;
+  max-width: 360px;
+
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+
+.journal-diary-savebar__status
+.app-progress {
+  width:
+    min(
+      320px,
+      100%
+    );
+}
+
+
+.journal-diary-savebar__status
+.app-progress__header {
+  font-size:
+    var(
+      --text-xs
+    );
+}
+
+
+.journal-diary-savebar__status
+.app-progress__track {
+  height: 5px;
+}
+
+
+.journal-diary-draft-button,
+.journal-diary-finish-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+}
+
+
+.journal-diary-draft-button
+.button-loader,
+.journal-diary-finish-button
+.button-loader {
+  white-space: nowrap;
+}
+
+
+.journal-diary-draft-button
+.button-loader__spinner {
+  border-color:
+    color-mix(
+      in srgb,
+      currentColor 25%,
+      transparent
+    );
+
+  border-top-color:
+    currentColor;
+}
+
+
+.journal-diary-finish-button
+.button-loader__spinner {
+  border-color:
+    rgba(255, 255, 255, 0.32);
+
+  border-top-color:
+    #ffffff;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Mobile save operation states
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 780px) {
+  .journal-diary-savebar__status {
+    display: none;
+  }
+
+
+  .journal-diary-savebar__actions {
+    width: 100%;
+  }
+
+
+  .journal-diary-finish-button {
+    flex: 1;
+  }
+}
