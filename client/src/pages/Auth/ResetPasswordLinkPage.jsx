@@ -108,10 +108,12 @@ function ResetPasswordLinkPage() {
   }
 />
 
-      <form
-        className="auth-form"
-        onSubmit={handleSubmit}
-      >
+      {!invalidResetLink && (
+  <form
+    className="auth-form"
+    onSubmit={handleSubmit}
+    aria-busy={loading}
+  >
         <AuthInput
           label="New password"
           type="password"
@@ -151,7 +153,8 @@ function ResetPasswordLinkPage() {
             ? "Updating password…"
             : "Update password"}
         </button>
-      </form>
+        </form>
+)}
 
       <p className="auth-switch-page">
         Link not working?
