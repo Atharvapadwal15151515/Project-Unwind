@@ -166,18 +166,16 @@ function LoginPage() {
   |--------------------------------------------------------------------------
   */
 
-  if (initializing) {
-    return (
-      <main className="auth-loading-screen">
-        <span className="auth-button-spinner" />
-
-        <p>
-          Restoring your UNWIND
-          session…
-        </p>
-      </main>
-    );
-  }
+ if (initializing) {
+  return (
+    <main className="auth-loading-screen">
+      <AppLoader
+        message="Restoring your UNWIND session…"
+        size="large"
+      />
+    </main>
+  );
+}
 
 
   /*
