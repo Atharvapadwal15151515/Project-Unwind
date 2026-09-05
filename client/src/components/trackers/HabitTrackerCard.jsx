@@ -407,20 +407,20 @@ function HabitTrackerCard({
                         isSkipped
                       }
                     >
-                      {saving ? (
-                        <LoaderCircle
-                          size={15}
-                          className="trackers-icon-spin"
-                        />
-                      ) : (
-                        <SkipForward
-                          size={15}
-                        />
-                      )}
+                     {saving ? (
+  <ButtonLoader
+    label="Saving…"
+    size="small"
+  />
+) : (
+  <>
+    <SkipForward size={15} />
 
-                      {isSkipped
-                        ? "Skipped"
-                        : "Skip"}
+    {isSkipped
+      ? "Skipped"
+      : "Skip"}
+  </>
+)}
                     </button>
                   </footer>
                 </article>
@@ -512,18 +512,15 @@ function HabitTrackerCard({
                   )}`
                 }
               >
-                {savingTracker ===
-                `habit-delete-${getHabitId(
-                  deleteCandidate
-                )}` ? (
-                  <>
-                    <LoaderCircle
-                      size={16}
-                      className="trackers-icon-spin"
-                    />
-                    Deleting...
-                  </>
-                ) : (
+               {savingTracker ===
+`habit-delete-${getHabitId(
+  deleteCandidate
+)}` ? (
+  <ButtonLoader
+    label="Deleting…"
+    size="small"
+  />
+) : (
                   <>
                     <Trash2
                       size={16}
