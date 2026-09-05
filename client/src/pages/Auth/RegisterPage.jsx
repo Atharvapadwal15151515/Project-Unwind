@@ -8,7 +8,6 @@ import {
 import {
   AtSign,
   BriefcaseBusiness,
-  CalendarDays,
   LockKeyhole,
   Mail,
   UserRound
