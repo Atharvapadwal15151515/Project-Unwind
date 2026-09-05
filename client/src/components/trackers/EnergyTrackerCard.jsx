@@ -1,6 +1,6 @@
 import {
   BatteryCharging,
-  LoaderCircle,
+  CheckCircle2,
   Save,
   Zap
 } from "lucide-react";
@@ -9,6 +9,8 @@ import {
   useEffect,
   useState
 } from "react";
+import ButtonLoader
+  from "../common/AppStates/ButtonLoader";
 
 const energyOptions = [
   {
