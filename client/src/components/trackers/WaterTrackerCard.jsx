@@ -261,14 +261,17 @@ function WaterTrackerCard({
               : "No water entry to remove"
           }
         >
-          {removing ? (
-            <LoaderCircle
-              size={15}
-              className="trackers-icon-spin"
-            />
-          ) : (
-            <Undo2 size={15} />
-          )}
+         {removing ? (
+  <ButtonLoader
+    label="Removing…"
+    size="small"
+  />
+) : (
+  <>
+    <Undo2 size={15} />
+    Undo last
+  </>
+)}
 
           Undo last
         </button>
