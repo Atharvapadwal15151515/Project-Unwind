@@ -238,6 +238,7 @@ function MoodTrackerCard({
   step={1}
   value={form.intensity}
   showValue
+  disabled={saving}
   onChange={(event) =>
     setForm((current) => ({
       ...current,
