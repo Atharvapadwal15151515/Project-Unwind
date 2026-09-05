@@ -4008,3 +4008,35 @@ button[type="submit"]:disabled {
     transition: none;
   }
 }
+/* Mood tracker states */
+
+.tracker-save-button .button-loader {
+  width: 100%;
+  justify-content: center;
+  color: inherit;
+}
+
+.tracker-save-button--success {
+  border-color: rgba(43, 145, 101, 0.28);
+  background: #eaf8f1;
+  color: #247a58;
+}
+
+.tracker-card form[aria-busy="true"] {
+  cursor: progress;
+}
+
+.tracker-card form[aria-busy="true"]
+  input,
+.tracker-card form[aria-busy="true"]
+  textarea,
+.tracker-card form[aria-busy="true"]
+  button {
+  cursor: wait;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tracker-save-button--success {
+    transition: none;
+  }
+}
