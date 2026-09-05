@@ -295,11 +295,18 @@ function WaterTrackerCard({
                 removing
               }
             >
-              <Plus
-                size={14}
-              />
-
-              {amount} ml
+             {saving &&
+activeAmount === amount ? (
+  <ButtonLoader
+    label={`${amount} ml`}
+    size="small"
+  />
+) : (
+  <>
+    <Plus size={14} />
+    {amount} ml
+  </>
+)}
             </button>
           )
         )}
@@ -343,21 +350,30 @@ function WaterTrackerCard({
                       )
                     }
                   >
-                    <CupSoda
-                      size={17}
-                    />
+                   {saving &&
+activeAmount === amount ? (
+  <ButtonLoader
+    label={`Adding ${amount} ml…`}
+    size="small"
+  />
+) : (
+  <>
+    <CupSoda size={17} />
 
-                    <span>
-                      <strong>
-                        {getContainerName(
-                          container
-                        )}
-                      </strong>
+    <span>
+      <strong>
+        {getContainerName(
+          container
+        )}
+      </strong>
 
-                      <small>
-                        {amount} ml
-                      </small>
-                    </span>
+      <small>
+        {amount} ml
+      </small>
+    </span>
+  </>
+)}
+                    
                   </button>
                 );
               }
@@ -368,6 +384,10 @@ function WaterTrackerCard({
 
       <form
         className="water-custom-add"
+        aria-busy={saving}
+        disabled={
+  saving || removing
+}
         onSubmit={(
           event
         ) => {
@@ -420,16 +440,19 @@ function WaterTrackerCard({
             ) < 1
           }
         >
-          {saving ? (
-            <LoaderCircle
-              size={16}
-              className="trackers-icon-spin"
-            />
-          ) : (
-            <Plus size={16} />
-          )}
-
-          Add water
+         {saving &&
+activeAmount ===
+  Number(customAmount) ? (
+  <ButtonLoader
+    label="Adding water…"
+    size="small"
+  />
+) : (
+  <>
+    <Plus size={16} />
+    Add water
+  </>
+)}
         </button>
       </form>
 
