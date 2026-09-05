@@ -220,28 +220,19 @@ function GoogleAuthSuccessPage() {
   */
 
   return (
-    <main className="google-auth-result-page">
-
-      <section className="google-auth-result-card">
-
-        <div
-          className="google-auth-loader"
-          aria-hidden="true"
-        />
-
-        <h1>
-          Signing you in
-        </h1>
-
-        <p>
-          Connecting your Google account
-          to UNWIND…
-        </p>
-
-      </section>
-
-    </main>
-  );
+  <main className="google-auth-result-page">
+    <section
+      className="google-auth-result-card"
+      aria-live="polite"
+      aria-busy="true"
+    >
+      <AppLoader
+        message="Connecting your Google account to UNWIND…"
+        size="large"
+      />
+    </section>
+  </main>
+);
 }
 
 
