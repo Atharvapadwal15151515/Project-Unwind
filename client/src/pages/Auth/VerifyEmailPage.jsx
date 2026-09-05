@@ -357,16 +357,25 @@ function VerifyEmailPage() {
         </div>
 
         <button
-          type="submit"
-          className="auth-submit-button"
-          disabled={
-            loading
-          }
-        >
-          {loading
-            ? "Verifying…"
-            : "Verify email"}
-        </button>
+  type="submit"
+  className="auth-submit-button"
+  disabled={
+    loading || resending
+  }
+>
+  {loading ? (
+    <ButtonLoader
+      label={
+        newRegistration
+          ? "Verifying and signing you in…"
+          : "Verifying email…"
+      }
+      size="small"
+    />
+  ) : (
+    "Verify email"
+  )}
+</button>
 
         <button
           type="button"
