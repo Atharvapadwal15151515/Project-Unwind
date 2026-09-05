@@ -377,23 +377,27 @@ function VerifyEmailPage() {
   )}
 </button>
 
-        <button
-          type="button"
-          className="auth-secondary-button"
-          disabled={
-            resending ||
-            countdown > 0
-          }
-          onClick={
-            handleResend
-          }
-        >
-          {resending
-            ? "Sending…"
-            : countdown > 0
-              ? `Resend in ${countdown}s`
-              : "Resend verification code"}
-        </button>
+       <button
+  type="button"
+  className="auth-secondary-button"
+  disabled={
+    loading ||
+    resending ||
+    countdown > 0
+  }
+  onClick={handleResend}
+>
+  {resending ? (
+    <ButtonLoader
+      label="Sending new code…"
+      size="small"
+    />
+  ) : countdown > 0 ? (
+    `Resend in ${countdown}s`
+  ) : (
+    "Resend verification code"
+  )}
+</button>
       </form>
 
       <p className="auth-switch-page">
