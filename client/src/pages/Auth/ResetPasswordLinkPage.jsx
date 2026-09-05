@@ -164,11 +164,14 @@ function ResetPasswordLinkPage() {
 )}
 
       <p className="auth-switch-page">
-        Link not working?
-        <Link to="/forgot-password">
-          Request another one
-        </Link>
-      </p>
+  {invalidResetLink
+    ? "You need a new reset link."
+    : "Link not working?"}
+
+  <Link to="/forgot-password">
+    Request another one
+  </Link>
+</p>
     </AuthLayout>
   );
 }
