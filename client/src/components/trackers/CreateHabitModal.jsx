@@ -933,17 +933,16 @@ function CreateHabitModal({
               disabled={saving}
             >
               {saving ? (
-                <LoaderCircle
-                  size={17}
-                  className="trackers-icon-spin"
-                />
-              ) : (
-                <Plus size={17} />
-              )}
-
-              {saving
-                ? "Creating habit…"
-                : "Create habit"}
+  <ButtonLoader
+    label="Creating habit…"
+    size="small"
+  />
+) : (
+  <>
+    <Plus size={17} />
+    Create habit
+  </>
+)}
             </button>
           </footer>
         </form>

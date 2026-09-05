@@ -4096,3 +4096,32 @@ button[type="submit"]:disabled {
     transition: none;
   }
 }
+
+/* Create-habit modal states */
+
+.habit-modal__submit .button-loader {
+  width: 100%;
+  justify-content: center;
+  color: inherit;
+}
+
+.habit-modal__dialog[aria-busy="true"] {
+  cursor: progress;
+}
+
+.habit-modal__form[aria-busy="true"]
+  input,
+.habit-modal__form[aria-busy="true"]
+  textarea,
+.habit-modal__form[aria-busy="true"]
+  select,
+.habit-modal__form[aria-busy="true"]
+  button {
+  cursor: wait;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .habit-modal__dialog {
+    transition: none;
+  }
+}
