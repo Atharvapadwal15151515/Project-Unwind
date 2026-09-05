@@ -1,7 +1,7 @@
 import {
+  CheckCircle2,
   CupSoda,
   Droplets,
-  LoaderCircle,
   Minus,
   Plus,
   Undo2
@@ -10,6 +10,8 @@ import {
 import {
   useState
 } from "react";
+import ButtonLoader
+  from "../common/AppStates/ButtonLoader";
 
 const defaultAmounts = [
   250,
