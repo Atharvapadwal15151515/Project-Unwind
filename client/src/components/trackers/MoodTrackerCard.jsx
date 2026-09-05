@@ -193,7 +193,10 @@ function MoodTrackerCard({
         )}
       </header>
 
-      <form onSubmit={handleSubmit}>
+      <form
+  onSubmit={handleSubmit}
+  aria-busy={saving}
+>
         <div className="mood-selector">
           {moodOptions.map((option) => (
             <button
