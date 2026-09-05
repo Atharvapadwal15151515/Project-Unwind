@@ -111,36 +111,30 @@ export default function GoogleAuthErrorPage() {
 
       <section className="google-auth-error-card">
 
-        <div
-          className="google-auth-error-icon"
-          aria-hidden="true"
-        >
-          !
-        </div>
-
-
-        <div className="google-auth-error-content">
-
-          <h1>
-            Google sign in failed
-          </h1>
-
-          <p>
-            {errorMessage}
-          </p>
-
-        </div>
+<AppErrorState
+  type="server"
+  title="Google sign in failed"
+  message={errorMessage}
+/>
 
 
         <div className="google-auth-error-actions">
 
-          <button
-            type="button"
-            className="google-auth-retry-button"
-            onClick={handleRetry}
-          >
-            Try Google again
-          </button>
+        <button
+  type="button"
+  className="google-auth-retry-button"
+  onClick={handleRetry}
+  disabled={retrying}
+>
+  {retrying ? (
+    <ButtonLoader
+      label="Opening Google…"
+      size="small"
+    />
+  ) : (
+    "Try Google again"
+  )}
+</button>
 
 
           <button
