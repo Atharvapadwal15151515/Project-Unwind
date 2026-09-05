@@ -290,6 +290,7 @@ function MoodTrackerCard({
                     <button
                       key={emotionId}
                       type="button"
+                      disabled={saving}
                       className={
                         form.emotionIds.includes(
                           emotionId
