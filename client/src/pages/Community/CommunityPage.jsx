@@ -577,30 +577,25 @@ useEffect(() => {
     />
   </section>
           ) : posts.length === 0 ? (
-            <section className="community-feed-state">
-              <span>
-                <Sparkles size={28} />
-              </span>
+           <section className="community-feed-state">
+  <AppEmptyState
+    icon={Sparkles}
+    title="Be the first to share"
+    message={
+      activeFilter === "all"
+        ? "There are no community posts yet. Start a kind and supportive conversation."
+        : "There are no posts in this category yet."
+    }
+  />
 
-              <h3>
-                Be the first to share
-              </h3>
-
-              <p>
-                There are no posts in
-                this category yet.
-              </p>
-
-              <button
-                type="button"
-                className="community-primary-button"
-                onClick={
-                  handleOpenCreatePost
-                }
-              >
-                Create a post
-              </button>
-            </section>
+  <button
+    type="button"
+    className="community-primary-button community-feed-state__action"
+    onClick={handleOpenCreatePost}
+  >
+    Create a post
+  </button>
+</section>
           ) : (
             <>
               {posts.map((post) => {
