@@ -124,35 +124,24 @@ function TrackersPage() {
         }
       />
 
-      {error && (
-        <div
-          className="trackers-alert"
-          role="alert"
-        >
-          <span className="trackers-alert__icon">
-            <AlertCircle
-              size={18}
-            />
-          </span>
+   {error && (
+  <div className="trackers-page__error">
+    <AppErrorState
+      type="server"
+      title="Unable to update your trackers"
+      message={error}
+      onRetry={refresh}
+    />
 
-          <div>
-            <strong>
-              Something needs your
-              attention
-            </strong>
-
-            <p>{error}</p>
-          </div>
-
-          <button
-            type="button"
-            onClick={clearError}
-            aria-label="Dismiss error"
-          >
-            ×
-          </button>
-        </div>
-      )}
+    <button
+      type="button"
+      className="trackers-page__dismiss-error"
+      onClick={clearError}
+    >
+      Dismiss
+    </button>
+  </div>
+)}
 
       <section className="trackers-overview-grid">
         <WellnessScoreCard
