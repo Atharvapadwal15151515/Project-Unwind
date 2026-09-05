@@ -1,4 +1,5 @@
 import {
+  Suspense,
   useState
 } from "react";
 
@@ -12,11 +13,15 @@ import DashboardSidebar
 import DashboardTopbar
   from "../components/dashboard/DashboardTopbar";
 
+import AppLoader
+  from "../components/common/AppStates/AppLoader";
+
 import {
   NotificationProvider
 } from "../context/NotificationContext";
 
 import "../pages/Dashboard/Dashboard.css";
+
 
 function DashboardLayout() {
   const [
@@ -28,6 +33,7 @@ function DashboardLayout() {
     mobileSidebarOpen,
     setMobileSidebarOpen
   ] = useState(false);
+
 
   return (
     <NotificationProvider>
@@ -68,12 +74,22 @@ function DashboardLayout() {
           />
 
           <main className="dashboard-shell__content">
-            <Outlet />
+            <Suspense
+              fallback={
+                <AppLoader
+                  message="Opening your space…"
+                  size="medium"
+                />
+              }
+            >
+              <Outlet />
+            </Suspense>
           </main>
         </div>
       </div>
     </NotificationProvider>
   );
 }
+
 
 export default DashboardLayout;

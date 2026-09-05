@@ -1,5 +1,4 @@
 import {
-  LoaderCircle,
   Paperclip,
   X
 } from "lucide-react";
@@ -10,6 +9,14 @@ import JournalAttachmentCard
   from "./JournalAttachmentCard";
 import JournalAttachmentPicker
   from "./JournalAttachmentPicker";
+  import AppProgressBar
+  from "../common/AppStates/AppProgressBar";
+
+import AppSkeleton
+  from "../common/AppStates/AppSkeleton";
+
+import AppEmptyState
+  from "../common/AppStates/AppEmptyState";
 
 import {
   getJournalAttachmentId
@@ -161,38 +168,48 @@ function JournalAttachmentsSection({
       />
 
       {uploading ? (
-        <div className="journal-attachments__uploading" aria-live="polite">
-          <div>
-            <LoaderCircle
-              className="journal-spin"
-              size={15}
-            />
-            Uploading attachment{pendingAttachments.length === 1 ? "" : "s"}...
-          </div>
+  <div
+    className="journal-attachments__uploading"
+    aria-live="polite"
+  >
+    <AppProgressBar
+      value={
+        uploadProgress
+      }
+      label={
+        `Uploading attachment${
+          pendingAttachments.length === 1
+            ? ""
+            : "s"
+        }`
+      }
+    />
+  </div>
+) : null}
 
-          <strong>
-            {uploadProgress}%
-          </strong>
+    {loading ? (
+  <AppSkeleton
+    variant="card"
+    count={2}
+    className="journal-attachments__skeleton"
+  />
+) : null}
 
-          <span>
-            <i
-              style={{
-                width: `${uploadProgress}%`
-              }}
-            />
-          </span>
-        </div>
-      ) : null}
-
-      {loading ? (
-        <div className="journal-attachments__loading">
-          <LoaderCircle
-            className="journal-spin"
-            size={18}
-          />
-          Loading attachments...
-        </div>
-      ) : null}
+{!loading &&
+!uploading &&
+attachments.length === 0 &&
+pendingAttachments.length === 0 ? (
+  <AppEmptyState
+    icon={Paperclip}
+    title="No attachments yet"
+    description={
+      hasSavedEntry
+        ? "Add an image, video, document or audio memory to this journal entry."
+        : "Choose files now. They will upload securely after you save this journal entry."
+    }
+    compact
+  />
+) : null}
 
       {pendingAttachments.length > 0 ? (
         <div className="journal-attachments__group">

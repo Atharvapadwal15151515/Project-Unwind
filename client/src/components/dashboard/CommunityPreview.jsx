@@ -15,6 +15,18 @@ import {
 import {
   getPublicChatHistory
 } from "../../services/communityChatService";
+import AppSkeleton
+  from "../common/AppStates/AppSkeleton";
+
+import AppEmptyState
+  from "../common/AppStates/AppEmptyState";
+
+import AppErrorState
+  from "../common/AppStates/AppErrorState";
+
+import {
+  getErrorType
+} from "../../utils/getErrorType";
 
 /*
 |--------------------------------------------------------------------------
@@ -151,10 +163,15 @@ function CommunityPreview() {
     setLoading
   ] = useState(true);
 
-  const [
-    error,
-    setError
-  ] = useState("");
+const [
+  requestError,
+  setRequestError
+] = useState(null);
+
+const [
+  reloadKey,
+  setReloadKey
+] = useState(0);
 
   useEffect(() => {
     let active = true;
@@ -162,8 +179,8 @@ function CommunityPreview() {
     const loadMessages =
       async () => {
         try {
-          setLoading(true);
-          setError("");
+         setLoading(true);
+setRequestError(null);
 
           const response =
             await getPublicChatHistory({
@@ -204,11 +221,9 @@ function CommunityPreview() {
             err
           );
 
-          if (active) {
-            setError(
-              "Unable to load recent conversations."
-            );
-          }
+         if (active) {
+  setRequestError(err);
+}
         } finally {
           if (active) {
             setLoading(false);
@@ -221,7 +236,7 @@ function CommunityPreview() {
     return () => {
       active = false;
     };
-  }, []);
+ }, [reloadKey]);
 
   return (
     <motion.article
@@ -261,60 +276,54 @@ function CommunityPreview() {
       </div>
 
       <div className="community-preview__posts">
-        {loading && (
-          <div className="community-preview__state">
-            <span className="community-preview__loader" />
+       {loading && (
+  <AppSkeleton
+    variant="list"
+    count={3}
+    className="community-preview__skeleton"
+  />
+)}
 
-            <strong>
-              Loading conversations
-            </strong>
 
-            <small>
-              Checking what the community
-              is talking about...
-            </small>
-          </div>
-        )}
+{!loading &&
+  requestError && (
+    <AppErrorState
+      type={
+        getErrorType(
+          requestError
+        )
+      }
+      title="Conversations unavailable"
+      description={
+        requestError?.response?.data
+          ?.message ||
+        "We could not load recent community conversations."
+      }
+      onRetry={() =>
+        setReloadKey(
+          (current) =>
+            current + 1
+        )
+      }
+      compact
+    />
+  )}
 
-        {!loading &&
-          error && (
-            <div className="community-preview__state">
-              <MessagesSquare
-                size={22}
-              />
 
-              <strong>
-                Couldn't load conversations
-              </strong>
+{!loading &&
+  !requestError &&
+  messages.length === 0 && (
+    <AppEmptyState
+      icon={MessagesSquare}
+      title="No conversations yet"
+      description="Be the first to start a supportive conversation with the Unwind community."
+      compact
+    />
+  )}
 
-              <small>
-                {error}
-              </small>
-            </div>
-          )}
-
-        {!loading &&
-          !error &&
-          messages.length === 0 && (
-            <div className="community-preview__state">
-              <MessagesSquare
-                size={22}
-              />
-
-              <strong>
-                No conversations yet
-              </strong>
-
-              <small>
-                Start a conversation with
-                the UNWIND community.
-              </small>
-            </div>
-          )}
-
-        {!loading &&
-          !error &&
-          messages.map(
+       {!loading &&
+  !requestError &&
+  messages.map(
             (message, index) => {
               const name =
                 getDisplayName(

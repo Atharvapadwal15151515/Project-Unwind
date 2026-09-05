@@ -1,4 +1,6 @@
 import {
+  lazy,
+  Suspense,
   useState
 } from "react";
 
@@ -9,10 +11,41 @@ import {
   useLocation
 } from "react-router-dom";
 
+
+/*
+|--------------------------------------------------------------------------
+| Core components
+|--------------------------------------------------------------------------
+*/
+
 import UnwindIntro
   from "./components/intro/UnwindIntro.jsx";
 
-  
+import AppLoader
+  from "./components/common/AppStates/AppLoader";
+
+
+/*
+|--------------------------------------------------------------------------
+| Authentication
+|--------------------------------------------------------------------------
+*/
+
+import LoginPage
+  from "./pages/Auth/LoginPage";
+
+import RegisterPage
+  from "./pages/Auth/RegisterPage";
+
+import VerifyEmailPage
+  from "./pages/Auth/VerifyEmailPage";
+
+import ForgotPasswordPage
+  from "./pages/Auth/ForgotPasswordPage";
+
+import ResetPasswordPage
+  from "./pages/Auth/ResetPasswordLinkPage";
+
 import GoogleAuthSuccessPage
   from "./pages/Auth/GoogleAuthSuccessPage.jsx";
 
@@ -21,17 +54,7 @@ import GoogleCompleteProfilePage
 
 import GoogleAuthErrorPage
   from "./pages/Auth/GoogleAuthErrorPage.jsx";
-/*
-|--------------------------------------------------------------------------
-| Authentication
-|--------------------------------------------------------------------------
-*/
 
-import LoginPage from "./pages/Auth/LoginPage";
-import RegisterPage from "./pages/Auth/RegisterPage";
-import VerifyEmailPage from "./pages/Auth/VerifyEmailPage";
-import ForgotPasswordPage from "./pages/Auth/ForgotPasswordPage";
-import ResetPasswordPage from "./pages/Auth/ResetPasswordLinkPage";
 
 /*
 |--------------------------------------------------------------------------
@@ -39,218 +62,271 @@ import ResetPasswordPage from "./pages/Auth/ResetPasswordLinkPage";
 |--------------------------------------------------------------------------
 */
 
-import LandingPage from "./pages/Landing/LandingPage";
+import LandingPage
+  from "./pages/Landing/LandingPage";
+
+import TermsPage
+  from "./pages/Terms/TermsPage";
+
+import PrivacyPage
+  from "./pages/Privacy/PrivacyPage";
+
+import PublicInfoPage
+  from "./pages/PublicInfo/PublicInfoPage.jsx";
+
+import NotFoundPage
+  from "./pages/NotFound/NotFoundPage";
+
 
 /*
 |--------------------------------------------------------------------------
-| Dashboard layout and protection
+| Layouts and route protection
 |--------------------------------------------------------------------------
 */
+
 import AdminLayout
   from "./layouts/AdminLayout";
-import DashboardLayout from "./layouts/DashboardLayout";
-import ProtectedRoute from "./routes/ProtectedRoute";
+
+import DashboardLayout
+  from "./layouts/DashboardLayout";
+
+import ProtectedRoute
+  from "./routes/ProtectedRoute";
+
+import AdminRoute
+  from "./routes/AdminRoute";
+
 
 /*
 |--------------------------------------------------------------------------
-| Existing dashboard pages
+| Dashboard pages
 |--------------------------------------------------------------------------
 */
 
-import DashboardHomePage from "./pages/Dashboard/DashboardHome";
-import CommunityPage from "./pages/Community/CommunityPage";
-import Profile from "./pages/Dashboard/Profile";
-import Setting from "./pages/Dashboard/Setting";
+import DashboardHomePage
+  from "./pages/Dashboard/DashboardHome";
+
+import Profile
+  from "./pages/Dashboard/Profile";
+
+import Setting
+  from "./pages/Dashboard/Setting";
+
 import SafetyReportsPage
   from "./pages/Reports/SafetyReportsPage";
 
-/*
-|--------------------------------------------------------------------------
-| Reusable placeholder
-|--------------------------------------------------------------------------
-*/
+import DashboardPlaceholderPage
+  from "./pages/Dashboard/DashboardPlaceHolderPage";
 
-import DashboardPlaceholderPage from "./pages/Dashboard/DashboardPlaceHolderPage";
-
-import TrackersPage from "./pages/Trackers/TrackersPage";
-
-import DassPage from "./pages/Dass/DassPage";
-
-import AICompanionPage from "./pages/AICompanion/AICompanionPage";
-
-import PrivateRoomsPage from "./pages/Messages/PrivateRoomsPage";
-
-import TermsPage from "./pages/Terms/TermsPage";
-
-import PrivacyPage from "./pages/Privacy/PrivacyPage";
-
-import PublicInfoPage from "./pages/PublicInfo/PublicInfoPage.jsx";
-
-import MessagesPage from "./pages/Messages/MessagesPage";
-
-import CommunityChatPage from "./pages/Messages/CommunityChatPage";
-
-import JournalPage from "./pages/Journal/JournalPage";
-
-import NotificationsPage from "./pages/Notifications/NotificationsPage";
 import NotificationRedirectPage
   from "./pages/Notifications/NotificationRedirectPage";
 
-import WellnessToolkit
-  from "./pages/WellnessToolkit/WellnessToolkit";
 
-  import BreathingPage
+/*
+|--------------------------------------------------------------------------
+| Wellness toolkit exercise pages
+|--------------------------------------------------------------------------
+*/
+
+import BreathingPage
   from "./pages/WellnessToolkit/breathing/BreathingPage.jsx";
 
-  import GroundingPage
+import GroundingPage
   from "./pages/WellnessToolkit/grounding/GroundingPage.jsx";
 
-  import EmotionalCheckin
+import EmotionalCheckin
   from "./pages/WellnessToolkit/emotional/EmotionalCheckin.jsx";
 
-  import ThoughtDump
+import ThoughtDump
   from "./pages/WellnessToolkit/thoughts/ThoughtDump.jsx";
 
-  import FocusPage
+import FocusPage
   from "./pages/WellnessToolkit/focus/FocusPage.jsx";
 
-  import CalmSounds
+import CalmSounds
   from "./pages/WellnessToolkit/sounds/CalmSounds.jsx";
 
-  import Gratitude
+import Gratitude
   from "./pages/WellnessToolkit/gratitude/Gratitude.jsx";
 
-  import WellnessHistory
+import WellnessHistory
   from "./pages/WellnessToolkit/history/WellnessHistory.jsx";
 
-  import SavedTools
+import SavedTools
   from "./pages/WellnessToolkit/saved/SavedTools.jsx";
 
-  import RecentTools
+import RecentTools
   from "./pages/WellnessToolkit/recent/RecentTools.jsx";
 
-  import MovementBreak
+import MovementBreak
   from "./pages/WellnessToolkit/movement/MovementBreak.jsx";
 
-  import BodyScan
+import BodyScan
   from "./pages/WellnessToolkit/bodyscan/BodyScan.jsx";
 
 
-  
 /*
 |--------------------------------------------------------------------------
-| Admin pages
+| Admin access
 |--------------------------------------------------------------------------
 */
 
-import AdminDashboardPage
-  from "./pages/admin/adminDashboardPage";
-
-  import AdminAnalyticsPage
-  from "./pages/admin/AdminAnalyticsPage";
-
-import AdminUsersPage
-  from "./pages/admin/adminUsersPage";
-
-import AdminUserDetailsPage
-  from "./pages/admin/adminUserDetailsPage";
-
-import AdminReportsPage
-  from "./pages/admin/adminReportsPage";
-
-import AdminReportDetailsPage
-  from "./pages/admin/adminReportDetailsPage";
-
-  import AdminAccessPage
+import AdminAccessPage
   from "./pages/admin/adminAccessPage";
 
-  import AdminTestimonialsPage
-  from "./pages/admin/adminTestimonialPage";
 
-  import AdminAuditLogsPage
-  from "./pages/admin/adminAuditLogsPage";
-
-  import AdminModerationDecisionPage
-  from "./pages/admin/AdminModerationDecisionPage";
-  import AdminRoute
-  from "./routes/AdminRoute";
-
-  
 /*
 |--------------------------------------------------------------------------
-| Global fallback page
+| Lazy-loaded dashboard pages
 |--------------------------------------------------------------------------
 */
 
-function NotFoundPage() {
-  return (
-    <main
-      style={{
-        display: "grid",
-        minHeight: "100vh",
-        placeItems: "center",
-        padding: "24px",
-        background: "#f5faf8",
-        textAlign: "center"
-      }}
-    >
-      <section>
-        <p
-          style={{
-            margin: 0,
-            color: "#287c69",
-            fontSize: "14px",
-            fontWeight: 800,
-            letterSpacing: "0.1em",
-            textTransform: "uppercase"
-          }}
-        >
-          Error 404
-        </p>
-
-        <h1
-          style={{
-            margin: "14px 0 8px",
-            color: "#163d35",
-            fontSize: "42px"
-          }}
-        >
-          This page could not be found.
-        </h1>
-
-        <p
-          style={{
-            margin: "0 auto 22px",
-            maxWidth: "500px",
-            color: "#71847f",
-            lineHeight: 1.7
-          }}
-        >
-          The page may have been moved, deleted,
-          or the address may be incorrect.
-        </p>
-
-        <a
-          href="/"
-          style={{
-            display: "inline-flex",
-            minHeight: "44px",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "0 20px",
-            borderRadius: "999px",
-            color: "#ffffff",
-            background: "#287c69",
-            fontWeight: 800,
-            textDecoration: "none"
-          }}
-        >
-          Return home
-        </a>
-      </section>
-    </main>
+const CommunityPage =
+  lazy(() =>
+    import(
+      "./pages/Community/CommunityPage"
+    )
   );
-}
+
+const TrackersPage =
+  lazy(() =>
+    import(
+      "./pages/Trackers/TrackersPage"
+    )
+  );
+
+const DassPage =
+  lazy(() =>
+    import(
+      "./pages/Dass/DassPage"
+    )
+  );
+
+const AICompanionPage =
+  lazy(() =>
+    import(
+      "./pages/AICompanion/AICompanionPage"
+    )
+  );
+
+const PrivateRoomsPage =
+  lazy(() =>
+    import(
+      "./pages/Messages/PrivateRoomsPage"
+    )
+  );
+
+const MessagesPage =
+  lazy(() =>
+    import(
+      "./pages/Messages/MessagesPage"
+    )
+  );
+
+const CommunityChatPage =
+  lazy(() =>
+    import(
+      "./pages/Messages/CommunityChatPage"
+    )
+  );
+
+const JournalPage =
+  lazy(() =>
+    import(
+      "./pages/Journal/JournalPage"
+    )
+  );
+
+const NotificationsPage =
+  lazy(() =>
+    import(
+      "./pages/Notifications/NotificationsPage"
+    )
+  );
+
+const WellnessToolkit =
+  lazy(() =>
+    import(
+      "./pages/WellnessToolkit/WellnessToolkit"
+    )
+  );
+
+
+/*
+|--------------------------------------------------------------------------
+| Lazy-loaded admin pages
+|--------------------------------------------------------------------------
+*/
+
+const AdminDashboardPage =
+  lazy(() =>
+    import(
+      "./pages/admin/adminDashboardPage"
+    )
+  );
+
+const AdminAnalyticsPage =
+  lazy(() =>
+    import(
+      "./pages/admin/AdminAnalyticsPage"
+    )
+  );
+
+const AdminUsersPage =
+  lazy(() =>
+    import(
+      "./pages/admin/adminUsersPage"
+    )
+  );
+
+const AdminUserDetailsPage =
+  lazy(() =>
+    import(
+      "./pages/admin/adminUserDetailsPage"
+    )
+  );
+
+const AdminReportsPage =
+  lazy(() =>
+    import(
+      "./pages/admin/adminReportsPage"
+    )
+  );
+
+const AdminReportDetailsPage =
+  lazy(() =>
+    import(
+      "./pages/admin/adminReportDetailsPage"
+    )
+  );
+
+const AdminTestimonialsPage =
+  lazy(() =>
+    import(
+      "./pages/admin/adminTestimonialPage"
+    )
+  );
+
+const AdminAuditLogsPage =
+  lazy(() =>
+    import(
+      "./pages/admin/adminAuditLogsPage"
+    )
+  );
+
+const AdminModerationDecisionPage =
+  lazy(() =>
+    import(
+      "./pages/admin/AdminModerationDecisionPage"
+    )
+  );
+
+
+/*
+|--------------------------------------------------------------------------
+| Application
+|--------------------------------------------------------------------------
+*/
 
 function App() {
   const location =
@@ -267,15 +343,18 @@ function App() {
     );
   });
 
- const skipIntro =
-  localStorage.getItem(
-    "unwind_skip_intro"
-  ) === "true";
 
-const shouldShowIntro =
-  location.pathname === "/" &&
-  !skipIntro &&
-  !introComplete;
+  const skipIntro =
+    localStorage.getItem(
+      "unwind_skip_intro"
+    ) === "true";
+
+
+  const shouldShowIntro =
+    location.pathname === "/" &&
+    !skipIntro &&
+    !introComplete;
+
 
   if (shouldShowIntro) {
     return (
@@ -291,8 +370,19 @@ const shouldShowIntro =
       />
     );
   }
+
+
   return (
-    <Routes>
+    <Suspense
+      fallback={
+        <AppLoader
+          fullScreen
+          size="large"
+          message="Preparing your Unwind space…"
+        />
+      }
+    >
+      <Routes>
       {/*
       |--------------------------------------------------------------------------
       | Public routes
@@ -672,15 +762,12 @@ const shouldShowIntro =
           |--------------------------------------------------------------------------
           */}
 
-          <Route
-            path="*"
-            element={
-              <Navigate
-                to="/dashboard"
-                replace
-              />
-            }
-          />
+         <Route
+  path="*"
+  element={
+    <NotFoundPage />
+  }
+/>
         </Route>
       </Route>
 
@@ -800,6 +887,7 @@ const shouldShowIntro =
         element={<NotFoundPage />}
       />
     </Routes>
+    </Suspense>
   );
 }
 

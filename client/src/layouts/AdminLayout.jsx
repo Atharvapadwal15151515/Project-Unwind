@@ -18,7 +18,10 @@ import {
   X
 } from "lucide-react";
 import UnwindLogo from "../components/common/UnwindLogo";
+import AppLoader
+  from "../components/common/AppStates/AppLoader";
 import {
+  Suspense,
   useState
 } from "react";
 
@@ -275,9 +278,17 @@ function AdminLayout() {
 
 
         <div className="admin-layout-page">
-          <Outlet />
-        </div>
-
+  <Suspense
+    fallback={
+      <AppLoader
+        message="Loading admin workspace…"
+        size="medium"
+      />
+    }
+  >
+    <Outlet />
+  </Suspense>
+</div>
       </section>
 
     </div>

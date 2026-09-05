@@ -14,7 +14,6 @@ import {
   Check,
   Feather,
   Heart,
-  LoaderCircle,
   Mic,
   MoreHorizontal,
   Paperclip,
@@ -49,6 +48,12 @@ import JournalActivitySelector
 import JournalVoiceSection
   from "./JournalVoiceSection";
 
+  import ButtonLoader
+  from "../common/AppStates/ButtonLoader";
+
+import AppProgressBar
+  from "../common/AppStates/AppProgressBar";
+
 
 function JournalEditorModal({
   open,
@@ -81,6 +86,11 @@ function JournalEditorModal({
     entryMenuOpen,
     setEntryMenuOpen
   ] = useState(false);
+
+  const [
+  saveIntent,
+  setSaveIntent
+] = useState(null);
 
   const contentRef =
     useRef(null);
@@ -180,6 +190,7 @@ function JournalEditorModal({
 
     setActiveTool(null);
     setEntryMenuOpen(false);
+    setSaveIntent(null);
   }, [
     open,
     selectedEntry
@@ -427,6 +438,27 @@ function JournalEditorModal({
   }
 
 
+  async function handleSaveAction(
+  status
+) {
+  if (controlsDisabled) {
+    return;
+  }
+
+  try {
+    setSaveIntent(
+      status
+    );
+
+    await onSave(
+      status
+    );
+  } finally {
+    setSaveIntent(
+      null
+    );
+  }
+}
   /*
   |--------------------------------------------------------------------------
   | RENDER
@@ -1245,92 +1277,100 @@ function JournalEditorModal({
            ===================================================== */}
 
         <footer className="journal-diary-savebar">
-          <div className="journal-diary-savebar__message">
-            {saving ? (
-              <>
-                <LoaderCircle
-                  className="journal-spin"
-                  size={15}
-                />
+<div className="journal-diary-savebar__status">
+  <div className="journal-diary-savebar__message">
+    {saving ? (
+      <span>
+        Saving your reflection…
+      </span>
+    ) : attachmentsBusy ? (
+      <span>
+        Uploading your memories…
+      </span>
+    ) : (
+      <>
+        <Check
+          size={15}
+        />
 
-                <span>
-                  Saving your reflection...
-                </span>
-              </>
-            ) : attachmentsBusy ? (
-              <>
-                <LoaderCircle
-                  className="journal-spin"
-                  size={15}
-                />
+        <span>
+          Your reflection stays private
+        </span>
+      </>
+    )}
+  </div>
 
-                <span>
-                  Uploading your memories...
-                </span>
-              </>
-            ) : (
-              <>
-                <Check
-                  size={15}
-                />
-
-                <span>
-                  Your reflection stays private
-                </span>
-              </>
-            )}
-          </div>
+  {attachmentsBusy && (
+    <AppProgressBar
+      label="Uploading attachments"
+      indeterminate
+      showPercentage={false}
+    />
+  )}
+</div>
 
 
           <div className="journal-diary-savebar__actions">
             {showDraftButton ? (
-              <button
-                type="button"
-                className="journal-secondary-button journal-diary-draft-button"
-                disabled={
-                  controlsDisabled
-                }
-                onClick={() =>
-                  onSave(
-                    "draft"
-                  )
-                }
-              >
-                Save draft
-              </button>
+             <button
+  type="button"
+  className="journal-secondary-button journal-diary-draft-button"
+  disabled={
+    controlsDisabled
+  }
+  onClick={() =>
+    handleSaveAction(
+      "draft"
+    )
+  }
+>
+  {saveIntent ===
+  "draft" ? (
+    <ButtonLoader
+      label="Saving draft…"
+    />
+  ) : (
+    <>
+      <Save size={16} />
+      Save draft
+    </>
+  )}
+</button>
             ) : null}
 
 
-            <button
-              type="button"
-              className="journal-primary-button journal-diary-finish-button"
-              disabled={
-                controlsDisabled
-              }
-              onClick={() =>
-                onSave(
-                  "completed"
-                )
-              }
-            >
-              {saving ||
-              attachmentsBusy ? (
-                <LoaderCircle
-                  className="journal-spin"
-                  size={17}
-                />
-              ) : (
-                <Save
-                  size={17}
-                />
-              )}
+           <button
+  type="button"
+  className="journal-primary-button journal-diary-finish-button"
+  disabled={
+    controlsDisabled
+  }
+  onClick={() =>
+    handleSaveAction(
+      "completed"
+    )
+  }
+>
+  {saveIntent ===
+    "completed" ||
+  attachmentsBusy ? (
+    <ButtonLoader
+      label={
+        attachmentsBusy
+          ? "Uploading…"
+          : "Saving…"
+      }
+    />
+  ) : (
+    <>
+      <Save size={17} />
 
-              {attachmentsBusy
-                ? "Uploading..."
-                : selectedEntry
-                  ? "Save reflection"
-                  : "Finish reflection"}
-            </button>
+      {selectedEntry
+        ? "Save reflection"
+        : "Finish reflection"}
+    </>
+  )}
+</button>
           </div>
         </footer>
       </section>
