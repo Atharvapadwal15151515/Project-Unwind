@@ -84,43 +84,54 @@ function WaterTrackerCard({
     setLocalMessage
   ] = useState("");
 
+  const [
+  activeAmount,
+  setActiveAmount
+] = useState(null);
+
   const handleAdd =
-    async (
-      amountMl,
-      waterContainerId = null,
-      containerType = null
-    ) => {
-      setLocalMessage("");
+  async (
+    amountMl,
+    waterContainerId = null,
+    containerType = null
+  ) => {
+    const numericAmount =
+      Number(amountMl);
 
-      try {
-        await onAddWater({
-          amountMl:
-            Number(amountMl),
+    setLocalMessage("");
+    setActiveAmount(
+      numericAmount
+    );
 
-          waterContainerId,
-          containerType
-        });
+    try {
+      await onAddWater({
+        amountMl:
+          numericAmount,
 
-        setCustomAmount("");
+        waterContainerId,
+        containerType
+      });
 
-        setLocalMessage(
-          `${Number(
-            amountMl
-          )} ml added`
-        );
+      setCustomAmount("");
 
-        window.setTimeout(
-          () =>
-            setLocalMessage(
-              ""
-            ),
-          1800
-        );
-      } catch {
-        // Global tracker error is
-        // displayed by TrackersPage.
-      }
-    };
+      setLocalMessage(
+        `${numericAmount} ml added`
+      );
+
+      window.setTimeout(
+        () =>
+          setLocalMessage(
+            ""
+          ),
+        1800
+      );
+    } catch {
+      // Global tracker error is
+      // displayed by TrackersPage.
+    } finally {
+      setActiveAmount(null);
+    }
+  };
 
   const handleRemove =
     async () => {
@@ -217,14 +228,16 @@ function WaterTrackerCard({
         </div>
       </div>
 
-      {localMessage && (
-        <div
-          className="water-feedback"
-          role="status"
-        >
-          {localMessage}
-        </div>
-      )}
+     {localMessage && (
+  <div
+    className="water-feedback water-feedback--success"
+    role="status"
+    aria-live="polite"
+  >
+    <CheckCircle2 size={16} />
+    {localMessage}
+  </div>
+)}
 
       <div className="water-correction-row">
         <span>
