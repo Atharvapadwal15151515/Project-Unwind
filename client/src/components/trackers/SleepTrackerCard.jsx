@@ -12,6 +12,8 @@ import {
   useMemo,
   useState
 } from "react";
+import ButtonLoader
+  from "../common/AppStates/ButtonLoader";
 
 const wakeMoodOptions = [
   {
@@ -538,10 +540,9 @@ function SleepTrackerCard({
       </header>
 
       <form
-        onSubmit={
-          handleSubmit
-        }
-      >
+  onSubmit={handleSubmit}
+  aria-busy={saving}
+>
         {formError && (
           <div
             className="tracker-form-error"
